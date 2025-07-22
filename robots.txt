@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://bstclassics.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
+
+# Disallow certain file types
+Disallow: *.js$
+Disallow: *.css$
+Disallow: *.json$
+
+# Allow access to all content for BST Classics website 
