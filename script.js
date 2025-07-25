@@ -8,31 +8,31 @@ const navLinks = document.querySelectorAll('.nav__link');
 if (navToggle) {
     navToggle.addEventListener('click', () => {
         navMenu.classList.add('show-menu');
+        navToggle.classList.add('active');
         document.body.style.overflow = 'hidden';
     });
 }
 
 // Hide mobile menu
+function hideMenu() {
+    navMenu.classList.remove('show-menu');
+    navToggle.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
 if (navClose) {
-    navClose.addEventListener('click', () => {
-        navMenu.classList.remove('show-menu');
-        document.body.style.overflow = 'auto';
-    });
+    navClose.addEventListener('click', hideMenu);
 }
 
 // Close menu when clicking on nav links
 navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('show-menu');
-        document.body.style.overflow = 'auto';
-    });
+    link.addEventListener('click', hideMenu);
 });
 
 // Close menu when clicking outside
 document.addEventListener('click', (e) => {
     if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-        navMenu.classList.remove('show-menu');
-        document.body.style.overflow = 'auto';
+        hideMenu();
     }
 });
 
@@ -41,11 +41,13 @@ const header = document.getElementById('header');
 
 window.addEventListener('scroll', () => {
     if (window.scrollY >= 50) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        header.style.background = 'linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(10, 10, 10, 0.95) 100%)';
+        header.style.boxShadow = '0 8px 40px rgba(0, 0, 0, 0.6)';
+        header.style.borderBottom = '1px solid rgba(196, 30, 58, 0.4)';
     } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.boxShadow = 'none';
+        header.style.background = 'linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(10, 10, 10, 0.95) 100%)';
+        header.style.boxShadow = '0 8px 40px rgba(0, 0, 0, 0.4)';
+        header.style.borderBottom = '1px solid rgba(196, 30, 58, 0.2)';
     }
 });
 
@@ -372,8 +374,7 @@ window.addEventListener('error', (e) => {
 document.addEventListener('keydown', (e) => {
     // Close mobile menu with Escape key
     if (e.key === 'Escape' && navMenu.classList.contains('show-menu')) {
-        navMenu.classList.remove('show-menu');
-        document.body.style.overflow = 'auto';
+        hideMenu();
     }
 });
 
@@ -547,5 +548,79 @@ function initTestimonials() {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', initTestimonials);
+
+// ===== PORTFOLIO FILTERS =====
+const filterTabs = document.querySelectorAll('.filter-tab');
+const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+if (filterTabs.length > 0 && portfolioItems.length > 0) {
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const filter = tab.getAttribute('data-filter');
+            
+            // Update active tab
+            filterTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            
+            // Filter portfolio items
+            portfolioItems.forEach(item => {
+                const categories = item.getAttribute('data-category');
+                
+                if (filter === 'all' || categories.includes(filter)) {
+                    item.style.display = 'block';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    
+                    // Animate in
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(-20px)';
+                    
+                    // Hide after animation
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+}
+
+// ===== PORTFOLIO ITEM INTERACTIONS =====
+const portfolioItemBtns = document.querySelectorAll('.portfolio-item__btn');
+
+portfolioItemBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const portfolioItem = btn.closest('.portfolio-item');
+        const title = portfolioItem.querySelector('.portfolio-item__title').textContent;
+        
+        // In a real implementation, this would open a detailed view/modal
+        showNotification(`Viewing details for ${title} - Feature coming soon!`, 'info');
+    });
+});
+
+// ===== LOAD MORE PROJECTS =====
+const loadMoreBtn = document.querySelector('.portfolio-grid__load-more .btn');
+
+if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+        // Simulate loading more projects
+        loadMoreBtn.textContent = 'Loading...';
+        loadMoreBtn.disabled = true;
+        
+        setTimeout(() => {
+            showNotification('Additional projects loaded! (Feature coming soon)', 'success');
+            loadMoreBtn.textContent = 'Load More Projects';
+            loadMoreBtn.disabled = false;
+        }, 1500);
+    });
+}
 
 console.log('BST Classics website loaded successfully! 🚗'); 
