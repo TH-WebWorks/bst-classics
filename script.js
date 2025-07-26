@@ -37,6 +37,27 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// ===== WINDOW RESIZE HANDLER =====
+// Fix mobile menu flash during window resize
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    // Immediately close menu and disable transitions during resize
+    hideMenu();
+    
+    // Add no-transition class to prevent animations during resize
+    if (navMenu) {
+        navMenu.classList.add('no-transition');
+    }
+    
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        // Re-enable transitions after resize is complete
+        if (navMenu) {
+            navMenu.classList.remove('no-transition');
+        }
+    }, 150);
+});
+
 // ===== HEADER SCROLL EFFECT =====
 const header = document.getElementById('header');
 

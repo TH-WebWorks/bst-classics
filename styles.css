@@ -3071,6 +3071,11 @@ button {
     visibility: visible;
   }
   
+  /* Disable transitions during window resize to prevent menu flash */
+  .nav__menu.no-transition {
+    transition: none !important;
+  }
+  
   .nav__list {
     flex-direction: column;
     gap: var(--space-2xl);
