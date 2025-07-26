@@ -1,15 +1,20 @@
 // ===== MOBILE NAVIGATION =====
 const navMenu = document.getElementById('nav-menu');
 const navToggle = document.getElementById('nav-toggle');
-const navClose = document.getElementById('nav-close');
 const navLinks = document.querySelectorAll('.nav__link');
 
-// Show mobile menu
+// Toggle mobile menu
 if (navToggle) {
     navToggle.addEventListener('click', () => {
-        navMenu.classList.add('show-menu');
-        navToggle.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        if (navMenu.classList.contains('show-menu')) {
+            // Close menu
+            hideMenu();
+        } else {
+            // Open menu
+            navMenu.classList.add('show-menu');
+            navToggle.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
     });
 }
 
@@ -18,10 +23,6 @@ function hideMenu() {
     navMenu.classList.remove('show-menu');
     navToggle.classList.remove('active');
     document.body.style.overflow = 'auto';
-}
-
-if (navClose) {
-    navClose.addEventListener('click', hideMenu);
 }
 
 // Close menu when clicking on nav links
