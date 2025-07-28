@@ -398,6 +398,11 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('show-menu')) {
         hideMenu();
     }
+    
+    // Close modals with Escape key
+    if (e.key === 'Escape') {
+        closeModal();
+    }
 });
 
 // Focus management for mobile menu
@@ -571,78 +576,258 @@ function initTestimonials() {
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', initTestimonials);
 
-// ===== PORTFOLIO FILTERS =====
-const filterTabs = document.querySelectorAll('.filter-tab');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
+// ===== SIMPLE PORTFOLIO FUNCTIONALITY =====
 
-if (filterTabs.length > 0 && portfolioItems.length > 0) {
-    filterTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const filter = tab.getAttribute('data-filter');
-            
-            // Update active tab
-            filterTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            
-            // Filter portfolio items
-            portfolioItems.forEach(item => {
-                const categories = item.getAttribute('data-category');
+// Run immediately when script loads - no event listeners needed
+setTimeout(function() {
+    console.log('Setting up portfolio functionality...');
+    
+    // 1. FILTER FUNCTIONALITY
+    const filterButtons = document.querySelectorAll('.filter-tab');
+    const portfolioItems = document.querySelectorAll('.builds-item');
+    
+    console.log('Found', filterButtons.length, 'filter buttons and', portfolioItems.length, 'portfolio items');
+    
+    if (filterButtons.length > 0 && portfolioItems.length > 0) {
+        filterButtons.forEach(function(button) {
+            button.onclick = function() {
+                console.log('Filter clicked:', this.textContent);
                 
-                if (filter === 'all' || categories.includes(filter)) {
-                    item.style.display = 'block';
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateY(20px)';
+                const filterValue = this.getAttribute('data-filter');
+                
+                // Remove active class from all buttons
+                filterButtons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter items
+                portfolioItems.forEach(function(item) {
+                    const categories = item.getAttribute('data-category') || '';
                     
-                    // Animate in
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, 100);
-                } else {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateY(-20px)';
-                    
-                    // Hide after animation
-                    setTimeout(() => {
+                    if (filterValue === 'all' || categories.includes(filterValue)) {
+                        item.style.display = 'block';
+                    } else {
                         item.style.display = 'none';
-                    }, 300);
-                }
-            });
+                    }
+                });
+            };
         });
+        console.log('Filter functionality added!');
+    }
+    
+    // 2. LOAD MORE FUNCTIONALITY
+    const loadMoreBtn = document.querySelector('.builds-grid__load-more .btn');
+    let projectsLoaded = false;
+    
+    if (loadMoreBtn) {
+        loadMoreBtn.onclick = function() {
+            console.log('Load more clicked');
+            
+            if (!projectsLoaded) {
+                const container = document.querySelector('.builds-grid__container');
+                
+                // Add new projects
+                const newProjects = `
+                    <div class="builds-item" data-category="restoration engine">
+                        <div class="builds-item__image">
+                            <div class="image-placeholder">
+                                <div class="image-placeholder__icon">🚗</div>
+                                <div class="image-placeholder__text">1968 Mustang GT 390</div>
+                            </div>
+                            <div class="builds-item__overlay">
+                                <div class="builds-item__info">
+                                    <h4 class="builds-item__title">1968 Mustang GT 390</h4>
+                                    <p class="builds-item__type">Frame-Off Restoration</p>
+                                    <div class="builds-item__details">
+                                        <span>390 FE Big Block • C6 Automatic • Highland Green</span>
+                                    </div>
+                                </div>
+                                <button class="builds-item__btn" onclick="showProject('1968 Mustang GT 390', 'Frame-Off Restoration', '390 FE Big Block • C6 Automatic • Highland Green', '2023', '16 Months')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="builds-item__quick-info">
+                            <span class="builds-item__year">2023</span>
+                            <span class="builds-item__duration">16 Months</span>
+                        </div>
+                    </div>
+                    
+                    <div class="builds-item" data-category="custom engine">
+                        <div class="builds-item__image">
+                            <div class="image-placeholder">
+                                <div class="image-placeholder__icon">🚗</div>
+                                <div class="image-placeholder__text">1969 Nova SS</div>
+                            </div>
+                            <div class="builds-item__overlay">
+                                <div class="builds-item__info">
+                                    <h4 class="builds-item__title">1969 Nova SS</h4>
+                                    <p class="builds-item__type">Pro-Touring Build</p>
+                                    <div class="builds-item__details">
+                                        <span>LS7 7.0L • T56 6-Speed • Modern Suspension</span>
+                                    </div>
+                                </div>
+                                <button class="builds-item__btn" onclick="showProject('1969 Nova SS', 'Pro-Touring Build', 'LS7 7.0L • T56 6-Speed • Modern Suspension', '2022', '12 Months')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="builds-item__quick-info">
+                            <span class="builds-item__year">2022</span>
+                            <span class="builds-item__duration">12 Months</span>
+                        </div>
+                    </div>
+                    
+                    <div class="builds-item" data-category="restoration paint">
+                        <div class="builds-item__image">
+                            <div class="image-placeholder">
+                                <div class="image-placeholder__icon">🚗</div>
+                                <div class="image-placeholder__text">1970 Plymouth Cuda</div>
+                            </div>
+                            <div class="builds-item__overlay">
+                                <div class="builds-item__info">
+                                    <h4 class="builds-item__title">1970 Plymouth Cuda</h4>
+                                    <p class="builds-item__type">Numbers Matching Restoration</p>
+                                    <div class="builds-item__details">
+                                        <span>440 Six Pack • 4-Speed • In Violet</span>
+                                    </div>
+                                </div>
+                                <button class="builds-item__btn" onclick="showProject('1970 Plymouth Cuda', 'Numbers Matching Restoration', '440 Six Pack • 4-Speed • In Violet', '2021', '22 Months')">View Details</button>
+                            </div>
+                        </div>
+                        <div class="builds-item__quick-info">
+                            <span class="builds-item__year">2021</span>
+                            <span class="builds-item__duration">22 Months</span>
+                        </div>
+                    </div>
+                `;
+                
+                container.insertAdjacentHTML('beforeend', newProjects);
+                
+                this.textContent = 'All Projects Loaded';
+                this.disabled = true;
+                projectsLoaded = true;
+                
+                const note = document.querySelector('.load-more-note');
+                if (note) {
+                    note.textContent = 'Showing all 9 completed projects';
+                }
+                
+                console.log('New projects added!');
+            }
+        };
+        console.log('Load more functionality added!');
+    }
+    
+    // 3. VIEW DETAILS FUNCTIONALITY
+    const viewButtons = document.querySelectorAll('.builds-item__btn');
+    viewButtons.forEach(function(btn) {
+        btn.onclick = function() {
+            console.log('View details clicked');
+            
+            const item = this.closest('.builds-item');
+            const title = item.querySelector('.builds-item__title').textContent;
+            const type = item.querySelector('.builds-item__type').textContent;
+            const details = item.querySelector('.builds-item__details span').textContent;
+            const year = item.querySelector('.builds-item__year').textContent;
+            const duration = item.querySelector('.builds-item__duration').textContent;
+            
+            showProject(title, type, details, year, duration);
+        };
     });
+    
+    console.log('Portfolio setup complete!');
+    
+}, 1000); // Wait 1 second for page to fully load
+
+// Simple modal function
+function showProject(title, type, details, year, duration) {
+    console.log('Showing project:', title);
+    
+    // Remove existing modal
+    const existing = document.getElementById('project-modal');
+    if (existing) existing.remove();
+    
+    // Create modal
+    const modal = document.createElement('div');
+    modal.id = 'project-modal';
+    modal.innerHTML = `
+        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+            <div style="background: #1a1a1a; border-radius: 8px; max-width: 600px; width: 100%; max-height: 80vh; overflow-y: auto; border: 1px solid #333;">
+                <div style="padding: 20px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="color: #c41e3a; margin: 0; font-size: 24px;">${title}</h2>
+                    <button onclick="closeProject()" style="background: none; border: none; color: #fff; font-size: 24px; cursor: pointer;">&times;</button>
+                </div>
+                <div style="padding: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <div style="width: 100%; height: 200px; background: #333; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 18px;">${title}</div>
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                        <span style="background: #2a2a2a; color: #fff; padding: 8px 15px; border-radius: 20px; font-size: 14px;">${type}</span>
+                        <span style="background: #2a2a2a; color: #fff; padding: 8px 15px; border-radius: 20px; font-size: 14px;">Completed ${year}</span>
+                        <span style="background: #2a2a2a; color: #fff; padding: 8px 15px; border-radius: 20px; font-size: 14px;">${duration}</span>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #c41e3a; margin-bottom: 10px;">Project Details</h3>
+                        <p style="color: #ccc; line-height: 1.6;">${details}</p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #c41e3a; margin-bottom: 10px;">Project Story</h3>
+                        <p style="color: #ccc; line-height: 1.6;">This ${title} represents one of our signature restoration projects. Every detail was carefully planned and executed to exceed factory specifications while maintaining authentic character.</p>
+                    </div>
+                    <div style="text-align: center; padding-top: 20px; border-top: 1px solid #333;">
+                        <a href="contact.html" style="background: #c41e3a; color: white; padding: 12px 30px; border-radius: 4px; text-decoration: none; display: inline-block; margin-right: 15px;">Start Your Project</a>
+                        <button onclick="closeProject()" style="background: #333; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    // Close on backdrop click
+    modal.onclick = function(e) {
+        if (e.target === modal) closeProject();
+    };
 }
 
-// ===== PORTFOLIO ITEM INTERACTIONS =====
-const portfolioItemBtns = document.querySelectorAll('.portfolio-item__btn');
+function closeProject() {
+    const modal = document.getElementById('project-modal');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = 'auto';
+    }
+}
 
-portfolioItemBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        const portfolioItem = btn.closest('.portfolio-item');
-        const title = portfolioItem.querySelector('.portfolio-item__title').textContent;
-        
-        // In a real implementation, this would open a detailed view/modal
-        showNotification(`Viewing details for ${title} - Feature coming soon!`, 'info');
-    });
+// Initialize builds page when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded');
+    console.log('Current page URL:', window.location.href);
+    console.log('Page title:', document.title);
+    
+    // Debug: Check for all possible selectors
+    console.log('Checking for builds-related elements:');
+    console.log('- .builds-grid:', document.querySelector('.builds-grid'));
+    console.log('- .builds-grid__container:', document.querySelector('.builds-grid__container'));
+    console.log('- .filter-tab:', document.querySelectorAll('.filter-tab').length);
+    console.log('- .builds-item:', document.querySelectorAll('.builds-item').length);
+    console.log('- .builds-grid__load-more:', document.querySelector('.builds-grid__load-more'));
+    
+    // Only initialize builds functionality on builds page
+    const buildsGrid = document.querySelector('.builds-grid');
+    console.log('Builds grid found:', buildsGrid);
+    
+    if (buildsGrid) {
+        console.log('Initializing builds page...');
+        initBuildsPage();
+    } else {
+        console.log('Not on builds page, skipping builds initialization');
+        console.log('Available sections:', document.querySelectorAll('section').length);
+        document.querySelectorAll('section').forEach((section, i) => {
+            console.log(`Section ${i}:`, section.className);
+        });
+    }
 });
-
-// ===== LOAD MORE PROJECTS =====
-const loadMoreBtn = document.querySelector('.portfolio-grid__load-more .btn');
-
-if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', () => {
-        // Simulate loading more projects
-        loadMoreBtn.textContent = 'Loading...';
-        loadMoreBtn.disabled = true;
-        
-        setTimeout(() => {
-            showNotification('Additional projects loaded! (Feature coming soon)', 'success');
-            loadMoreBtn.textContent = 'Load More Projects';
-            loadMoreBtn.disabled = false;
-        }, 1500);
-    });
-}
 
 console.log('BST Classics website loaded successfully! 🚗'); 

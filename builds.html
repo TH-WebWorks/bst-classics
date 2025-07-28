@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="View BST Classic Rod & Custom's builds of completed restoration and custom build projects. See our quality craftsmanship and attention to detail.">
-<meta name="keywords" content="classic car builds, restoration projects, custom builds, BST Classics gallery">
+    <meta name="description" content="View BST Classic Rod & Custom's completed restoration and custom build projects. See our quality craftsmanship and attention to detail.">
+    <meta name="keywords" content="classic car builds, restoration projects, custom builds, BST Classics gallery">
     <meta name="author" content="BST Classic Rod & Custom">
     
     <title>Builds - BST Classic Rod & Custom | Norwalk, Iowa</title>
@@ -15,6 +15,659 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        /* Builds Page Enhanced Styles */
+        .builds-hero {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            padding: 8rem 0 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .builds-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(196, 30, 58, 0.1) 0%, transparent 70%);
+        }
+        
+        .builds-hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #c41e3a 0%, #ff4444 50%, #c41e3a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .builds-hero p {
+            font-size: 1.3rem;
+            color: #ddd;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+        
+        /* Enhanced Filter Section */
+        .filter-section {
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            padding: 3rem 0;
+            border-bottom: 1px solid #333;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            color: #ccc;
+            border: 1px solid #444;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .filter-btn:hover {
+            background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+            color: #fff;
+            border-color: #c41e3a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(196, 30, 58, 0.3);
+        }
+        
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+            color: #fff;
+            border-color: #c41e3a;
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        /* Enhanced Projects Grid */
+        .projects-section {
+            padding: 5rem 0;
+            background: radial-gradient(ellipse at center, #0a0a0a 0%, #000 100%);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .project-item {
+            opacity: 1;
+            transition: all 0.5s ease;
+        }
+        
+        .project-card {
+            background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
+            border-radius: 16px;
+            border: 1px solid #333;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #c41e3a, #ff4444, #c41e3a);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #c41e3a;
+            box-shadow: 0 20px 50px rgba(196, 30, 58, 0.2), 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        
+        .project-card:hover::before {
+            opacity: 1;
+        }
+        
+        .project-image {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #333 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            position: relative;
+        }
+        
+        .image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(196, 30, 58, 0.1) 0%, transparent 70%);
+        }
+        
+        .image-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #c41e3a;
+            filter: drop-shadow(0 4px 8px rgba(196, 30, 58, 0.3));
+            position: relative;
+            z-index: 2;
+        }
+        
+        .image-placeholder span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            color: #ddd;
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(196, 30, 58, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(8px);
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .view-btn {
+            background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+        }
+        
+        .view-btn:hover {
+            background: linear-gradient(135deg, #ff4444 0%, #c41e3a 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.6);
+        }
+        
+        .project-info {
+            padding: 2rem;
+            background: linear-gradient(180deg, #1a1a1a 0%, #111 100%);
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c41e3a 0%, #ff4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .project-type {
+            font-size: 1rem;
+            color: #bbb;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .project-details {
+            font-size: 0.9rem;
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+        }
+        
+        .project-year,
+        .project-duration {
+            font-size: 0.85rem;
+            color: #fff;
+            background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            border: 1px solid #444;
+        }
+        
+        /* Enhanced Load More Section */
+        .load-more-section {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 2px solid #333;
+            background: linear-gradient(135deg, transparent 0%, rgba(196, 30, 58, 0.05) 100%);
+            border-radius: 20px;
+            margin-top: 2rem;
+        }
+        
+        .load-more-btn {
+            background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+            color: #fff;
+            border: 2px solid #555;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .load-more-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+            border-color: #c41e3a;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(196, 30, 58, 0.4);
+        }
+        
+        .load-more-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+        
+        .project-counter {
+            color: #bbb;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Enhanced Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 2rem;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-container {
+            background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
+            border-radius: 20px;
+            border: 2px solid #333;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes modalSlideIn {
+            from { 
+                transform: translateY(50px) scale(0.9);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 2px solid #333;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+        }
+        
+        .modal-header h2 {
+            background: linear-gradient(135deg, #c41e3a 0%, #ff4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .modal-close {
+            background: #333;
+            border: 2px solid #555;
+            color: #ccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.75rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: #c41e3a;
+            border-color: #c41e3a;
+            color: #fff;
+            transform: rotate(90deg);
+        }
+        
+        .modal-content {
+            padding: 2rem;
+        }
+        
+        .modal-image {
+            margin-bottom: 2rem;
+        }
+        
+        .modal-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #333 100%);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modal-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(196, 30, 58, 0.15) 0%, transparent 70%);
+        }
+        
+        .modal-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #c41e3a;
+            filter: drop-shadow(0 4px 12px rgba(196, 30, 58, 0.4));
+            position: relative;
+            z-index: 2;
+        }
+        
+        .modal-badges {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            color: #ddd;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid #444;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-type {
+            background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+            color: #fff;
+            border-color: #c41e3a;
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+        }
+        
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+        
+        .modal-section h3 {
+            background: linear-gradient(135deg, #c41e3a 0%, #ff4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .modal-section p {
+            color: #ddd;
+            line-height: 1.7;
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-top: 2px solid #333;
+            gap: 1.5rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ff4444 0%, #c41e3a 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.6);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+            color: #ddd;
+            border: 2px solid #555;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #444 0%, #333 100%);
+            color: #fff;
+            border-color: #666;
+            transform: translateY(-2px);
+        }
+        
+        .modal-open {
+            overflow: hidden;
+        }
+        
+        /* Enhanced Responsive Design */
+        @media (max-width: 768px) {
+            .builds-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .builds-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .filter-buttons {
+                gap: 1rem;
+            }
+            
+            .filter-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.85rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .modal-overlay {
+                padding: 1rem;
+            }
+            
+            .modal-header {
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .modal-footer {
+                flex-direction: column-reverse;
+                padding: 1.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        /* Loading animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Smooth transitions for project items */
+        .project-item {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header/Navigation -->
@@ -61,422 +714,192 @@
 
     <main class="main">
         <!-- Hero Section -->
-        <section class="page-hero">
+        <section class="builds-hero">
             <div class="container">
-                <div class="page-hero__content">
-                    <h1 class="page-hero__title">BUILDS OF EXCELLENCE</h1>
-                    <div class="content-section">
-                        <p class="text-large">
-                            Witness the transformation.
-                        </p>
-                        <p class="page-hero__subtitle">
-                            Every project tells a story of meticulous craftsmanship, unwavering dedication, 
-                            and the passion to bring automotive legends back to life.
-                        </p>
-                    </div>
+                <h1>Our Builds</h1>
+                <p>Witness the transformation of classic automotive legends through our meticulous craftsmanship and unwavering dedication to excellence.</p>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="container">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="restoration">Restoration</button>
+                    <button class="filter-btn" data-filter="custom">Custom Builds</button>
+                    <button class="filter-btn" data-filter="engine">Engine Work</button>
+                    <button class="filter-btn" data-filter="paint">Paint & Body</button>
+                    <button class="filter-btn" data-filter="interior">Interior</button>
                 </div>
             </div>
         </section>
 
-        <!-- Builds Stats -->
-        <section class="builds-stats section">
+        <!-- Projects Section -->
+        <section class="projects-section">
             <div class="container">
-                <div class="builds-stats__grid">
-                    <div class="stat-card">
-                        <div class="stat-card__number">90+</div>
-                        <div class="stat-card__label">Projects Completed</div>
-                        <div class="stat-card__description">Since 2010</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card__number">100%</div>
-                        <div class="stat-card__label">Customer Satisfaction</div>
-                        <div class="stat-card__description">Quality Guaranteed</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card__number">14</div>
-                        <div class="stat-card__label">Years Experience</div>
-                        <div class="stat-card__description">Master Craftsman</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card__number">5★</div>
-                        <div class="stat-card__label">Average Rating</div>
-                        <div class="stat-card__description">Google Reviews</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Project Filters -->
-        <section class="project-filters section">
-            <div class="container">
-                <h2 class="section__title">BROWSE BY CATEGORY</h2>
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All Projects</button>
-                    <button class="filter-tab" data-filter="restoration">Complete Restorations</button>
-                    <button class="filter-tab" data-filter="custom">Custom Builds</button>
-                    <button class="filter-tab" data-filter="engine">Engine Work</button>
-                    <button class="filter-tab" data-filter="paint">Paint & Body</button>
-                    <button class="filter-tab" data-filter="interior">Interior</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Project Case Study -->
-        <section class="featured-case-study section">
-            <div class="container">
-                <h2 class="section__title">FEATURED CASE STUDY</h2>
-                
-                <div class="case-study">
-                    <div class="case-study__header">
-                        <div class="case-study__info">
-                            <h3 class="case-study__title">1969 Pontiac Firebird</h3>
-                            <div class="case-study__meta">
-                                <span class="case-study__type">Complete Frame-Off Restoration</span>
-                                <span class="case-study__duration">18 Months</span>
-                                <span class="case-study__year">Completed 2023</span>
-                            </div>
-                        </div>
-                        <div class="case-study__client">
-                            <div class="case-study__client-info">
-                                <strong>Client: John & Sarah M.</strong>
-                                <span>West Des Moines, IA</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="before-after">
-                        <div class="before-after__container">
-                            <div class="before-after__item">
-                                <div class="before-after__image">
-                                    <img src="https://via.placeholder.com/400x300/333333/ffffff?text=BEFORE" alt="Before Restoration" class="before-after__img">
-                                </div>
-                                <div class="before-after__label">BEFORE</div>
-                            </div>
-                            <div class="before-after__arrow">→</div>
-                            <div class="before-after__item">
-                                <div class="before-after__image">
-                                    <img src="images/firebird-hero.png" alt="Restored Firebird" class="before-after__img">
-                                </div>
-                                <div class="before-after__label">AFTER</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="case-study__content">
-                        <div class="case-study__story">
-                            <div class="content-section">
-                                <h4>The Challenge</h4>
-                                <p class="text-emphasis">A True Barn Find</p>
-                                <p>This 1969 Firebird came to us as a true barn find - sitting for over 30 years with significant rust damage.</p>
-                                <p class="text-small">The owners wanted a complete frame-off restoration to concours condition while maintaining numbers-matching components.</p>
-                            </div>
-                            
-                            <div class="text-divider"></div>
-                            
-                            <div class="content-section">
-                                <h4>Our Solution</h4>
-                                <p class="text-emphasis">Complete Frame-Off Approach</p>
-                                <p>We completely disassembled the vehicle, media blasted the body, and rebuilt every system from the ground up.</p>
-                                <p class="text-small">The original 350 V8 was completely rebuilt with period-correct specifications, while the body received extensive metalwork and a show-quality paint job in the original Carousel Red.</p>
-                            </div>
-
-                            <div class="text-divider"></div>
-
-                            <div class="content-section">
-                                <h4>The Result</h4>
-                                <p class="text-emphasis">Award-Winning Excellence</p>
-                                <p>A stunning restoration that exceeded the customer's expectations and won Best in Show at the 2023 Iowa Classic Car Show.</p>
-                                <p class="text-small">The attention to detail and quality craftsmanship speaks for itself.</p>
-                            </div>
-                        </div>
-
-                        <div class="case-study__specs">
-                            <h4>Project Specifications</h4>
-                            <div class="spec-grid">
-                                <div class="spec-item">
-                                    <span class="spec-label">Engine:</span>
-                                    <span class="spec-value">350 V8 Complete Rebuild</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Transmission:</span>
-                                    <span class="spec-value">4-Speed Manual Restored</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Paint:</span>
-                                    <span class="spec-value">Carousel Red Base/Clear</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Interior:</span>
-                                    <span class="spec-value">Black Vinyl Complete Restoration</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Suspension:</span>
-                                    <span class="spec-value">All New Components</span>
-                                </div>
-                                <div class="spec-item">
-                                    <span class="spec-label">Awards:</span>
-                                    <span class="spec-value">Best in Show 2023</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Project Gallery Grid -->
-        <section class="builds-grid section">
-            <div class="container">
-                <h2 class="section__title">RECENT PROJECTS</h2>
-                
-                <div class="builds-grid__container">
+                <div class="projects-grid" id="projects-container">
                     <!-- Project 1 -->
-                    <div class="builds-item" data-category="restoration custom">
-                        <div class="builds-item__image">
-                            <img src="images/firebird-hero.png" alt="1967 Camaro SS Restoration" class="builds-item__img">
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1967 Camaro SS</h4>
-                                    <p class="builds-item__type">Frame-Off Restoration</p>
-                                    <div class="builds-item__details">
-                                        <span>396 Big Block • 4-Speed • Rally Wheels</span>
-                                    </div>
+                    <div class="project-item" data-category="restoration custom">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-car"></i>
+                                    <span>1967 Camaro SS</span>
                                 </div>
-                                <button class="builds-item__btn">View Details</button>
+                                <div class="project-overlay">
+                                    <button class="view-btn">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2023</span>
-                            <span class="builds-item__duration">14 Months</span>
+                            <div class="project-info">
+                                <h3 class="project-title">1967 Camaro SS</h3>
+                                <p class="project-type">Frame-Off Restoration</p>
+                                <p class="project-details">396 Big Block • 4-Speed • Rally Wheels</p>
+                                <div class="project-meta">
+                                    <span class="project-year">2023</span>
+                                    <span class="project-duration">14 Months</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Project 2 -->
-                    <div class="builds-item" data-category="custom engine">
-                        <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">🏎️</div>
-                                <div class="image-placeholder__text">1970 Chevelle LS Swap</div>
-                            </div>
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1970 Chevelle</h4>
-                                    <p class="builds-item__type">LS Engine Swap</p>
-                                    <div class="builds-item__details">
-                                        <span>LS3 6.2L • T56 6-Speed • Custom Exhaust</span>
-                                    </div>
+                    <div class="project-item" data-category="custom engine">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-car"></i>
+                                    <span>1970 Chevelle</span>
                                 </div>
-                                <button class="builds-item__btn">View Details</button>
+                                <div class="project-overlay">
+                                    <button class="view-btn">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2023</span>
-                            <span class="builds-item__duration">8 Months</span>
+                            <div class="project-info">
+                                <h3 class="project-title">1970 Chevelle</h3>
+                                <p class="project-type">LS Engine Swap</p>
+                                <p class="project-details">LS3 6.2L • T56 6-Speed • Custom Exhaust</p>
+                                <div class="project-meta">
+                                    <span class="project-year">2023</span>
+                                    <span class="project-duration">8 Months</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Project 3 -->
-                    <div class="builds-item" data-category="paint restoration">
-                        <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">🎨</div>
-                                <div class="image-placeholder__text">1965 Mustang Fastback</div>
-                            </div>
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1965 Mustang Fastback</h4>
-                                    <p class="builds-item__type">Paint & Body Restoration</p>
-                                    <div class="builds-item__details">
-                                        <span>Wimbledon White • Black Stripes • Show Quality</span>
-                                    </div>
+                    <div class="project-item" data-category="paint restoration">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-car"></i>
+                                    <span>1965 Mustang Fastback</span>
                                 </div>
-                                <button class="builds-item__btn">View Details</button>
+                                <div class="project-overlay">
+                                    <button class="view-btn">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2022</span>
-                            <span class="builds-item__duration">6 Months</span>
+                            <div class="project-info">
+                                <h3 class="project-title">1965 Mustang Fastback</h3>
+                                <p class="project-type">Paint & Body Restoration</p>
+                                <p class="project-details">Wimbledon White • Black Stripes • Show Quality</p>
+                                <div class="project-meta">
+                                    <span class="project-year">2022</span>
+                                    <span class="project-duration">6 Months</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Project 4 -->
-                    <div class="builds-item" data-category="interior restoration">
-                        <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">🪑</div>
-                                <div class="image-placeholder__text">1963 Corvette Interior</div>
-                            </div>
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1963 Corvette</h4>
-                                    <p class="builds-item__type">Complete Interior Restoration</p>
-                                    <div class="builds-item__details">
-                                        <span>Red Interior • Original Pattern • Custom Dash</span>
-                                    </div>
+                    <div class="project-item" data-category="interior restoration">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-car"></i>
+                                    <span>1963 Corvette</span>
                                 </div>
-                                <button class="builds-item__btn">View Details</button>
+                                <div class="project-overlay">
+                                    <button class="view-btn">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2022</span>
-                            <span class="builds-item__duration">4 Months</span>
+                            <div class="project-info">
+                                <h3 class="project-title">1963 Corvette</h3>
+                                <p class="project-type">Complete Interior Restoration</p>
+                                <p class="project-details">Red Interior • Original Pattern • Custom Dash</p>
+                                <div class="project-meta">
+                                    <span class="project-year">2022</span>
+                                    <span class="project-duration">4 Months</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Project 5 -->
-                    <div class="builds-item" data-category="engine custom">
-                        <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">⚡</div>
-                                <div class="image-placeholder__text">454 Big Block Build</div>
-                            </div>
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">454 Big Block</h4>
-                                    <p class="builds-item__type">Performance Engine Build</p>
-                                    <div class="builds-item__details">
-                                        <span>650HP • Forged Internals • Custom Cam</span>
-                                    </div>
+                    <div class="project-item" data-category="engine custom">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-car"></i>
+                                    <span>454 Big Block Build</span>
                                 </div>
-                                <button class="builds-item__btn">View Details</button>
+                                <div class="project-overlay">
+                                    <button class="view-btn">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2023</span>
-                            <span class="builds-item__duration">3 Months</span>
+                            <div class="project-info">
+                                <h3 class="project-title">454 Big Block</h3>
+                                <p class="project-type">Performance Engine Build</p>
+                                <p class="project-details">650HP • Forged Internals • Custom Cam</p>
+                                <div class="project-meta">
+                                    <span class="project-year">2023</span>
+                                    <span class="project-duration">3 Months</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Project 6 -->
-                    <div class="builds-item" data-category="restoration paint">
-                        <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">🚗</div>
-                                <div class="image-placeholder__text">1969 Dodge Charger R/T</div>
-                            </div>
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1969 Charger R/T</h4>
-                                    <p class="builds-item__type">Numbers Matching Restoration</p>
-                                    <div class="builds-item__details">
-                                        <span>440 Six Pack • Plum Crazy Purple • A33 Track Pack</span>
-                                    </div>
+                    <div class="project-item" data-category="restoration paint">
+                        <div class="project-card">
+                            <div class="project-image">
+                                <div class="image-placeholder">
+                                    <i class="fas fa-car"></i>
+                                    <span>1969 Dodge Charger R/T</span>
                                 </div>
-                                <button class="builds-item__btn">View Details</button>
+                                <div class="project-overlay">
+                                    <button class="view-btn">
+                                        <i class="fas fa-eye"></i> View Details
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2022</span>
-                            <span class="builds-item__duration">20 Months</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="builds-grid__load-more">
-                    <button class="btn btn--secondary btn--large">Load More Projects</button>
-                    <p class="load-more-note">Showing 6 of 25+ completed projects</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Customer Testimonials -->
-        <section class="customer-stories section">
-            <div class="container">
-                <h2 class="section__title">CUSTOMER STORIES</h2>
-                
-                <div class="customer-stories__grid">
-                    <div class="customer-story">
-                        <div class="customer-story__quote">
-                            <p>"Brandon transformed my grandfather's rusted Camaro into a show-winning masterpiece. The attention to detail was incredible - he even found the original broadcast sheet!"</p>
-                        </div>
-                        <div class="customer-story__author">
-                            <div class="customer-story__avatar">
-                                <div class="avatar-placeholder">JM</div>
-                            </div>
-                            <div class="customer-story__info">
-                                <strong>John Miller</strong>
-                                <span>1967 Camaro SS Owner</span>
-                                <div class="customer-story__rating">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="customer-story">
-                        <div class="customer-story__quote">
-                            <p>"The LS swap in my Chevelle was perfectly executed. Brandon maintained the classic look while giving it modern performance and reliability."</p>
-                        </div>
-                        <div class="customer-story__author">
-                            <div class="customer-story__avatar">
-                                <div class="avatar-placeholder">TR</div>
-                            </div>
-                            <div class="customer-story__info">
-                                <strong>Tom Reynolds</strong>
-                                <span>1970 Chevelle Owner</span>
-                                <div class="customer-story__rating">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="customer-story">
-                        <div class="customer-story__quote">
-                            <p>"Professional, honest, and incredibly skilled. My Mustang's paint job is absolutely flawless - better than factory!"</p>
-                        </div>
-                        <div class="customer-story__author">
-                            <div class="customer-story__avatar">
-                                <div class="avatar-placeholder">SJ</div>
-                            </div>
-                            <div class="customer-story__info">
-                                <strong>Sarah Johnson</strong>
-                                <span>1965 Mustang Owner</span>
-                                <div class="customer-story__rating">⭐⭐⭐⭐⭐</div>
+                            <div class="project-info">
+                                <h3 class="project-title">1969 Charger R/T</h3>
+                                <p class="project-type">Numbers Matching Restoration</p>
+                                <p class="project-details">440 Six Pack • Plum Crazy Purple • A33 Track Pack</p>
+                                <div class="project-meta">
+                                    <span class="project-year">2022</span>
+                                    <span class="project-duration">20 Months</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Process Showcase -->
-        <section class="process-showcase section">
-            <div class="container">
-                <h2 class="section__title">OUR RESTORATION PROCESS</h2>
-                
-                <div class="process-showcase__content">
-                    <div class="content-section">
-                        <p class="text-large">
-                            Every project follows our proven 8-step process.
-                        </p>
-                        <p class="process-showcase__intro">
-                            Ensuring consistent quality and exceptional results. Here's how we transform your classic into a masterpiece.
-                        </p>
-                    </div>
-                    
-                    <div class="process-showcase__cta">
-                        <a href="process.html" class="btn btn--primary btn--large">View Detailed Process</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="cta section">
-            <div class="container">
-                <div class="cta__content">
-                    <h2 class="section__title">READY TO JOIN OUR BUILDS?</h2>
-                    
-                    <div class="content-section">
-                        <p class="text-large">
-                            Your classic car deserves the BST Classics treatment.
-                        </p>
-                        <p class="cta__text">
-                            Let's discuss your vision and create the next masterpiece for our builds together.
-                        </p>
-                    </div>
-                    
-                    <div class="cta__buttons">
-                        <a href="contact.html" class="btn btn--primary btn--large">Start Your Project</a>
-                        <a href="tel:5154461215" class="btn btn--secondary btn--large">Call (515) 446-1215</a>
-                    </div>
+                <!-- Load More Section -->
+                <div class="load-more-section">
+                    <button class="load-more-btn" id="load-more-btn">Load More Projects</button>
+                    <p class="project-counter" id="project-counter">Showing 6 of 9 completed projects</p>
                 </div>
             </div>
         </section>
@@ -522,5 +945,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="builds.js"></script>
 </body>
 </html> 
