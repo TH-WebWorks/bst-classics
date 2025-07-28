@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Learn about BST Classic Rod & Custom's transparent build process for classic car restoration. See how we bring your vision to life step by step.">
-    <meta name="keywords" content="restoration process, build process, classic car restoration steps, transparent restoration">
+    <meta name="description" content="Discover BST Classic Rod & Custom's comprehensive 25-step build process for classic car restoration. From Discovery & Design to final Delivery.">
+    <meta name="keywords" content="25-step build process, classic car restoration, BST classics process, restoration phases">
     <meta name="author" content="BST Classic Rod & Custom">
     
-    <title>Build Process - BST Classic Rod & Custom | Norwalk, Iowa</title>
+    <title>The 25-Step Build Process - BST Classic Rod & Custom | Norwalk, Iowa</title>
     
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,348 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        /* Process Page Specific Styles */
+        .process-hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('images/firebird-hero.png') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .process-hero__content h1 {
+            font-family: var(--font-primary);
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: var(--space-lg);
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .process-hero__content p {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        /* Sticky Navigation */
+        .process-nav {
+            position: sticky;
+            top: 80px;
+            z-index: 50;
+            background: var(--background-dark);
+            border-bottom: 2px solid var(--secondary-color);
+            padding: var(--space-lg) 0;
+            margin-bottom: 0;
+        }
+
+        .process-nav__container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            overflow-x: auto;
+            /* Hide scrollbars completely */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+            /* Smooth touch scrolling on mobile */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .process-nav__container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari/Opera */
+        }
+
+        .process-nav__list {
+            display: flex;
+            gap: 0;
+            min-width: max-content;
+            padding: 0;
+            background: var(--background-light);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .process-nav__item {
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .process-nav__link {
+            font-family: var(--font-primary);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 6px;
+            transition: var(--transition);
+            position: relative;
+            display: block;
+            text-align: center;
+            background: transparent;
+        }
+
+        .process-nav__link:hover {
+            color: var(--primary-color);
+            background: rgba(221, 0, 0, 0.1);
+        }
+
+        .process-nav__link.active {
+            color: white;
+            background: var(--secondary-color);
+        }
+
+        /* Desktop - Fit all 8 phases */
+        @media (min-width: 1200px) {
+            .process-nav__list {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .process-nav__item {
+                flex: 1;
+                max-width: 140px;
+            }
+            
+            .process-nav__link {
+                padding: var(--space-md) var(--space-sm);
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Large tablets and smaller desktops */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .process-nav__list {
+                gap: var(--space-xs);
+                padding: 4px;
+            }
+            
+            .process-nav__link {
+                padding: var(--space-sm) var(--space-md);
+                font-size: 0.75rem;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        /* Phase Sections */
+        .process-phase {
+            padding: var(--space-5xl) 0;
+            position: relative;
+        }
+
+        .process-phase:nth-child(odd) {
+            background: var(--background-light);
+        }
+
+        .process-phase:nth-child(even) {
+            background: var(--background-white);
+        }
+
+        .process-phase__title {
+            font-family: var(--font-primary);
+            font-size: var(--text-4xl);
+            font-weight: 900;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: var(--space-4xl);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .process-phase__title::after {
+            content: '';
+            position: absolute;
+            bottom: -var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .process-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-2xl);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .process-step-card {
+            background: var(--background-dark);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: var(--space-2xl);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .process-step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+            border-color: var(--secondary-color);
+        }
+
+        .process-step-card__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .process-step-card__number {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-lg);
+            font-weight: 700;
+        }
+
+        .process-step-card__title {
+            font-family: var(--font-primary);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.3;
+        }
+
+        .process-step-card__description {
+            color: var(--text-medium);
+            line-height: 1.6;
+            font-size: var(--text-base);
+        }
+
+        .process-step-card__icon {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+        }
+
+        /* Animation delays for staggered effect */
+        .process-step-card:nth-child(1) { animation-delay: 0.1s; }
+        .process-step-card:nth-child(2) { animation-delay: 0.2s; }
+        .process-step-card:nth-child(3) { animation-delay: 0.3s; }
+        .process-step-card:nth-child(4) { animation-delay: 0.4s; }
+        .process-step-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CTA Section */
+        .process-cta {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #aa0000 100%);
+            padding: var(--space-5xl) 0;
+            text-align: center;
+        }
+
+        .process-cta__title {
+            font-family: var(--font-primary);
+            font-size: var(--text-4xl);
+            font-weight: 900;
+            color: white;
+            margin-bottom: var(--space-lg);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .process-cta__text {
+            font-size: var(--text-lg);
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto var(--space-2xl);
+            line-height: 1.6;
+        }
+
+        .process-cta__button {
+            background: white;
+            color: var(--secondary-color);
+            padding: var(--space-lg) var(--space-3xl);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .process-cta__button:hover {
+            background: var(--background-light);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 767px) {
+            .process-nav {
+                top: 70px;
+                padding: var(--space-md) 0;
+            }
+
+            .process-nav__container {
+                padding: 0 var(--space-md);
+            }
+
+            .process-nav__list {
+                gap: var(--space-xs);
+                padding: 3px;
+                min-width: 100%;
+                justify-content: flex-start;
+            }
+
+            .process-nav__item {
+                flex: 0 0 auto;
+                min-width: 120px;
+            }
+
+            .process-nav__link {
+                font-size: var(--text-xs);
+                padding: var(--space-sm) var(--space-md);
+                letter-spacing: 0.2px;
+            }
+
+            .process-steps-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .process-step-card {
+                padding: var(--space-lg);
+            }
+
+            .process-phase {
+                padding: var(--space-3xl) 0;
+            }
+
+            .process-phase__title {
+                font-size: var(--text-2xl);
+                margin-bottom: var(--space-2xl);
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header/Navigation -->
@@ -61,8 +403,9 @@
 
     <main class="main">
         <!-- Hero Section -->
-        <section class="page-hero">
+        <section class="process-hero">
             <div class="container">
+<<<<<<< Updated upstream
                 <div class="page-hero__content">
                     <h1 class="page-hero__title">TRANSPARENT BUILD PROCESS</h1>
                     <div class="content-section">
@@ -75,10 +418,16 @@
                             varying aspects of your restoration efficiently and effectively.
                         </p>
                     </div>
+=======
+                <div class="process-hero__content">
+                    <h1>THE 25-STEP BUILD PROCESS</h1>
+                    <p>How BST Classics Brings Iconic Machines Back to Life</p>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </section>
 
+<<<<<<< Updated upstream
         <!-- Process Overview -->
         <section class="process-overview section">
             <div class="container">
@@ -105,12 +454,44 @@
                         </p>
                     </div>
                 </div>
+=======
+        <!-- Sticky Process Navigation -->
+        <nav class="process-nav" id="process-nav">
+            <div class="process-nav__container">
+                <ul class="process-nav__list">
+                    <li class="process-nav__item">
+                        <a href="#discovery-design" class="process-nav__link">Discovery & Design</a>
+                    </li>
+                    <li class="process-nav__item">
+                        <a href="#fabrication" class="process-nav__link">Fabrication</a>
+                    </li>
+                    <li class="process-nav__item">
+                        <a href="#body-shop" class="process-nav__link">Body Shop</a>
+                    </li>
+                    <li class="process-nav__item">
+                        <a href="#paint-shop" class="process-nav__link">Paint Shop</a>
+                    </li>
+                    <li class="process-nav__item">
+                        <a href="#fit-garage" class="process-nav__link">F.I.T Garage</a>
+                    </li>
+                    <li class="process-nav__item">
+                        <a href="#performance-shop" class="process-nav__link">Performance Shop</a>
+                    </li>
+                    <li class="process-nav__item">
+                        <a href="#quality-control" class="process-nav__link">Quality Control</a>
+                    </li>
+                    <li class="process-nav__item">
+                        <a href="#delivery" class="process-nav__link">Delivery</a>
+                    </li>
+                </ul>
+>>>>>>> Stashed changes
             </div>
-        </section>
+        </nav>
 
-        <!-- Process Steps -->
-        <section class="process-steps section">
+        <!-- Phase 1: Discovery & Design -->
+        <section id="discovery-design" class="process-phase">
             <div class="container">
+<<<<<<< Updated upstream
                 <h2 class="section__title">OUR 8-STEP PROCESS</h2>
                 
                 <div class="process-steps__intro">
@@ -277,15 +658,50 @@
                         </p>
                         <p class="text-small">
                             We make change orders smooth and cost-effective with clear communication and documentation.
+=======
+                <h2 class="process-phase__title">Phase 1: Discovery & Design</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">1</div>
+                            <h3 class="process-step-card__title">Initial Consultation & Assessment</h3>
+                        </div>
+                        <i class="fas fa-handshake process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Comprehensive evaluation of your vehicle and detailed discussion of your vision, goals, timeline, and budget to establish project foundation.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">2</div>
+                            <h3 class="process-step-card__title">Project Scope & Planning</h3>
+                        </div>
+                        <i class="fas fa-clipboard-list process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Detailed project planning phase where we create a comprehensive restoration plan, establish timelines, and document every detail before work begins.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">3</div>
+                            <h3 class="process-step-card__title">Parts Research & Sourcing</h3>
+                        </div>
+                        <i class="fas fa-search process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Extensive research and sourcing of authentic parts, reproduction components, and modern upgrades to meet your restoration specifications.
+>>>>>>> Stashed changes
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quality Assurance -->
-        <section class="quality section">
+        <!-- Phase 2: Fabrication -->
+        <section id="fabrication" class="process-phase">
             <div class="container">
+<<<<<<< Updated upstream
                 <h2 class="section__title">QUALITY ASSURANCE</h2>
                 
                 <div class="quality__content">
@@ -308,34 +724,307 @@
                         </p>
                         <p class="text-small">
                             In accordance with Brandon's exacting requirements regarding quality and the genuine character of components.
+=======
+                <h2 class="process-phase__title">Phase 2: Fabrication</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">4</div>
+                            <h3 class="process-step-card__title">Complete Disassembly</h3>
+                        </div>
+                        <i class="fas fa-tools process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Careful disassembly with each component catalogued, photographed, and assessed to ensure proper reassembly and identify all necessary work.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">5</div>
+                            <h3 class="process-step-card__title">Frame Inspection & Repair</h3>
+                        </div>
+                        <i class="fas fa-ruler-combined process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Thorough frame inspection and any necessary repairs including straightening, reinforcement, and structural modifications for improved performance.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">6</div>
+                            <h3 class="process-step-card__title">Custom Fabrication Work</h3>
+                        </div>
+                        <i class="fas fa-hammer process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Custom metal fabrication including brackets, panels, and modifications to accommodate modern upgrades while maintaining authentic appearance.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">7</div>
+                            <h3 class="process-step-card__title">Suspension & Chassis Prep</h3>
+                        </div>
+                        <i class="fas fa-car process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Preparation and modification of suspension components and chassis for improved handling, safety, and performance characteristics.
+>>>>>>> Stashed changes
                         </p>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="quality__points">
-                    <div class="quality__point">
-                        <span class="quality__point-title">✓ Better Than Factory Standards</span>
-                        <span class="quality__point-description">Every component restored to exceed original specifications</span>
+        <!-- Phase 3: Body Shop -->
+        <section id="body-shop" class="process-phase">
+            <div class="container">
+                <h2 class="process-phase__title">Phase 3: Body Shop</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">8</div>
+                            <h3 class="process-step-card__title">Rust Removal & Repair</h3>
+                        </div>
+                        <i class="fas fa-shield-alt process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Complete rust removal and repair using advanced techniques including media blasting, cut-and-weld repairs, and protective treatments.
+                        </p>
                     </div>
-                    <div class="quality__point">
-                        <span class="quality__point-title">✓ Traditional Craftsmanship</span>
-                        <span class="quality__point-description">Time-tested techniques combined with modern technology</span>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">9</div>
+                            <h3 class="process-step-card__title">Panel Alignment & Fitment</h3>
+                        </div>
+                        <i class="fas fa-adjust process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Precise panel alignment and fitment to achieve factory-perfect gaps and smooth body lines that exceed original specifications.
+                        </p>
                     </div>
-                    <div class="quality__point">
-                        <span class="quality__point-title">✓ Authentic Materials</span>
-                        <span class="quality__point-description">Period-correct parts and materials whenever possible</span>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">10</div>
+                            <h3 class="process-step-card__title">Bodywork & Smoothing</h3>
+                        </div>
+                        <i class="fas fa-hands process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Expert bodywork including dent removal, surface smoothing, and preparation for primer application using traditional and modern techniques.
+                        </p>
                     </div>
-                    <div class="quality__point">
-                        <span class="quality__point-title">✓ Comprehensive Testing</span>
-                        <span class="quality__point-description">Thorough testing and adjustment before delivery</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 4: Paint Shop -->
+        <section id="paint-shop" class="process-phase">
+            <div class="container">
+                <h2 class="process-phase__title">Phase 4: Paint Shop</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">11</div>
+                            <h3 class="process-step-card__title">Paint Preparation & Priming</h3>
+                        </div>
+                        <i class="fas fa-spray-can process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Meticulous surface preparation and primer application in our controlled paint environment for optimal paint adhesion and finish quality.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">12</div>
+                            <h3 class="process-step-card__title">Color Matching & Application</h3>
+                        </div>
+                        <i class="fas fa-palette process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Professional color matching and paint application using high-quality automotive paints and modern spray techniques for superior finish.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">13</div>
+                            <h3 class="process-step-card__title">Clear Coat & Finishing</h3>
+                        </div>
+                        <i class="fas fa-gem process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Clear coat application and finishing process including color sanding and polishing to achieve a deep, lustrous finish that exceeds show quality.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 5: F.I.T Garage -->
+        <section id="fit-garage" class="process-phase">
+            <div class="container">
+                <h2 class="process-phase__title">Phase 5: F.I.T Garage</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">14</div>
+                            <h3 class="process-step-card__title">Interior Restoration</h3>
+                        </div>
+                        <i class="fas fa-couch process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Complete interior restoration including seat upholstery, dashboard restoration, and trim pieces using period-correct materials and techniques.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">15</div>
+                            <h3 class="process-step-card__title">Electrical System Integration</h3>
+                        </div>
+                        <i class="fas fa-bolt process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Modern electrical system integration including wiring harnesses, lighting upgrades, and electronic component installation for reliability.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">16</div>
+                            <h3 class="process-step-card__title">Glass & Trim Installation</h3>
+                        </div>
+                        <i class="fas fa-window-maximize process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Careful installation of glass, weatherstripping, and exterior trim pieces ensuring proper fit and weather sealing for long-term durability.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">17</div>
+                            <h3 class="process-step-card__title">Hardware & Accessories</h3>
+                        </div>
+                        <i class="fas fa-cog process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Installation of all hardware, accessories, and detail components including door handles, mirrors, and decorative trim elements.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 6: Performance Shop -->
+        <section id="performance-shop" class="process-phase">
+            <div class="container">
+                <h2 class="process-phase__title">Phase 6: Performance Shop</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">18</div>
+                            <h3 class="process-step-card__title">Engine Installation & Setup</h3>
+                        </div>
+                        <i class="fas fa-engine process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Professional engine installation and setup including timing, fuel system connection, and initial break-in procedures for optimal performance.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">19</div>
+                            <h3 class="process-step-card__title">Transmission & Drivetrain</h3>
+                        </div>
+                        <i class="fas fa-cogs process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Transmission installation, drivetrain alignment, and differential setup to ensure smooth power delivery and long-term reliability.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">20</div>
+                            <h3 class="process-step-card__title">Brake & Suspension Systems</h3>
+                        </div>
+                        <i class="fas fa-car-crash process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Complete brake and suspension system installation with modern upgrades for improved safety, handling, and stopping performance.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">21</div>
+                            <h3 class="process-step-card__title">Performance Tuning</h3>
+                        </div>
+                        <i class="fas fa-tachometer-alt process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Engine tuning, carburetor or fuel injection setup, and performance optimization to achieve the perfect balance of power and drivability.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 7: Quality Control -->
+        <section id="quality-control" class="process-phase">
+            <div class="container">
+                <h2 class="process-phase__title">Phase 7: Quality Control</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">22</div>
+                            <h3 class="process-step-card__title">Systems Testing & Validation</h3>
+                        </div>
+                        <i class="fas fa-check-circle process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Comprehensive testing of all systems including electrical, mechanical, and safety components to ensure everything operates to specification.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">23</div>
+                            <h3 class="process-step-card__title">Road Testing & Adjustments</h3>
+                        </div>
+                        <i class="fas fa-road process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Extensive road testing and fine-tuning adjustments to ensure optimal performance, handling, and reliability under real-world conditions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 8: Delivery -->
+        <section id="delivery" class="process-phase">
+            <div class="container">
+                <h2 class="process-phase__title">Phase 8: Delivery</h2>
+                <div class="process-steps-grid">
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">24</div>
+                            <h3 class="process-step-card__title">Final Detailing & Presentation</h3>
+                        </div>
+                        <i class="fas fa-star process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Meticulous final detailing and presentation preparation to showcase your completed restoration in show-ready condition.
+                        </p>
+                    </div>
+                    
+                    <div class="process-step-card">
+                        <div class="process-step-card__header">
+                            <div class="process-step-card__number">25</div>
+                            <h3 class="process-step-card__title">Owner Orientation & Delivery</h3>
+                        </div>
+                        <i class="fas fa-key process-step-card__icon"></i>
+                        <p class="process-step-card__description">
+                            Complete owner orientation covering all systems, maintenance requirements, and warranty information before your dream car goes home.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Call to Action -->
-        <section class="cta section">
+        <section class="process-cta">
             <div class="container">
+<<<<<<< Updated upstream
                 <div class="cta__content">
                     <h2 class="section__title">READY TO START YOUR BUILD?</h2>
                     
@@ -353,6 +1042,14 @@
                         <a href="builds.html" class="btn btn--secondary btn--large">View Our Work</a>
                     </div>
                 </div>
+=======
+                <h2 class="process-cta__title">Ready to Start Your Build?</h2>
+                <p class="process-cta__text">
+                    Experience the BST Classics difference with our proven 25-step process. 
+                    Let's bring your classic car vision to life with precision, passion, and uncompromising quality.
+                </p>
+                <a href="contact.html" class="process-cta__button">Book a Consultation</a>
+>>>>>>> Stashed changes
             </div>
         </section>
     </main>
@@ -397,5 +1094,124 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Enhanced Process Navigation Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const processNavLinks = document.querySelectorAll('.process-nav__link');
+            const processPhases = document.querySelectorAll('.process-phase');
+            const processNavContainer = document.querySelector('.process-nav__container');
+            
+            // Smooth scrolling for process navigation
+            processNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const processNavHeight = document.querySelector('.process-nav').offsetHeight;
+                        const offsetTop = targetSection.offsetTop - headerHeight - processNavHeight;
+                        
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Scroll active tab into view in navigation
+                        scrollActiveTabIntoView(this);
+                    }
+                });
+            });
+            
+            // Function to scroll active tab into view
+            function scrollActiveTabIntoView(activeLink) {
+                if (processNavContainer && activeLink) {
+                    const containerRect = processNavContainer.getBoundingClientRect();
+                    const activeRect = activeLink.getBoundingClientRect();
+                    
+                    if (activeRect.left < containerRect.left || activeRect.right > containerRect.right) {
+                        const scrollLeft = activeLink.offsetLeft - (processNavContainer.offsetWidth / 2) + (activeLink.offsetWidth / 2);
+                        processNavContainer.scrollTo({
+                            left: scrollLeft,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+            
+            // Active navigation link tracking
+            function updateActiveNavLink() {
+                const scrollPos = window.scrollY;
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const processNavHeight = document.querySelector('.process-nav').offsetHeight;
+                const offset = headerHeight + processNavHeight + 50;
+                
+                processPhases.forEach((phase, index) => {
+                    const phaseTop = phase.offsetTop - offset;
+                    const phaseBottom = phaseTop + phase.offsetHeight;
+                    
+                    if (scrollPos >= phaseTop && scrollPos < phaseBottom) {
+                        processNavLinks.forEach(link => link.classList.remove('active'));
+                        processNavLinks[index].classList.add('active');
+                        
+                        // Auto-scroll navigation to show active tab
+                        scrollActiveTabIntoView(processNavLinks[index]);
+                    }
+                });
+            }
+            
+            // Throttled scroll listener for performance
+            let ticking = false;
+            function handleScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        updateActiveNavLink();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', handleScroll);
+            
+            // Initialize on load
+            updateActiveNavLink();
+            
+            // Touch scrolling improvements for mobile
+            if (processNavContainer) {
+                let isScrolling = false;
+                processNavContainer.addEventListener('touchstart', () => {
+                    isScrolling = true;
+                });
+                
+                processNavContainer.addEventListener('touchend', () => {
+                    setTimeout(() => {
+                        isScrolling = false;
+                    }, 100);
+                });
+            }
+            
+            // Intersection Observer for step card animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all step cards
+            document.querySelectorAll('.process-step-card').forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        });
+    </script>
 </body>
 </html> 
