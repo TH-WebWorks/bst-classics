@@ -128,10 +128,7 @@ function createProjectHTML(project) {
         <div class="project-item" data-category="${project.category}">
             <div class="project-card">
                 <div class="project-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-car"></i>
-                        <span>${project.title}</span>
-                    </div>
+                    <img src="images/placeholder.png" alt="${project.title}" class="project-img">
                     <div class="project-overlay">
                         <button class="view-btn" onclick="openProjectModal('${project.title}', '${project.type}', '${project.details}', '${project.year}', '${project.duration}', '${project.story}')">
                             <i class="fas fa-eye"></i> View Details
@@ -198,10 +195,7 @@ function openProjectModal(title, type, details, year, duration, story) {
             
             <div class="modal-content">
                 <div class="modal-image">
-                    <div class="modal-placeholder">
-                        <i class="fas fa-car"></i>
-                        <span>${title}</span>
-                    </div>
+                    <img src="images/placeholder.png" alt="${title}" class="modal-img">
                 </div>
                 
                 <div class="modal-info">
