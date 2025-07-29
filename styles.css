@@ -484,6 +484,11 @@ button {
   padding: 0 var(--space-lg);
 }
 
+/* Remove dark overlay for restoration hero */
+#restoration-hero .hero__content {
+  background: none;
+}
+
 .hero__text {
   text-align: center;
   width: 100%;
@@ -5238,6 +5243,7 @@ img {
   align-items: center;
   justify-content: center;
   width: 100%;
+  background: none;
 }
 
 #restoration-hero .hero__text {
@@ -5982,7 +5988,6 @@ img {
   .certificate__badge {
     flex-direction: column;
     gap: var(--space-sm);
-    
   }
 }
 
