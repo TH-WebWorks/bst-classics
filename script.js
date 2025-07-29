@@ -633,10 +633,7 @@ setTimeout(function() {
                 const newProjects = `
                     <div class="builds-item" data-category="restoration engine">
                         <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">🚗</div>
-                                <div class="image-placeholder__text">1968 Mustang GT 390</div>
-                            </div>
+                            <img src="images/placeholder.png" alt="1968 Mustang GT 390" class="builds-item__img">
                             <div class="builds-item__overlay">
                                 <div class="builds-item__info">
                                     <h4 class="builds-item__title">1968 Mustang GT 390</h4>
@@ -656,10 +653,7 @@ setTimeout(function() {
                     
                     <div class="builds-item" data-category="custom engine">
                         <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">🚗</div>
-                                <div class="image-placeholder__text">1969 Nova SS</div>
-                            </div>
+                            <img src="images/placeholder.png" alt="1969 Nova SS" class="builds-item__img">
                             <div class="builds-item__overlay">
                                 <div class="builds-item__info">
                                     <h4 class="builds-item__title">1969 Nova SS</h4>
@@ -679,10 +673,7 @@ setTimeout(function() {
                     
                     <div class="builds-item" data-category="restoration paint">
                         <div class="builds-item__image">
-                            <div class="image-placeholder">
-                                <div class="image-placeholder__icon">🚗</div>
-                                <div class="image-placeholder__text">1970 Plymouth Cuda</div>
-                            </div>
+                            <img src="images/placeholder.png" alt="1970 Plymouth Cuda" class="builds-item__img">
                             <div class="builds-item__overlay">
                                 <div class="builds-item__info">
                                     <h4 class="builds-item__title">1970 Plymouth Cuda</h4>
