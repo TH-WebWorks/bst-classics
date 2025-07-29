@@ -59,9 +59,16 @@
             margin-bottom: 0;
         }
 
+        .process-nav__wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
         .process-nav__container {
-            max-width: var(--container-max-width);
-            margin: 0 auto;
+            flex: 1;
+            margin: 0;
             padding: 0 var(--space-lg);
             overflow-x: auto;
             /* Hide scrollbars completely */
@@ -69,30 +76,68 @@
             -ms-overflow-style: none; /* IE/Edge */
             /* Smooth touch scrolling on mobile */
             -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
         }
 
         .process-nav__container::-webkit-scrollbar {
             display: none; /* Chrome/Safari/Opera */
         }
 
+        .process-nav__arrow {
+            display: none;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .process-nav__arrow:hover {
+            background: #aa0000;
+            transform: scale(1.1);
+        }
+
+        .process-nav__arrow:disabled {
+            background: var(--border-light);
+            color: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .process-nav__arrow--left {
+            margin-right: var(--space-sm);
+        }
+
+        .process-nav__arrow--right {
+            margin-left: var(--space-sm);
+        }
+
         .process-nav__list {
             display: flex;
-            gap: 0;
-            min-width: max-content;
+            gap: var(--space-xs);
+            justify-content: center;
+            width: 100%;
             padding: 0;
             background: var(--background-light);
             border-radius: 8px;
             padding: 4px;
+            min-width: max-content;
         }
 
         .process-nav__item {
             white-space: nowrap;
             flex: 1;
+            min-width: 0; /* Allow flex items to shrink below content size */
         }
 
         .process-nav__link {
             font-family: var(--font-primary);
-            font-size: var(--text-sm);
+            font-size: var(--text-base);
             font-weight: 600;
             color: var(--text-medium);
             text-transform: uppercase;
@@ -104,6 +149,9 @@
             display: block;
             text-align: center;
             background: transparent;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .process-nav__link:hover {
@@ -116,35 +164,94 @@
             background: var(--secondary-color);
         }
 
-        /* Desktop - Fit all 8 phases */
-        @media (min-width: 1200px) {
+        /* Extra Large Desktop - Most space available */
+        @media (min-width: 1400px) {
             .process-nav__list {
                 justify-content: center;
                 width: 100%;
+                gap: var(--space-xs);
             }
             
             .process-nav__item {
                 flex: 1;
-                max-width: 140px;
+                max-width: 220px;
             }
             
             .process-nav__link {
-                padding: var(--space-md) var(--space-sm);
-                font-size: 0.8rem;
+                padding: var(--space-md) var(--space-lg);
+                font-size: 0.9rem;
+                letter-spacing: 0.5px;
             }
         }
 
-        /* Large tablets and smaller desktops */
-        @media (min-width: 768px) and (max-width: 1199px) {
+        /* Large Desktop - Fit all 8 phases */
+        @media (min-width: 1200px) and (max-width: 1399px) {
             .process-nav__list {
+                justify-content: center;
+                width: 100%;
+                gap: var(--space-xs);
+            }
+            
+            .process-nav__item {
+                flex: 1;
+                max-width: 200px;
+            }
+            
+            .process-nav__link {
+                padding: var(--space-md) var(--space-md);
+                font-size: 0.85rem;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        /* Medium Desktop */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .process-nav__list {
+                justify-content: center;
+                width: 100%;
                 gap: var(--space-xs);
                 padding: 4px;
+            }
+            
+            .process-nav__item {
+                flex: 1;
+                max-width: 180px;
+            }
+            
+            .process-nav__link {
+                padding: var(--space-sm) var(--space-md);
+                font-size: 0.8rem;
+                letter-spacing: 0.3px;
+            }
+        }
+
+        /* Large tablets - Start showing arrows */
+        @media (min-width: 768px) and (max-width: 991px) {
+            .process-nav__arrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .process-nav__container {
+                padding: 0 var(--space-md);
+            }
+            
+            .process-nav__list {
+                justify-content: flex-start;
+                gap: var(--space-xs);
+                padding: 4px;
+            }
+            
+            .process-nav__item {
+                flex: 0 0 auto;
+                min-width: 130px;
             }
             
             .process-nav__link {
                 padding: var(--space-sm) var(--space-md);
                 font-size: 0.75rem;
-                letter-spacing: 0.3px;
+                letter-spacing: 0.2px;
             }
         }
 
@@ -309,33 +416,72 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 767px) {
+        /* Small tablets - Arrows with smaller buttons */
+        @media (min-width: 600px) and (max-width: 767px) {
+            .process-nav__arrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+            }
+            
+            .process-nav__container {
+                padding: 0 var(--space-sm);
+            }
+            
+            .process-nav__list {
+                justify-content: flex-start;
+            }
+            
+            .process-nav__item {
+                flex: 0 0 auto;
+                min-width: 120px;
+            }
+            
+            .process-nav__link {
+                padding: var(--space-sm) var(--space-md);
+                font-size: 0.7rem;
+                letter-spacing: 0.1px;
+                line-height: 1.1;
+            }
+        }
+
+        /* Mobile Responsiveness - Arrows with smaller nav items */
+        @media (max-width: 599px) {
             .process-nav {
                 top: 70px;
                 padding: var(--space-md) 0;
             }
 
+            .process-nav__arrow {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+            }
+
             .process-nav__container {
-                padding: 0 var(--space-md);
+                padding: 0 var(--space-sm);
             }
 
             .process-nav__list {
                 gap: var(--space-xs);
                 padding: 3px;
-                min-width: 100%;
                 justify-content: flex-start;
             }
 
             .process-nav__item {
                 flex: 0 0 auto;
-                min-width: 120px;
+                min-width: 110px;
             }
 
             .process-nav__link {
-                font-size: var(--text-xs);
+                font-size: 0.65rem;
                 padding: var(--space-sm) var(--space-md);
-                letter-spacing: 0.2px;
+                letter-spacing: 0.1px;
+                line-height: 1.1;
             }
 
             .process-steps-grid {
@@ -405,260 +551,58 @@
         <!-- Hero Section -->
         <section class="process-hero">
             <div class="container">
-<<<<<<< Updated upstream
-                <div class="page-hero__content">
-                    <h1 class="page-hero__title">TRANSPARENT BUILD PROCESS</h1>
-                    <div class="content-section">
-                        <p class="text-large">
-                            At BST Classic Rod & Custom, we have developed and refined a restoration process that 
-                            continually exceeds expectations.
-                        </p>
-                        <p class="page-hero__subtitle">
-                            Brandon has crafted an industry-leading restoration process which allows our team to work 
-                            varying aspects of your restoration efficiently and effectively.
-                        </p>
-                    </div>
-=======
                 <div class="process-hero__content">
                     <h1>THE 25-STEP BUILD PROCESS</h1>
                     <p>How BST Classics Brings Iconic Machines Back to Life</p>
->>>>>>> Stashed changes
                 </div>
             </div>
         </section>
 
-<<<<<<< Updated upstream
-        <!-- Process Overview -->
-        <section class="process-overview section">
-            <div class="container">
-                <h2 class="section__title">OUR RESTORATION PHILOSOPHY</h2>
-                
-                <!-- Key Principles -->
-                <div class="philosophy-highlights">
-                    <div class="philosophy-item">
-                        <i class="fas fa-camera philosophy-icon"></i>
-                        <h3>Full Documentation</h3>
-                        <p>Every step photographed and documented from start to finish</p>
-                    </div>
-                    <div class="philosophy-item">
-                        <i class="fas fa-eye philosophy-icon"></i>
-                        <h3>Complete Transparency</h3>
-                        <p>Regular updates and clear communication throughout the process</p>
-                    </div>
-                </div>
-                
-                <div class="process-overview__content">
-                    <div class="highlight-box">
-                        <p>
-                            Every project begins with comprehensive evaluation and planning to meet your vision and timeline.
-                        </p>
-                    </div>
-                </div>
-=======
         <!-- Sticky Process Navigation -->
         <nav class="process-nav" id="process-nav">
-            <div class="process-nav__container">
-                <ul class="process-nav__list">
-                    <li class="process-nav__item">
-                        <a href="#discovery-design" class="process-nav__link">Discovery & Design</a>
-                    </li>
-                    <li class="process-nav__item">
-                        <a href="#fabrication" class="process-nav__link">Fabrication</a>
-                    </li>
-                    <li class="process-nav__item">
-                        <a href="#body-shop" class="process-nav__link">Body Shop</a>
-                    </li>
-                    <li class="process-nav__item">
-                        <a href="#paint-shop" class="process-nav__link">Paint Shop</a>
-                    </li>
-                    <li class="process-nav__item">
-                        <a href="#fit-garage" class="process-nav__link">F.I.T Garage</a>
-                    </li>
-                    <li class="process-nav__item">
-                        <a href="#performance-shop" class="process-nav__link">Performance Shop</a>
-                    </li>
-                    <li class="process-nav__item">
-                        <a href="#quality-control" class="process-nav__link">Quality Control</a>
-                    </li>
-                    <li class="process-nav__item">
-                        <a href="#delivery" class="process-nav__link">Delivery</a>
-                    </li>
-                </ul>
->>>>>>> Stashed changes
+            <div class="process-nav__wrapper">
+                <button class="process-nav__arrow process-nav__arrow--left" id="scrollLeft" aria-label="Scroll left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="process-nav__container">
+                    <ul class="process-nav__list">
+                        <li class="process-nav__item">
+                            <a href="#discovery-design" class="process-nav__link">Discovery & Design</a>
+                        </li>
+                        <li class="process-nav__item">
+                            <a href="#fabrication" class="process-nav__link">Fabrication</a>
+                        </li>
+                        <li class="process-nav__item">
+                            <a href="#body-shop" class="process-nav__link">Body Shop</a>
+                        </li>
+                        <li class="process-nav__item">
+                            <a href="#paint-shop" class="process-nav__link">Paint Shop</a>
+                        </li>
+                        <li class="process-nav__item">
+                            <a href="#fit-garage" class="process-nav__link">F.I.T Garage</a>
+                        </li>
+                        <li class="process-nav__item">
+                            <a href="#performance-shop" class="process-nav__link">Performance Shop</a>
+                        </li>
+                        <li class="process-nav__item">
+                            <a href="#quality-control" class="process-nav__link">Quality Control</a>
+                        </li>
+                        <li class="process-nav__item">
+                            <a href="#delivery" class="process-nav__link">Delivery</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <button class="process-nav__arrow process-nav__arrow--right" id="scrollRight" aria-label="Scroll right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </nav>
 
         <!-- Phase 1: Discovery & Design -->
         <section id="discovery-design" class="process-phase">
             <div class="container">
-<<<<<<< Updated upstream
-                <h2 class="section__title">OUR 8-STEP PROCESS</h2>
-                
-                <div class="process-steps__intro">
-                    <p class="text-large">
-                        Each restoration project follows our proven 8-step methodology.
-                    </p>
-                    <p class="process-steps__description">
-                        Ensuring consistent quality and attention to detail throughout every build.
-                    </p>
-                </div>
-
-                <div class="process-steps__grid">
-                    <div class="process-step">
-                        <div class="process-step__number">1</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Initial Consultation & Assessment</h3>
-                            <p class="process-step__description">
-                                We begin with a thorough evaluation of your vehicle and detailed discussion of your goals.
-                            </p>
-                            <p class="text-small">
-                                This includes timeline and budget considerations, setting the foundation for your entire project.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-step__number">2</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Project Planning & Design</h3>
-                            <p class="process-step__description">
-                                Detailed planning phase where we create a comprehensive restoration plan and source parts.
-                            </p>
-                            <p class="text-small">
-                                We establish timelines and document every detail, ensuring approval before work begins.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-step__number">3</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Complete Disassembly</h3>
-                            <p class="process-step__description">
-                                Careful disassembly with each component catalogued, photographed, and assessed.
-                            </p>
-                            <p class="text-small">
-                                We document everything to ensure proper reassembly and identify all necessary work.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-step__number">4</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Body & Frame Restoration</h3>
-                            <p class="process-step__description">
-                                Frame and body work including rust repair, metal fabrication, and structural restoration.
-                            </p>
-                            <p class="text-small">
-                                All work is performed to exceed original factory specifications.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-step__number">5</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Paint & Bodywork</h3>
-                            <p class="process-step__description">
-                                Professional paint preparation and application using modern techniques and materials.
-                            </p>
-                            <p class="text-small">
-                                Achieving a finish that surpasses original factory quality.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-step__number">6</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Mechanical Restoration</h3>
-                            <p class="process-step__description">
-                                Engine, transmission, suspension, and brake system restoration or upgrading.
-                            </p>
-                            <p class="text-small">
-                                Every component is rebuilt or replaced to ensure reliability and performance.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-step__number">7</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Interior & Trim</h3>
-                            <p class="process-step__description">
-                                Complete interior restoration including upholstery, dashboard, and trim pieces.
-                            </p>
-                            <p class="text-small">
-                                Using period-correct materials and techniques for authenticity.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="process-step">
-                        <div class="process-step__number">8</div>
-                        <div class="process-step__content">
-                            <h3 class="process-step__title">Final Assembly & Testing</h3>
-                            <p class="process-step__description">
-                                Careful reassembly, system testing, and final adjustments.
-                            </p>
-                            <p class="text-small">
-                                Comprehensive quality check and road testing to ensure everything meets our exacting standards.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Communication & Updates -->
-        <section class="communication section">
-            <div class="container">
-                <h2 class="section__title">COMMUNICATION & UPDATES</h2>
-                
-                <div class="communication__grid">
-                    <div class="communication__item">
-                        <div class="communication__icon">📱</div>
-                        <h3 class="communication__title">Regular Progress Updates</h3>
-                        <p class="communication__description">
-                            We provide regular photo updates and progress reports throughout your build.
-                        </p>
-                        <p class="text-small">
-                            So you're always informed about the status of your project.
-                        </p>
-                    </div>
-                    
-                    <div class="communication__item">
-                        <div class="communication__icon">📞</div>
-                        <h3 class="communication__title">Direct Access to Brandon</h3>
-                        <p class="communication__description">
-                            You'll have direct access to Brandon and the build team.
-                        </p>
-                        <p class="text-small">
-                            To discuss any questions, concerns, or changes throughout the restoration process.
-                        </p>
-                    </div>
-                    
-                    <div class="communication__item">
-                        <div class="communication__icon">📋</div>
-                        <h3 class="communication__title">Detailed Documentation</h3>
-                        <p class="communication__description">
-                            Every step is documented with photos and notes.
-                        </p>
-                        <p class="text-small">
-                            Creating a complete history of your restoration for future reference and value protection.
-                        </p>
-                    </div>
-                    
-                    <div class="communication__item">
-                        <div class="communication__icon">🔄</div>
-                        <h3 class="communication__title">Change Order Management</h3>
-                        <p class="communication__description">
-                            As a custom builder, we're always open to modifications.
-                        </p>
-                        <p class="text-small">
-                            We make change orders smooth and cost-effective with clear communication and documentation.
-=======
                 <h2 class="process-phase__title">Phase 1: Discovery & Design</h2>
                 <div class="process-steps-grid">
                     <div class="process-step-card">
@@ -691,7 +635,6 @@
                         <i class="fas fa-search process-step-card__icon"></i>
                         <p class="process-step-card__description">
                             Extensive research and sourcing of authentic parts, reproduction components, and modern upgrades to meet your restoration specifications.
->>>>>>> Stashed changes
                         </p>
                     </div>
                 </div>
@@ -701,30 +644,6 @@
         <!-- Phase 2: Fabrication -->
         <section id="fabrication" class="process-phase">
             <div class="container">
-<<<<<<< Updated upstream
-                <h2 class="section__title">QUALITY ASSURANCE</h2>
-                
-                <div class="quality__content">
-                    <div class="content-section">
-                        <p class="text-large">
-                            Quality control is built into every step of our process.
-                        </p>
-                        <p class="quality__text">
-                            From initial planning through final delivery, we maintain strict standards that ensure your 
-                            classic car not only meets but exceeds your expectations.
-                        </p>
-                    </div>
-
-                    <div class="text-divider"></div>
-
-                    <div class="content-section">
-                        <p class="text-emphasis">Experienced Craftsmanship</p>
-                        <p class="quality__text">
-                            All restoration services performed on your classic vehicle are carried out by experienced craftsmen.
-                        </p>
-                        <p class="text-small">
-                            In accordance with Brandon's exacting requirements regarding quality and the genuine character of components.
-=======
                 <h2 class="process-phase__title">Phase 2: Fabrication</h2>
                 <div class="process-steps-grid">
                     <div class="process-step-card">
@@ -768,7 +687,6 @@
                         <i class="fas fa-car process-step-card__icon"></i>
                         <p class="process-step-card__description">
                             Preparation and modification of suspension components and chassis for improved handling, safety, and performance characteristics.
->>>>>>> Stashed changes
                         </p>
                     </div>
                 </div>
@@ -1024,32 +942,12 @@
         <!-- Call to Action -->
         <section class="process-cta">
             <div class="container">
-<<<<<<< Updated upstream
-                <div class="cta__content">
-                    <h2 class="section__title">READY TO START YOUR BUILD?</h2>
-                    
-                    <div class="content-section">
-                        <p class="text-large">
-                            Now that you understand our process, let's discuss your classic car restoration project.
-                        </p>
-                        <p class="cta__text">
-                            We'll work with you every step of the way to bring your vision to life.
-                        </p>
-                    </div>
-                    
-                    <div class="cta__buttons">
-                        <a href="contact.html" class="btn btn--primary btn--large">Start Your Project</a>
-                        <a href="builds.html" class="btn btn--secondary btn--large">View Our Work</a>
-                    </div>
-                </div>
-=======
                 <h2 class="process-cta__title">Ready to Start Your Build?</h2>
                 <p class="process-cta__text">
                     Experience the BST Classics difference with our proven 25-step process. 
                     Let's bring your classic car vision to life with precision, passion, and uncompromising quality.
                 </p>
                 <a href="contact.html" class="process-cta__button">Book a Consultation</a>
->>>>>>> Stashed changes
             </div>
         </section>
     </main>
@@ -1178,6 +1076,65 @@
             // Initialize on load
             updateActiveNavLink();
             
+            // Arrow Navigation Functionality
+            const scrollLeftBtn = document.getElementById('scrollLeft');
+            const scrollRightBtn = document.getElementById('scrollRight');
+            
+            function updateArrowStates() {
+                if (processNavContainer) {
+                    const scrollLeft = processNavContainer.scrollLeft;
+                    const scrollWidth = processNavContainer.scrollWidth;
+                    const clientWidth = processNavContainer.clientWidth;
+                    
+                    // Disable left arrow if at the beginning
+                    scrollLeftBtn.disabled = scrollLeft <= 0;
+                    
+                    // Disable right arrow if at the end
+                    scrollRightBtn.disabled = scrollLeft >= scrollWidth - clientWidth - 1;
+                }
+            }
+            
+            function scrollNavigation(direction) {
+                if (processNavContainer) {
+                    const scrollAmount = 200; // Adjust scroll distance as needed
+                    const currentScroll = processNavContainer.scrollLeft;
+                    const targetScroll = direction === 'left' 
+                        ? currentScroll - scrollAmount 
+                        : currentScroll + scrollAmount;
+                    
+                    processNavContainer.scrollTo({
+                        left: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Arrow button event listeners
+            if (scrollLeftBtn) {
+                scrollLeftBtn.addEventListener('click', () => {
+                    scrollNavigation('left');
+                });
+            }
+            
+            if (scrollRightBtn) {
+                scrollRightBtn.addEventListener('click', () => {
+                    scrollNavigation('right');
+                });
+            }
+            
+            // Update arrow states on scroll
+            if (processNavContainer) {
+                processNavContainer.addEventListener('scroll', updateArrowStates);
+                
+                // Initial arrow state update
+                updateArrowStates();
+                
+                // Update arrow states on window resize
+                window.addEventListener('resize', () => {
+                    setTimeout(updateArrowStates, 100);
+                });
+            }
+            
             // Touch scrolling improvements for mobile
             if (processNavContainer) {
                 let isScrolling = false;
@@ -1188,6 +1145,7 @@
                 processNavContainer.addEventListener('touchend', () => {
                     setTimeout(() => {
                         isScrolling = false;
+                        updateArrowStates(); // Update arrow states after touch scroll
                     }, 100);
                 });
             }
