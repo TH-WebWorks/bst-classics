@@ -948,8 +948,15 @@ button {
 }
 
 .social__icon {
-  font-size: var(--text-sm);
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #ddd;
+  transition: all 0.3s ease;
+}
+
+.social__link:hover .social__icon {
+  color: #c41e3a;
+  transform: scale(1.1);
 }
 
 .footer__bottom {
