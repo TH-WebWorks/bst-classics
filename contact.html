@@ -15,442 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    
-    <style>
-        /* Contact Page Enhanced Design */
-        .contact-hero {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            padding: 8rem 0 6rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(196, 30, 58, 0.1) 0%, rgba(221, 0, 0, 0.05) 100%);
-            z-index: 1;
-        }
-        
-        .contact-hero__content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .contact-hero__title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            line-height: 1.1;
-        }
-        
-        .contact-hero__subtitle {
-            font-size: 1.25rem;
-            color: #ddd;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-        
-        .contact-hero__highlight {
-            background: linear-gradient(135deg, #c41e3a 0%, #dd0000 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 0;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 2rem;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-        }
-        
-        .contact-info-section {
-            padding: 0 2rem;
-        }
-        
-        .contact-info-section__title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .contact-info-section__description {
-            font-size: 1.1rem;
-            color: #bbb;
-            line-height: 1.7;
-            margin-bottom: 3rem;
-        }
-        
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-        
-        .contact-method {
-            background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
-            border: 1px solid #333;
-            padding: 2rem;
-            border-radius: 0;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-method::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(135deg, #c41e3a 0%, #dd0000 100%);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .contact-method:hover {
-            transform: translateY(-5px);
-            border-color: #c41e3a;
-            box-shadow: 0 15px 40px rgba(196, 30, 58, 0.2);
-        }
-        
-        .contact-method:hover::before {
-            transform: scaleY(1);
-        }
-        
-        .contact-method__header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .contact-method__icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #c41e3a 0%, #dd0000 100%);
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-        }
-        
-        .contact-method__title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .contact-method__content {
-            margin-left: 3.5rem;
-        }
-        
-        .contact-method__text {
-            font-size: 1.1rem;
-            color: #ddd;
-            margin-bottom: 0.5rem;
-        }
-        
-        .contact-method__link {
-            color: #c41e3a;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-        
-        .contact-method__link:hover {
-            color: #dd0000;
-        }
-        
-        .contact-method__note {
-            font-size: 0.9rem;
-            color: #999;
-            font-style: italic;
-            margin-top: 0.5rem;
-        }
-        
-        .form-section {
-            padding: 0 2rem;
-        }
-        
-        .form-section__title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .form-section__description {
-            font-size: 1.1rem;
-            color: #bbb;
-            line-height: 1.7;
-            margin-bottom: 3rem;
-        }
-        
-        .contact-form {
-            background: linear-gradient(145deg, #1a1a1a 0%, #111 100%);
-            border: 1px solid #333;
-            padding: 3rem;
-            border-radius: 0;
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .form-group {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 1.2rem 1rem;
-            background: #0a0a0a;
-            border: 2px solid #333;
-            border-radius: 0;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: #c41e3a;
-            background: #111;
-        }
-        
-        .form-input::placeholder {
-            color: #666;
-        }
-        
-        .form-select {
-            width: 100%;
-            padding: 1.2rem 1rem;
-            background: #0a0a0a;
-            border: 2px solid #333;
-            border-radius: 0;
-            color: #fff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            cursor: pointer;
-        }
-        
-        .form-select:focus {
-            outline: none;
-            border-color: #c41e3a;
-            background: #111;
-        }
-        
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .form-label {
-            position: absolute;
-            top: 1.2rem;
-            left: 1rem;
-            color: #999;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-        
-        .form-input:focus + .form-label,
-        .form-input:not(:placeholder-shown) + .form-label {
-            top: 0.5rem;
-            font-size: 0.8rem;
-            color: #c41e3a;
-        }
-        
-        .form-select:focus + .form-label,
-        .form-select:not([value=""]) + .form-label {
-            top: 0.5rem;
-            font-size: 0.8rem;
-            color: #c41e3a;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(135deg, #c41e3a 0%, #dd0000 100%);
-            color: white;
-            border: none;
-            padding: 1.2rem 3rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.3);
-        }
-        
-        .cta-section {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            padding: 6rem 0;
-            text-align: center;
-        }
-        
-        .cta-section__content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .cta-section__title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .cta-section__description {
-            font-size: 1.2rem;
-            color: #ddd;
-            line-height: 1.7;
-            margin-bottom: 3rem;
-        }
-        
-        .cta-buttons {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .cta-btn {
-            background: linear-gradient(135deg, #c41e3a 0%, #dd0000 100%);
-            color: white;
-            text-decoration: none;
-            padding: 1.2rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 0;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-        
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(196, 30, 58, 0.3);
-        }
-        
-        .cta-btn--secondary {
-            background: transparent;
-            border: 2px solid #c41e3a;
-            color: #c41e3a;
-        }
-        
-        .cta-btn--secondary:hover {
-            background: #c41e3a;
-            color: white;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .contact-hero__title {
-                font-size: 2.5rem;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-                padding: 4rem 0;
-            }
-            
-            .contact-info-section,
-            .form-section {
-                padding: 0 1rem;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .contact-form {
-                padding: 2rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .cta-btn {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .contact-hero__title {
-                font-size: 2rem;
-            }
-            
-            .contact-hero__subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .contact-method {
-                padding: 1.5rem;
-            }
-            
-            .contact-method__header {
-                flex-direction: column;
-                text-align: center;
-                gap: 0.5rem;
-            }
-            
-            .contact-method__content {
-                margin-left: 0;
-                text-align: center;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Header/Navigation -->
@@ -499,7 +63,7 @@
         <!-- Hero Section -->
         <section class="contact-hero">
             <div class="contact-hero__image">
-                <img src="images/heros/firebird-hero.webp" alt="Contact BST Classics" class="contact-hero__bg">
+                <img src="images/heros/contact-hero.svg" alt="Contact BST Classics" class="contact-hero__bg">
             </div>
             <div class="contact-hero__content">
                 <h1 class="contact-hero__title">LET'S TALK ABOUT YOUR CLASSIC</h1>
@@ -510,191 +74,121 @@
             </div>
         </section>
 
-        <!-- Contact Grid -->
-        <section class="contact-grid">
-            <div class="contact-info-section">
-                <h2 class="contact-info-section__title">GET IN TOUCH</h2>
-                <p class="contact-info-section__description">
-                    We're here to answer your questions and help plan your restoration project. 
-                    Reach out through any of these methods.
-                </p>
-                
-                <div class="contact-methods">
-                    <div class="contact-method">
-                        <div class="contact-method__header">
-                            <div class="contact-method__icon">
-                                <i class="fas fa-phone"></i>
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-layout">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <h2 class="contact-info__title">GET IN TOUCH</h2>
+                        <p class="contact-info__description">
+                            We're here to answer your questions and help plan your restoration project. 
+                            Reach out through any of these methods.
+                        </p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-method__icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-method__content">
+                                    <h3 class="contact-method__title">Call Us</h3>
+                                    <p class="contact-method__text">Speak directly with Brandon</p>
+                                    <a href="tel:5154461215" class="contact-method__link">(515) 446-1215</a>
+                                    <p class="contact-method__note">Available during business hours</p>
+                                </div>
                             </div>
-                            <h3 class="contact-method__title">Call Us</h3>
-                        </div>
-                        <div class="contact-method__content">
-                            <p class="contact-method__text">Speak directly with Brandon</p>
-                            <a href="tel:5154461215" class="contact-method__link">(515) 446-1215</a>
-                            <p class="contact-method__note">Available during business hours</p>
+                            
+                            <div class="contact-method">
+                                <div class="contact-method__icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-method__content">
+                                    <h3 class="contact-method__title">Business Hours</h3>
+                                    <p class="contact-method__text">Monday – Friday: 8AM to 5PM</p>
+                                    <p class="contact-method__text">Saturday – Sunday: Closed</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-method__icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-method__content">
+                                    <h3 class="contact-method__title">Send Message</h3>
+                                    <p class="contact-method__text">Get a detailed quote</p>
+                                    <p class="contact-method__note">We'll respond within 24 hours</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="contact-method">
-                        <div class="contact-method__header">
-                            <div class="contact-method__icon">
-                                <i class="fas fa-clock"></i>
+                    <!-- Contact Form -->
+                    <div class="contact-form-wrapper">
+                        <h2 class="contact-form__title">SEND A MESSAGE</h2>
+                        <p class="contact-form__description">
+                            Tell us about your project and we'll get back to you with a detailed response.
+                        </p>
+                        
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="form-input" id="name" name="name" placeholder=" " required>
+                                    <label for="name" class="form-label">Name *</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="tel" class="form-input" id="phone" name="phone" placeholder=" " required>
+                                    <label for="phone" class="form-label">Phone *</label>
+                                </div>
                             </div>
-                            <h3 class="contact-method__title">Business Hours</h3>
-                        </div>
-                        <div class="contact-method__content">
-                            <p class="contact-method__text">Monday – Friday: 8AM to 5PM</p>
-                            <p class="contact-method__text">Saturday – Sunday: Closed</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-method">
-                        <div class="contact-method__header">
-                            <div class="contact-method__icon">
-                                <i class="fas fa-envelope"></i>
+                            
+                            <div class="form-group">
+                                <input type="email" class="form-input" id="email" name="email" placeholder=" " required>
+                                <label for="email" class="form-label">Email *</label>
                             </div>
-                            <h3 class="contact-method__title">Send Message</h3>
-                        </div>
-                        <div class="contact-method__content">
-                            <p class="contact-method__text">Get a detailed quote</p>
-                            <p class="contact-method__note">We'll respond within 24 hours</p>
-                        </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="form-input" id="vehicle-year" name="vehicle-year" placeholder=" ">
+                                    <label for="vehicle-year" class="form-label">Vehicle Year</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="text" class="form-input" id="vehicle-make" name="vehicle-make" placeholder=" ">
+                                    <label for="vehicle-make" class="form-label">Vehicle Make</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" class="form-input" id="vehicle-model" name="vehicle-model" placeholder=" ">
+                                <label for="vehicle-model" class="form-label">Vehicle Model</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-select" id="project-type" name="project-type" required>
+                                    <option value="">Select Project Type *</option>
+                                    <option value="complete-restoration">Complete Restoration</option>
+                                    <option value="paint-body">Paint & Body Work</option>
+                                    <option value="engine-performance">Engine & Performance</option>
+                                    <option value="custom-upholstery">Custom Upholstery</option>
+                                    <option value="maintenance">Maintenance & Repair</option>
+                                    <option value="other">Other / Custom Build</option>
+                                </select>
+                                <label for="project-type" class="form-label">Project Type *</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea class="form-input form-textarea" id="message" name="message" placeholder=" " required></textarea>
+                                <label for="message" class="form-label">Project Details & Goals *</label>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-envelope"></i> Send Message
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </div>
-            
-            <div class="form-section">
-                <h2 class="form-section__title">SEND A MESSAGE</h2>
-                <p class="form-section__description">
-                    Tell us about your project and we'll get back to you with a detailed response.
-                </p>
-                
-                <form class="contact-form" id="contact-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="name" name="name" placeholder=" " required>
-                            <label for="name" class="form-label">Name *</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="tel" class="form-input" id="phone" name="phone" placeholder=" " required>
-                            <label for="phone" class="form-label">Phone *</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="email" class="form-input" id="email" name="email" placeholder=" " required>
-                        <label for="email" class="form-label">Email *</label>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="address" name="address" placeholder=" ">
-                            <label for="address" class="form-label">Address</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="city" name="city" placeholder=" ">
-                            <label for="city" class="form-label">City</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="state" name="state" placeholder=" ">
-                            <label for="state" class="form-label">State</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="zip" name="zip" placeholder=" ">
-                            <label for="zip" class="form-label">ZIP Code</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <select class="form-select" id="project-type" name="project-type" required>
-                            <option value="">Select Project Type *</option>
-                            <option value="complete-restoration">Complete Restoration</option>
-                            <option value="paint-body">Paint & Body Work</option>
-                            <option value="engine-performance">Engine & Performance</option>
-                            <option value="custom-upholstery">Custom Upholstery</option>
-                            <option value="maintenance">Maintenance & Repair</option>
-                            <option value="other">Other / Custom Build</option>
-                        </select>
-                        <label for="project-type" class="form-label">Project Type *</label>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="vehicle-year" name="vehicle-year" placeholder=" ">
-                            <label for="vehicle-year" class="form-label">Vehicle Year</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" class="form-input" id="vehicle-make" name="vehicle-make" placeholder=" ">
-                            <label for="vehicle-make" class="form-label">Vehicle Make</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="text" class="form-input" id="vehicle-model" name="vehicle-model" placeholder=" ">
-                        <label for="vehicle-model" class="form-label">Vehicle Model</label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="text" class="form-input" id="vehicle-info" name="vehicle-info" placeholder=" ">
-                        <label for="vehicle-info" class="form-label">Additional Vehicle Details (Engine, Color, etc.)</label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <textarea class="form-input form-textarea" id="message" name="message" placeholder=" " required></textarea>
-                        <label for="message" class="form-label">Project Details & Goals *</label>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <select class="form-select" id="timeline" name="timeline">
-                                <option value="">Desired Timeline (Optional)</option>
-                                <option value="asap">As Soon As Possible</option>
-                                <option value="3-6-months">3-6 Months</option>
-                                <option value="6-12-months">6-12 Months</option>
-                                <option value="1-2-years">1-2 Years</option>
-                                <option value="flexible">Flexible</option>
-                            </select>
-                            <label for="timeline" class="form-label">Timeline</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <select class="form-select" id="budget-range" name="budget-range">
-                                <option value="">Budget Range (Optional)</option>
-                                <option value="under-10k">Under $10,000</option>
-                                <option value="10k-25k">$10,000 - $25,000</option>
-                                <option value="25k-50k">$25,000 - $50,000</option>
-                                <option value="50k-100k">$50,000 - $100,000</option>
-                                <option value="over-100k">Over $100,000</option>
-                                <option value="discuss">Let's Discuss</option>
-                            </select>
-                            <label for="budget-range" class="form-label">Budget Range</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <select class="form-select" id="how-heard" name="how-heard">
-                            <option value="">How did you hear about us? (Optional)</option>
-                            <option value="google">Google Search</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="instagram">Instagram</option>
-                            <option value="youtube">YouTube</option>
-                            <option value="referral">Referral</option>
-                            <option value="car-show">Car Show</option>
-                            <option value="other">Other</option>
-                        </select>
-                        <label for="how-heard" class="form-label">How did you hear about us?</label>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-envelope"></i> Send Message
-                    </button>
-                </form>
             </div>
         </section>
 
