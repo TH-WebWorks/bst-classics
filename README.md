@@ -49,6 +49,7 @@ BST Classic Rod & Custom's professional website showcases premium automotive res
 - **SEO Optimized** - Complete meta tags, structured data, and social sharing
 - **Accessibility Ready** - WCAG compliant with proper ARIA labels
 - **GitHub Pages Ready** - Zero-config deployment and hosting
+- **EmailJS Integration** - Professional contact form with email notifications
 
 ### 📊 **Dynamic Project Management**
 - **JSON-Based Projects** - Easy content management without code changes
@@ -80,7 +81,12 @@ bst-classics/
 │   └── builds.js           # Portfolio page functionality
 ├── 📊 Data Management
 │   ├── projects.json       # Project database
-│   └── ADDING_PROJECTS.md  # Project management guide
+│   ├── ADDING_PROJECTS.md  # Project management guide
+│   └── EMAILJS_SETUP.md    # Email integration setup guide
+├── 📧 Email Templates
+│   ├── bst-contact-form.html      # Professional HTML email for business (11KB)
+│   ├── customer-confirmation.html # Auto-reply email for customers (15KB)
+│   └── simple-templates.txt       # Text-only templates for easier setup (3.4KB)
 ├── 🖼️ Assets
 │   ├── images/
 │   │   ├── builds/         # Project photos by folder
@@ -125,6 +131,7 @@ bst-classics/
    - Edit HTML files for content changes
    - Modify `styles.css` for design updates
    - Update `projects.json` for new portfolio items
+   - Configure EmailJS for contact form (see `EMAILJS_SETUP.md`)
    - Test across different devices and browsers
 
 ### 🔄 File Watching (Optional)
@@ -308,8 +315,11 @@ openProjectModal() → Professional project showcase
 // Mobile navigation
 Touch events → Smooth menu interactions
 
-// Form validation
-Real-time feedback → Better user experience
+// EmailJS contact form
+emailjs.send() → Direct email delivery without server
+
+// Form validation & feedback
+Real-time validation → Success/error messaging
 ```
 
 ### 🎨 **CSS Architecture**
@@ -380,6 +390,7 @@ Found a bug or have a suggestion? Please:
 
 ### 📖 **Documentation**
 - **Project Management**: See `ADDING_PROJECTS.md`
+- **Email Setup**: See `EMAILJS_SETUP.md`
 - **Technical Questions**: Check code comments
 - **Business Inquiries**: Contact BST Classics directly
 

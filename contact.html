@@ -287,6 +287,111 @@
         </div>
     </footer>
 
+    <!-- EmailJS Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        /*
+        ===== EMAILJS CONTACT FORM =====
+        This form sends emails directly from the website without a server.
+        SETUP REQUIRED: See EMAILJS_SETUP.md for complete setup instructions.
+        
+        You need to replace:
+        1. YOUR_PUBLIC_KEY (from EmailJS Account settings)
+        2. YOUR_SERVICE_ID (from EmailJS Services)  
+        3. YOUR_TEMPLATE_ID (from EmailJS Templates)
+        */
+        
+        // Initialize EmailJS
+        // SETUP REQUIRED: See EMAILJS_SETUP.md for complete instructions
+        (function() {
+            emailjs.init("YxvfLTO9e1UsK4YwH"); // Replace with your actual public key from EmailJS dashboard
+        })();
+        
+        // Contact form handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+                
+                // Get form data
+                const formData = new FormData(contactForm);
+                const templateParams = {
+                    from_name: formData.get('name'),
+                    from_email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    vehicle_year: formData.get('vehicle-year'),
+                    vehicle_make: formData.get('vehicle-make'),
+                    vehicle_model: formData.get('vehicle-model'),
+                    project_type: formData.get('project-type'),
+                    message: formData.get('message'),
+                    to_name: 'BST Classic Rod & Custom'
+                };
+                
+                // Validate EmailJS is configured
+                if (emailjs && 
+                    templateParams.from_name && 
+                    templateParams.from_email && 
+                    templateParams.message) {
+                    
+                    // Send email using EmailJS
+                    // REPLACE: Get these IDs from your EmailJS dashboard
+                    emailjs.send('service_y03xglr', 'template_w0vffia', templateParams)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        showFormMessage('success', 'Message sent successfully! We\'ll get back to you within 24 hours.');
+                        contactForm.reset();
+                    })
+                    .catch(function(error) {
+                        console.log('FAILED...', error);
+                        showFormMessage('error', 'Failed to send message. Please try again or call us directly at (515) 446-1215.');
+                    })
+                    .finally(function() {
+                        // Reset button
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                    });
+                } else {
+                    // EmailJS not configured or missing required fields
+                    showFormMessage('error', 'Form configuration error. Please contact us directly at (515) 446-1215.');
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+            
+            function showFormMessage(type, message) {
+                // Remove existing message
+                const existingMessage = document.querySelector('.form-message');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+                
+                // Create new message
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `form-message form-message--${type}`;
+                messageDiv.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                    <span>${message}</span>
+                `;
+                
+                // Insert after form
+                contactForm.parentNode.insertBefore(messageDiv, contactForm.nextSibling);
+                
+                // Auto-remove after 10 seconds
+                setTimeout(() => {
+                    if (messageDiv && messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
+                }, 10000);
+            }
+        });
+    </script>
 </body>
 </html> 

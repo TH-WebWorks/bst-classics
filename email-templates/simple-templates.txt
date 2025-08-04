@@ -1,0 +1,94 @@
+# BST Classics - Simple Email Templates
+
+## Template 1: Contact Form Notification (for BST)
+### Template Name: bst_contact_form
+### Template ID: bst_contact_form
+
+Subject: 🚗 New Project Inquiry - {{project_type}}
+
+Hello BST Classics,
+
+You have received a new project inquiry through your website:
+
+CUSTOMER INFORMATION:
+══════════════════════════════════════
+Name: {{from_name}}
+Email: {{from_email}}
+Phone: {{phone}}
+
+VEHICLE DETAILS:
+══════════════════════════════════════
+Year: {{vehicle_year}}
+Make: {{vehicle_make}}
+Model: {{vehicle_model}}
+Project Type: {{project_type}}
+
+PROJECT DETAILS & GOALS:
+══════════════════════════════════════
+{{message}}
+
+══════════════════════════════════════
+Sent from BST Classics Website
+Reply to this email to respond directly to the customer.
+
+Action Required:
+• Reply within 24 hours for best customer experience
+• Call {{phone}} if immediate discussion needed
+• Schedule vehicle inspection if applicable
+
+---
+BST Classic Rod & Custom
+Norwalk, Iowa • (515) 446-1215
+Bringing classic cars back to life since 2010
+
+
+## Template 2: Customer Confirmation (auto-reply)
+### Template Name: customer_confirmation
+### Template ID: customer_confirmation
+
+Subject: Thank you for contacting BST Classics! We've received your {{project_type}} inquiry
+
+Hi {{from_name}},
+
+Thank you for your interest in BST Classic Rod & Custom! We've received your inquiry about your {{vehicle_year}} {{vehicle_make}} {{vehicle_model}} and we're excited to help bring your vision to life.
+
+Your Project Type: {{project_type}}
+
+WHAT HAPPENS NEXT:
+══════════════════════════════════════
+1. PROJECT REVIEW (Next Few Hours)
+   We'll carefully review your project details and requirements.
+
+2. PERSONAL RESPONSE (Within 24 Hours)
+   Brandon will personally respond with an initial assessment and next steps.
+
+3. PROJECT PLANNING
+   We'll discuss timeline, budget, and schedule a time to see your vehicle if needed.
+
+HAVE IMMEDIATE QUESTIONS?
+══════════════════════════════════════
+Don't want to wait? Brandon is available during business hours and loves talking about classic cars!
+
+📞 Call: (515) 446-1215
+⏰ Hours: Monday-Friday, 8AM-5PM
+📍 Location: Norwalk, Iowa (Visits by appointment only)
+
+WHY CHOOSE BST CLASSICS?
+══════════════════════════════════════
+✨ Since 2010 - Over a decade of experience
+🔧 Expert Craftsmanship - Meticulous attention to detail
+📍 Local Service - Serving Des Moines metro & Central Iowa
+📋 Complete Documentation - Detailed records & progress photos
+
+We're excited to help bring your classic car vision to life!
+
+Best regards,
+Brandon Tjaden
+BST Classic Rod & Custom
+
+---
+BST Classic Rod & Custom
+Norwalk, Iowa • (515) 446-1215
+Bringing classic cars back to life since 2010
+
+This is an automated confirmation. We'll respond personally within 24 hours. 
