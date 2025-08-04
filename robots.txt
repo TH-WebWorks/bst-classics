@@ -1,15 +1,35 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# Important pages for crawling
+Allow: /index.html
+Allow: /contact.html
+Allow: /restoration.html
+Allow: /builds.html
+Allow: /process.html
+Allow: /about.html
+
+# Sitemap location
 Sitemap: https://bstclassics.com/sitemap.xml
 
-# Crawl delay (optional)
+# Crawl delay for respectful crawling
 Crawl-delay: 1
 
-# Disallow certain file types
+# Disallow certain file types and directories
 Disallow: *.js$
 Disallow: *.css$
 Disallow: *.json$
+Disallow: /images/_dev/
+Disallow: /*.pdf$
+Disallow: /admin/
+Disallow: /private/
 
-# Allow access to all content for BST Classics website 
+# Allow important images for SEO
+Allow: /images/bst-logo.webp
+Allow: /images/heros/
+Allow: /images/profiles/
+Allow: /favicon.png
+
+# BST Classic Rod & Custom - Professional Classic Car Restoration
+# Norwalk, Iowa | Serving Des Moines Metro Area
+# Phone: (515) 446-1215 

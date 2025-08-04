@@ -1378,6 +1378,7 @@ button {
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 991px) {
+  /* Improved Mobile Navigation */
   .nav__menu {
     position: fixed;
     top: 80px;
@@ -1388,8 +1389,9 @@ button {
     border-top: 1px solid var(--border-light);
     transition: var(--transition);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    padding-top: var(--space-5xl);
   }
 
   .nav__menu.show-menu {
@@ -1398,16 +1400,37 @@ button {
 
   .nav__list {
     flex-direction: column;
-    gap: var(--space-xl);
+    gap: var(--space-2xl);
+    text-align: center;
+  }
+
+  .nav__link {
+    font-size: var(--text-lg);
+    padding: var(--space-lg);
+    display: block;
   }
 
   .nav__toggle {
     display: flex;
+    padding: var(--space-lg);
   }
 
+  /* Better touch targets */
+  .nav__toggle span {
+    width: 28px;
+    height: 3px;
+  }
+
+  /* Mobile-optimized sections */
   .hero__buttons {
     flex-direction: column;
     align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .hero__buttons .btn {
+    min-width: 250px;
+    padding: var(--space-xl) var(--space-2xl);
   }
 
   .certificate__content,
@@ -1416,9 +1439,15 @@ button {
     gap: var(--space-2xl);
   }
 
+  .why-choose__content {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
   .why-choose__feature-content {
     flex-direction: column;
     text-align: center;
+    gap: var(--space-lg);
   }
 
   .why-choose__features-grid {
@@ -1432,22 +1461,41 @@ button {
   .cta__buttons {
     flex-direction: column;
     align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .cta__buttons .btn {
+    min-width: 280px;
   }
 
   .footer__main {
     grid-template-columns: 1fr;
     text-align: center;
   }
+
+  /* Improved social links for touch */
+  .social__links {
+    justify-content: center;
+    gap: var(--space-xl);
+  }
+
+  .social__link {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 @media (max-width: 767px) {
+  /* Better typography scaling for mobile */
   .hero__title,
   .page-hero__title,
   .builds-hero__title,
   .contact-hero__title,
   .process-hero__title,
   .social-hero__title {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 6vw, 2.5rem);
+    line-height: 1.2;
+    margin-bottom: var(--space-xl);
   }
 
   .hero__subtitle,
@@ -1456,48 +1504,114 @@ button {
   .contact-hero__subtitle,
   .process-hero__subtitle,
   .social-hero__subtitle {
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    line-height: 1.5;
   }
 
   .hero__description {
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    margin-bottom: var(--space-2xl);
   }
 
+  /* Improved mobile spacing */
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .container {
+    padding: 0 var(--space-lg);
+  }
+
+  /* Better mobile cards */
   .certificate__badge,
   .why-choose__feature--secondary {
-    padding: var(--space-xl);
+    padding: var(--space-lg);
   }
 
   .why-choose__stats {
     grid-template-columns: 1fr;
+    gap: var(--space-lg);
   }
 
   .featured-project__specs {
     grid-template-columns: 1fr;
+    gap: var(--space-md);
   }
 
+  /* Mobile-optimized footer */
   .footer__bottom {
     flex-direction: column;
     text-align: center;
+    gap: var(--space-lg);
+  }
+
+  /* Better mobile buttons */
+  .btn {
+    padding: var(--space-lg) var(--space-xl);
+    font-size: var(--text-base);
+    min-height: 48px; /* Better touch target */
+  }
+
+  .btn--large {
+    padding: var(--space-xl) var(--space-2xl);
+    min-height: 56px;
+  }
+
+  /* Mobile navigation improvements */
+  .nav__logo-img {
+    height: 40px;
+  }
+
+  .header {
+    padding: 0;
+  }
+
+  .nav {
+    height: 70px;
+    padding: 0 var(--space-lg);
+  }
+
+  /* Improved mobile forms */
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: var(--space-lg);
+    font-size: var(--text-base);
+    min-height: 48px;
+  }
+
+  .form-textarea {
+    min-height: 120px;
   }
 }
 
 @media (max-width: 480px) {
+  /* Extra small mobile optimizations */
   .container {
     padding: 0 var(--space-md);
   }
 
-  .hero__buttons .btn {
+  /* Full-width mobile buttons */
+  .hero__buttons .btn,
+  .cta__buttons .btn {
     width: 100%;
     justify-content: center;
+    min-height: 52px;
   }
 
+  /* Smaller section titles for very small screens */
   .section__title {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Optimized hero heights for small screens */
+  .hero {
+    min-height: 85vh; /* Slightly reduce main hero */
   }
 
   .page-hero {
-    min-height: 40vh;
+    min-height: 35vh;
   }
 
   .builds-hero {
@@ -1509,11 +1623,147 @@ button {
   }
 
   .process-hero {
-    min-height: 50vh;
+    min-height: 40vh;
   }
 
   .social-hero {
-    min-height: 60vh;
+    min-height: 50vh;
+  }
+
+  /* Better mobile spacing */
+  .section {
+    padding: var(--space-xl) 0;
+  }
+
+  /* Improved mobile cards and features */
+  .why-choose__feature,
+  .stat-card,
+  .service-overview__card {
+    padding: var(--space-lg);
+  }
+
+  .why-choose__feature-icon,
+  .value-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  /* Mobile navigation adjustments */
+  .nav {
+    height: 60px;
+  }
+
+  .nav__logo-img {
+    height: 35px;
+  }
+
+  .nav__menu {
+    top: 60px;
+    height: calc(100vh - 60px);
+  }
+
+  /* Mobile-friendly grid layouts */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .stats-grid,
+  .values-grid,
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  /* Better mobile forms */
+  .contact-form-wrapper {
+    padding: var(--space-lg);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  /* Mobile modal improvements */
+  .modal-container {
+    width: 95%;
+    margin: var(--space-md);
+  }
+
+  .modal-header,
+  .modal-content,
+  .modal-footer {
+    padding: var(--space-lg);
+  }
+
+  /* Touch-friendly scroll to top button */
+  .scroll-to-top {
+    width: 60px !important;
+    height: 60px !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    font-size: 1.8rem !important;
+  }
+
+  /* Improve mobile performance */
+  .hero__bg,
+  .page-hero__bg,
+  .builds-hero__bg,
+  .contact-hero__bg,
+  .restoration-hero__bg,
+  .process-hero__bg {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Better mobile input handling */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    font-size: 16px; /* Prevent zoom on iOS */
+    border-radius: 0; /* Prevent rounded corners on iOS */
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Optimize mobile images */
+  img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
+}
+
+/* ===== MOBILE LANDSCAPE OPTIMIZATIONS ===== */
+@media (max-width: 991px) and (orientation: landscape) {
+  .hero,
+  .page-hero,
+  .builds-hero,
+  .contact-hero,
+  .restoration-hero,
+  .process-hero {
+    min-height: 70vh;
+  }
+
+  .nav__menu {
+    padding-top: var(--space-2xl);
+  }
+
+  .nav__list {
+    gap: var(--space-lg);
+  }
+
+  .section {
+    padding: var(--space-xl) 0;
   }
 }
 
@@ -1555,6 +1805,120 @@ button {
 .stat-card,
 .service-overview__card {
   animation: fadeInUp 0.8s ease-out;
+}
+
+/* ===== MOBILE-SPECIFIC OPTIMIZATIONS ===== */
+/* Improve touch scrolling on iOS */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Better tap highlights for mobile */
+* {
+  -webkit-tap-highlight-color: rgba(221, 0, 0, 0.2);
+  -webkit-touch-callout: none;
+}
+
+/* Prevent horizontal scroll on mobile */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Handle safe areas for notched devices */
+@supports (padding: max(0px)) {
+  .header {
+    padding-left: max(var(--space-lg), env(safe-area-inset-left));
+    padding-right: max(var(--space-lg), env(safe-area-inset-right));
+  }
+  
+  .nav {
+    padding-left: max(var(--space-lg), env(safe-area-inset-left));
+    padding-right: max(var(--space-lg), env(safe-area-inset-right));
+  }
+  
+  .container {
+    padding-left: max(var(--space-lg), env(safe-area-inset-left));
+    padding-right: max(var(--space-lg), env(safe-area-inset-right));
+  }
+}
+
+/* Optimize text selection on mobile */
+@media (max-width: 991px) {
+  ::selection {
+    background: rgba(221, 0, 0, 0.2);
+    color: var(--text-dark);
+  }
+  
+  ::-moz-selection {
+    background: rgba(221, 0, 0, 0.2);
+    color: var(--text-dark);
+  }
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 991px) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Mobile-specific button states */
+@media (max-width: 991px) {
+  .btn:active,
+  .nav__link:active,
+  .social__link:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+/* Better mobile image handling */
+@media (max-width: 767px) {
+  img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .hero__bg,
+  .page-hero__bg,
+  .builds-hero__bg,
+  .contact-hero__bg,
+  .restoration-hero__bg,
+  .process-hero__bg {
+    object-position: center center;
+  }
+}
+
+/* Mobile-friendly sticky elements */
+@media (max-width: 991px) {
+  .process-nav,
+  .builds-nav {
+    position: relative;
+    top: auto;
+    z-index: 50;
+  }
+}
+
+/* Improved mobile tables (if any) */
+@media (max-width: 767px) {
+  table {
+    font-size: var(--text-sm);
+  }
+  
+  th, td {
+    padding: var(--space-sm);
+  }
+}
+
+/* Mobile-specific focus states */
+@media (max-width: 991px) {
+  .btn:focus,
+  .nav__link:focus,
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+  }
 }
 
 /* ===== ACCESSIBILITY ===== */
