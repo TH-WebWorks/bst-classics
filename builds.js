@@ -312,38 +312,48 @@ function openProjectModal(title, type, details, year, duration, story, modalImag
         <div class="modal-container">
             <div class="modal-header">
                 <h2>${title}</h2>
-                <button class="modal-close" onclick="closeProjectModal()">
+                <button class="modal-close" aria-label="Close project details">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
             <div class="modal-content">
-                <div class="modal-image">
-                    <img src="${modalImage}" alt="${title}" class="modal-img">
+                <div class="modal-image-container">
+                    <div class="modal-image">
+                        <img src="${modalImage}" alt="${title} - ${type} by BST Classics" class="modal-img">
+                    </div>
                 </div>
                 
                 <div class="modal-info">
-                    <div class="modal-badges">
-                        <span class="badge badge-type">${type}</span>
-                        <span class="badge badge-year">Completed ${year}</span>
-                        <span class="badge badge-duration">${duration}</span>
+                    <div class="modal-project-header">
+                        <div class="modal-badges">
+                            <span class="badge badge-type">${type}</span>
+                            <span class="badge badge-year">${year}</span>
+                            <span class="badge badge-duration">${duration}</span>
+                        </div>
                     </div>
                     
-                    <div class="modal-section">
-                        <h3>Project Details</h3>
-                        <p>${details}</p>
-                    </div>
-                    
-                    <div class="modal-section">
-                        <h3>Project Story</h3>
-                        <p>${story}</p>
+                    <div class="modal-sections">
+                        <div class="modal-section specifications">
+                            <h3>Specifications</h3>
+                            <p>${details}</p>
+                        </div>
+                        
+                        <div class="modal-section">
+                            <h3>Project Story</h3>
+                            <p>${story}</p>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeProjectModal()">Close</button>
-                <a href="contact.html" class="btn btn-primary">Start Your Project</a>
+                <button class="btn btn--secondary">
+                    <i class="fas fa-times"></i> Close
+                </button>
+                <a href="contact.html" class="btn btn--primary">
+                    <i class="fas fa-envelope"></i> Start Your Project
+                </a>
             </div>
         </div>
     `;
@@ -357,10 +367,33 @@ function openProjectModal(title, type, details, year, duration, story, modalImag
         modal.classList.add('active');
     }, 10);
     
+    // Add event listeners for closing
+    const closeBtn = modal.querySelector('.modal-close');
+    const footerCloseBtn = modal.querySelector('.btn--secondary');
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🖱️ X button clicked');
+            window.closeProjectModal();
+        });
+    }
+    
+    if (footerCloseBtn) {
+        footerCloseBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🖱️ Footer close button clicked');
+            window.closeProjectModal();
+        });
+    }
+    
     // Close on backdrop click
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
-            closeProjectModal();
+            console.log('🖱️ Backdrop clicked');
+            window.closeProjectModal();
         }
     });
     
@@ -368,7 +401,9 @@ function openProjectModal(title, type, details, year, duration, story, modalImag
     document.addEventListener('keydown', handleEscapeKey);
 }
 
-function closeProjectModal() {
+// Make closeProjectModal globally available
+window.closeProjectModal = function() {
+    console.log('🔐 Closing modal...');
     const modal = document.getElementById('project-modal');
     if (modal) {
         modal.classList.remove('active');
@@ -378,13 +413,17 @@ function closeProjectModal() {
             modal.remove();
             document.body.classList.remove('modal-open');
             document.removeEventListener('keydown', handleEscapeKey);
+            console.log('✅ Modal closed successfully');
         }, 300);
+    } else {
+        console.error('❌ Modal not found');
     }
-}
+};
 
 function handleEscapeKey(e) {
     if (e.key === 'Escape') {
-        closeProjectModal();
+        console.log('⌨️ Escape key pressed');
+        window.closeProjectModal();
     }
 }
 
