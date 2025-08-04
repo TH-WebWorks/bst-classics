@@ -682,158 +682,8 @@ function initTestimonials() {
 document.addEventListener('DOMContentLoaded', initTestimonials);
 
 // ===== SIMPLE PORTFOLIO FUNCTIONALITY =====
-
-// Run immediately when script loads - no event listeners needed
-setTimeout(function() {
-    console.log('Setting up portfolio functionality...');
-    
-    // 1. FILTER FUNCTIONALITY
-    const filterButtons = document.querySelectorAll('.filter-tab');
-    const portfolioItems = document.querySelectorAll('.builds-item');
-    
-    console.log('Found', filterButtons.length, 'filter buttons and', portfolioItems.length, 'portfolio items');
-    
-    if (filterButtons.length > 0 && portfolioItems.length > 0) {
-        filterButtons.forEach(function(button) {
-            button.onclick = function() {
-                console.log('Filter clicked:', this.textContent);
-                
-                const filterValue = this.getAttribute('data-filter');
-                
-                // Remove active class from all buttons
-                filterButtons.forEach(function(btn) {
-                    btn.classList.remove('active');
-                });
-                
-                // Add active class to clicked button
-                this.classList.add('active');
-                
-                // Filter items
-                portfolioItems.forEach(function(item) {
-                    const categories = item.getAttribute('data-category') || '';
-                    
-                    if (filterValue === 'all' || categories.includes(filterValue)) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            };
-        });
-        console.log('Filter functionality added!');
-    }
-    
-    // 2. LOAD MORE FUNCTIONALITY
-    const loadMoreBtn = document.querySelector('.builds-grid__load-more .btn');
-    let projectsLoaded = false;
-    
-    if (loadMoreBtn) {
-        loadMoreBtn.onclick = function() {
-            console.log('Load more clicked');
-            
-            if (!projectsLoaded) {
-                const container = document.querySelector('.builds-grid__container');
-                
-                // Add new projects
-                const newProjects = `
-                    <div class="builds-item" data-category="restoration engine">
-                        <div class="builds-item__image">
-                            <img src="images/placeholder.png" alt="1968 Mustang GT 390" class="builds-item__img">
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1968 Mustang GT 390</h4>
-                                    <p class="builds-item__type">Frame-Off Restoration</p>
-                                    <div class="builds-item__details">
-                                        <span>390 FE Big Block • C6 Automatic • Highland Green</span>
-                                    </div>
-                                </div>
-                                <button class="builds-item__btn" onclick="showProject('1968 Mustang GT 390', 'Frame-Off Restoration', '390 FE Big Block • C6 Automatic • Highland Green', '2023', '16 Months')">View Details</button>
-                            </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2023</span>
-                            <span class="builds-item__duration">16 Months</span>
-                        </div>
-                    </div>
-                    
-                    <div class="builds-item" data-category="custom engine">
-                        <div class="builds-item__image">
-                            <img src="images/placeholder.png" alt="1969 Nova SS" class="builds-item__img">
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1969 Nova SS</h4>
-                                    <p class="builds-item__type">Pro-Touring Build</p>
-                                    <div class="builds-item__details">
-                                        <span>LS7 7.0L • T56 6-Speed • Modern Suspension</span>
-                                    </div>
-                                </div>
-                                <button class="builds-item__btn" onclick="showProject('1969 Nova SS', 'Pro-Touring Build', 'LS7 7.0L • T56 6-Speed • Modern Suspension', '2022', '12 Months')">View Details</button>
-                            </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2022</span>
-                            <span class="builds-item__duration">12 Months</span>
-                        </div>
-                    </div>
-                    
-                    <div class="builds-item" data-category="restoration paint">
-                        <div class="builds-item__image">
-                            <img src="images/placeholder.png" alt="1970 Plymouth Cuda" class="builds-item__img">
-                            <div class="builds-item__overlay">
-                                <div class="builds-item__info">
-                                    <h4 class="builds-item__title">1970 Plymouth Cuda</h4>
-                                    <p class="builds-item__type">Numbers Matching Restoration</p>
-                                    <div class="builds-item__details">
-                                        <span>440 Six Pack • 4-Speed • In Violet</span>
-                                    </div>
-                                </div>
-                                <button class="builds-item__btn" onclick="showProject('1970 Plymouth Cuda', 'Numbers Matching Restoration', '440 Six Pack • 4-Speed • In Violet', '2021', '22 Months')">View Details</button>
-                            </div>
-                        </div>
-                        <div class="builds-item__quick-info">
-                            <span class="builds-item__year">2021</span>
-                            <span class="builds-item__duration">22 Months</span>
-                        </div>
-                    </div>
-                `;
-                
-                container.insertAdjacentHTML('beforeend', newProjects);
-                
-                this.textContent = 'All Projects Loaded';
-                this.disabled = true;
-                projectsLoaded = true;
-                
-                const note = document.querySelector('.load-more-note');
-                if (note) {
-                    note.textContent = 'Showing all 9 completed projects';
-                }
-                
-                console.log('New projects added!');
-            }
-        };
-        console.log('Load more functionality added!');
-    }
-    
-    // 3. VIEW DETAILS FUNCTIONALITY
-    const viewButtons = document.querySelectorAll('.builds-item__btn');
-    viewButtons.forEach(function(btn) {
-        btn.onclick = function() {
-            console.log('View details clicked');
-            
-            const item = this.closest('.builds-item');
-            const title = item.querySelector('.builds-item__title').textContent;
-            const type = item.querySelector('.builds-item__type').textContent;
-            const details = item.querySelector('.builds-item__details span').textContent;
-            const year = item.querySelector('.builds-item__year').textContent;
-            const duration = item.querySelector('.builds-item__duration').textContent;
-            
-            showProject(title, type, details, year, duration);
-        };
-    });
-    
-    console.log('Portfolio setup complete!');
-    
-}, 1000); // Wait 1 second for page to fully load
+// Note: This functionality has been moved to builds.js for the builds page
+// The builds page now uses builds.js instead of this generic portfolio code
 
 // Simple modal function
 function showProject(title, type, details, year, duration) {
@@ -904,21 +754,19 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Debug: Check for all possible selectors
     console.log('Checking for builds-related elements:');
-    console.log('- .builds-grid:', document.querySelector('.builds-grid'));
-    console.log('- .builds-grid__container:', document.querySelector('.builds-grid__container'));
+    console.log('- .projects-grid:', document.querySelector('.projects-grid'));
     console.log('- .filter-tab:', document.querySelectorAll('.filter-tab').length);
-    console.log('- .builds-item:', document.querySelectorAll('.builds-item').length);
-    console.log('- .builds-grid__load-more:', document.querySelector('.builds-grid__load-more'));
+    console.log('- .project-item:', document.querySelectorAll('.project-item').length);
+    console.log('- .load-more-section:', document.querySelector('.load-more-section'));
     
-    // Only initialize builds functionality on builds page
-    const buildsGrid = document.querySelector('.builds-grid');
-    console.log('Builds grid found:', buildsGrid);
+    // Check if builds.js is loaded (builds page uses dedicated builds.js)
+    const isBuildsPage = document.title.includes('Builds') || window.location.href.includes('builds.html');
+    console.log('Is builds page:', isBuildsPage);
     
-    if (buildsGrid) {
-        console.log('Initializing builds page...');
-        initBuildsPage();
+    if (isBuildsPage) {
+        console.log('Builds page detected - builds.js will handle functionality');
     } else {
-        console.log('Not on builds page, skipping builds initialization');
+        console.log('Not on builds page, general script.js functionality active');
         console.log('Available sections:', document.querySelectorAll('section').length);
         document.querySelectorAll('section').forEach((section, i) => {
             console.log(`Section ${i}:`, section.className);

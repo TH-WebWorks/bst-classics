@@ -1,0 +1,101 @@
+{
+  "projects": [
+    {
+      "id": "Firebird",
+      "title": "Firebird",
+      "type": "Frame-Off Restoration",
+      "categories": ["restoration", "custom"],
+      "details": "396 Big Block • 4-Speed • Rally Wheels",
+      "year": "2023",
+      "duration": "14 Months",
+      "image": "images/builds/Firebird/firebird.jpg",
+      "modalImage": "images/builds/Firebird/firebird.jpg",
+      "alt": "1967 Chevrolet Camaro SS classic muscle car restoration by BST Classics complete frame-off restoration showcasing professional craftsmanship",
+      "story": "This stunning 1967 Camaro SS underwent a complete frame-off restoration. We rebuilt the 396 big block engine to factory specifications, restored the 4-speed manual transmission, and refinished the iconic Rally wheels. Every component was meticulously restored to preserve the authentic muscle car experience while ensuring modern reliability.",
+      "featured": true
+    },
+    {
+        "id": "gto",
+        "title": "GTO",
+        "type": "Frame-Off Restoration",
+        "categories": ["restoration", "custom"],
+        "details": "396 Big Block • 4-Speed • Rally Wheels",
+        "year": "2023",
+        "duration": "14 Months",
+        "image": "images/builds/GTO/gto.jpg",
+        "modalImage": "images/builds/GTO/gto.jpg",
+        "alt": "1967 Chevrolet Camaro SS classic muscle car restoration by BST Classics complete frame-off restoration showcasing professional craftsmanship",
+        "story": "This stunning 1967 Camaro SS underwent a complete frame-off restoration. We rebuilt the 396 big block engine to factory specifications, restored the 4-speed manual transmission, and refinished the iconic Rally wheels. Every component was meticulously restored to preserve the authentic muscle car experience while ensuring modern reliability.",
+        "featured": true
+    },
+    {
+      "id": "Firebird2",
+      "title": "Firebird",
+      "type": "Frame-Off Restoration",
+      "categories": ["restoration", "custom"],
+      "details": "396 Big Block • 4-Speed • Rally Wheels",
+      "year": "2023",
+      "duration": "14 Months",
+      "image": "images/builds/Firebird/firebird.jpg",
+      "modalImage": "images/builds/Firebird/firebird.jpg",
+      "alt": "1967 Chevrolet Camaro SS classic muscle car restoration by BST Classics complete frame-off restoration showcasing professional craftsmanship",
+      "story": "This stunning 1967 Camaro SS underwent a complete frame-off restoration. We rebuilt the 396 big block engine to factory specifications, restored the 4-speed manual transmission, and refinished the iconic Rally wheels. Every component was meticulously restored to preserve the authentic muscle car experience while ensuring modern reliability.",
+      "featured": true
+    },
+    {
+        "id": "gto1",
+        "title": "GTO",
+        "type": "Frame-Off Restoration",
+        "categories": ["restoration", "custom"],
+        "details": "396 Big Block • 4-Speed • Rally Wheels",
+        "year": "2023",
+        "duration": "14 Months",
+        "image": "images/builds/GTO/gto.jpg",
+        "modalImage": "images/builds/GTO/gto.jpg",
+        "alt": "1967 Chevrolet Camaro SS classic muscle car restoration by BST Classics complete frame-off restoration showcasing professional craftsmanship",
+        "story": "This stunning 1967 Camaro SS underwent a complete frame-off restoration. We rebuilt the 396 big block engine to factory specifications, restored the 4-speed manual transmission, and refinished the iconic Rally wheels. Every component was meticulously restored to preserve the authentic muscle car experience while ensuring modern reliability.",
+        "featured": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "all",
+      "name": "All Projects",
+      "slug": "all"
+    },
+    {
+      "id": "restoration",
+      "name": "Restoration",
+      "slug": "restoration"
+    },
+    {
+      "id": "custom",
+      "name": "Custom Builds",
+      "slug": "custom"
+    },
+    {
+      "id": "paint",
+      "name": "Paint & Body",
+      "slug": "paint"
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "slug": "performance"
+    },
+    {
+      "id": "interior",
+      "name": "Interior",
+      "slug": "interior"
+    },
+    {
+      "id": "engine",
+      "name": "Engine",
+      "slug": "engine"
+    }
+  ],
+  "settings": {
+    "projectsPerPage": 3,
+    "defaultCategory": "all"
+  }
+} 

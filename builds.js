@@ -1,15 +1,93 @@
 // BST Classics - Builds Page Functionality
 console.log('🚗 Builds page loading...');
 
+// ===== DATA LOADING =====
+let projectsData = {
+    projects: [],
+    categories: [],
+    settings: {}
+};
+
+// Load projects from JSON
+async function loadProjectsData() {
+    try {
+        console.log('📋 Loading projects data from JSON...');
+        const response = await fetch('projects.json');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        projectsData = await response.json();
+        console.log(`✅ Loaded ${projectsData.projects.length} projects`);
+        
+        return projectsData;
+    } catch (error) {
+        console.error('❌ Failed to load projects data:', error);
+        
+        // Fallback to empty structure
+        projectsData = {
+            projects: [],
+            categories: [
+                { id: 'all', name: 'All Projects', slug: 'all' }
+            ],
+            settings: { projectsPerPage: 6, defaultCategory: 'all' }
+        };
+        
+        return projectsData;
+    }
+}
+
 // Wait for page to load completely
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     console.log('✅ Builds page ready!');
+    
+    // Load data first, then initialize
+    await loadProjectsData();
+    
+    // Render initial projects
+    renderProjects();
     
     // Initialize all functionality
     initFilters();
     initLoadMore();
     initModals();
 });
+
+// ===== PROJECT RENDERING =====
+function renderProjects() {
+    const container = document.querySelector('.projects-grid');
+    if (!container) {
+        console.error('❌ Projects container not found!');
+        return;
+    }
+    
+    // Clear existing projects (in case of re-render)
+    container.innerHTML = '';
+    
+    // Render initial projects (first batch based on settings)
+    const projectsPerPage = projectsData.settings.projectsPerPage || 6;
+    const initialProjects = projectsData.projects.slice(0, projectsPerPage);
+    
+    console.log(`🎨 Rendering ${initialProjects.length} initial projects`);
+    
+    initialProjects.forEach(project => {
+        const projectHTML = createProjectHTML(project);
+        container.insertAdjacentHTML('beforeend', projectHTML);
+    });
+    
+    // Update project counter
+    updateProjectCounter();
+}
+
+function updateProjectCounter() {
+    const counter = document.getElementById('project-counter');
+    if (counter) {
+        const visibleProjects = document.querySelectorAll('.project-item:not([style*="display: none"])').length;
+        const totalProjects = projectsData.projects.length;
+        counter.textContent = `Showing ${visibleProjects} of ${totalProjects} completed projects`;
+    }
+}
 
 // ===== BUILDS NAVIGATION FUNCTIONALITY =====
 function initFilters() {
@@ -41,6 +119,9 @@ function initFilters() {
                     item.style.display = 'none';
                 }
             });
+            
+            // Update project counter after filtering
+            updateProjectCounter();
             
             // Scroll active tab into view
             scrollActiveTabIntoView(this);
@@ -91,76 +172,71 @@ function loadMoreProjects() {
     const container = document.getElementById('projects-container');
     const loadMoreBtn = document.getElementById('load-more-btn');
     
+    if (!container) {
+        console.error('Projects container not found!');
+        return;
+    }
+    
     // Show loading state
     loadMoreBtn.textContent = 'Loading...';
     loadMoreBtn.disabled = true;
     
-    // Additional projects data
-    const additionalProjects = [
-        {
-            title: '1968 Mustang GT 390',
-            type: 'Frame-Off Restoration',
-            category: 'restoration engine',
-            details: '390 FE Big Block • C6 Automatic • Highland Green',
-            year: '2023',
-            duration: '16 Months',
-            story: 'A complete frame-off restoration of a Highland Green 1968 Mustang GT 390 Fastback, bringing this classic muscle car back to its original glory with period-correct specifications and show-quality finish.'
-        },
-        {
-            title: '1969 Nova SS',
-            type: 'Pro-Touring Build', 
-            category: 'custom engine',
-            details: 'LS7 7.0L • T56 6-Speed • Modern Suspension',
-            year: '2022',
-            duration: '12 Months',
-            story: 'A pro-touring build combining classic Nova styling with modern LS7 power and contemporary suspension technology for the perfect blend of vintage looks and modern performance.'
-        },
-        {
-            title: '1970 Plymouth Cuda',
-            type: 'Numbers Matching Restoration',
-            category: 'restoration paint',
-            details: '440 Six Pack • 4-Speed • In Violet',
-            year: '2021', 
-            duration: '22 Months',
-            story: 'A comprehensive numbers-matching restoration of a rare In Violet Cuda with the legendary 440 Six Pack engine, restored to concours condition with authentic period details.'
-        }
-    ];
+    // Get currently displayed projects count
+    const currentProjects = document.querySelectorAll('.project-item').length;
+    const totalProjects = projectsData.projects.length;
+    const projectsPerPage = projectsData.settings.projectsPerPage || 6;
+    
+    // Calculate remaining projects to load
+    const remainingProjects = projectsData.projects.slice(currentProjects);
+    
+    if (remainingProjects.length === 0) {
+        loadMoreBtn.textContent = 'All Projects Loaded';
+        loadMoreBtn.disabled = true;
+        additionalProjectsLoaded = true;
+        return;
+    }
     
     // Add projects after short delay
     setTimeout(() => {
-        additionalProjects.forEach((project, index) => {
+        remainingProjects.forEach((project, index) => {
             const projectHTML = createProjectHTML(project);
             container.insertAdjacentHTML('beforeend', projectHTML);
         });
         
         // Update UI
-        loadMoreBtn.textContent = 'All Projects Loaded';
-        loadMoreBtn.disabled = true;
-        additionalProjectsLoaded = true;
+        const newTotal = document.querySelectorAll('.project-item').length;
+        if (newTotal >= totalProjects) {
+            loadMoreBtn.textContent = 'All Projects Loaded';
+            loadMoreBtn.disabled = true;
+            additionalProjectsLoaded = true;
+        } else {
+            loadMoreBtn.textContent = 'Load More Projects';
+            loadMoreBtn.disabled = false;
+        }
         
         // Update counter
-        const counter = document.getElementById('project-counter');
-        if (counter) {
-            counter.textContent = 'Showing all 9 completed projects';
-        }
+        updateProjectCounter();
         
         // Re-initialize modals for new projects
         initModals();
         
-        console.log('✅ Additional projects loaded!');
+        console.log(`✅ Loaded ${remainingProjects.length} additional projects!`);
         
     }, 1000);
 }
 
 // ===== PROJECT HTML GENERATOR =====
 function createProjectHTML(project) {
+    // Convert categories array to space-separated string for data-category
+    const categoryStr = Array.isArray(project.categories) ? project.categories.join(' ') : project.categories || '';
+    
     return `
-        <div class="project-item" data-category="${project.category}">
+        <div class="project-item" data-category="${categoryStr}">
             <div class="project-card">
                 <div class="project-image">
-                    <img src="images/placeholder.png" alt="${project.title}" class="project-img">
+                    <img src="${project.image}" alt="${project.alt || project.title}" class="project-img">
                     <div class="project-overlay">
-                        <button class="view-btn" onclick="openProjectModal('${project.title}', '${project.type}', '${project.details}', '${project.year}', '${project.duration}', '${project.story}')">
+                        <button class="view-btn" onclick="openProjectModal('${project.title}', '${project.type}', '${project.details}', '${project.year}', '${project.duration}', '${project.story}', '${project.modalImage}')">
                             <i class="fas fa-eye"></i> View Details
                         </button>
                     </div>
@@ -182,25 +258,43 @@ function createProjectHTML(project) {
 // ===== MODAL FUNCTIONALITY =====
 function initModals() {
     // Add click handlers to existing view buttons
-    document.querySelectorAll('.view-btn').forEach(button => {
-        if (button.onclick) return; // Skip if already has onclick
+    const viewButtons = document.querySelectorAll('.view-btn');
+    console.log(`🔍 Found ${viewButtons.length} view buttons for modal initialization`);
+    
+    viewButtons.forEach((button, index) => {
+        if (button.onclick) {
+            console.log(`⚠️ Button ${index} already has onclick handler`);
+            return; // Skip if already has onclick
+        }
         
-        button.addEventListener('click', function() {
-            const projectCard = this.closest('.project-item');
-            const title = projectCard.querySelector('.project-title').textContent;
-            const type = projectCard.querySelector('.project-type').textContent;
-            const details = projectCard.querySelector('.project-details').textContent;
-            const year = projectCard.querySelector('.project-year').textContent;
-            const duration = projectCard.querySelector('.project-duration').textContent;
-            const story = `This ${title} represents one of our signature restoration projects. Every detail was carefully planned and executed to exceed factory specifications while maintaining authentic character.`;
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log(`🎯 View button ${index} clicked`);
             
-            openProjectModal(title, type, details, year, duration, story);
+            const projectCard = this.closest('.project-item');
+            if (!projectCard) {
+                console.error('❌ Project card not found!');
+                return;
+            }
+            
+            const title = projectCard.querySelector('.project-title')?.textContent || 'Unknown Project';
+            const type = projectCard.querySelector('.project-type')?.textContent || 'Unknown Type';
+            const details = projectCard.querySelector('.project-details')?.textContent || 'No details available';
+            const year = projectCard.querySelector('.project-year')?.textContent || 'Unknown Year';
+            const duration = projectCard.querySelector('.project-duration')?.textContent || 'Unknown Duration';
+            const story = `This ${title} represents one of our signature restoration projects. Every detail was carefully planned and executed to exceed factory specifications while maintaining authentic character.`;
+            const modalImage = projectCard.querySelector('.project-img')?.src || 'images/_dev/placeholder.webp';
+            
+            console.log(`📋 Opening modal for: ${title}`);
+            openProjectModal(title, type, details, year, duration, story, modalImage);
         });
     });
+    
+    console.log(`✅ Modal initialization complete for ${viewButtons.length} buttons`);
 }
 
 // ===== MODAL FUNCTIONS =====
-function openProjectModal(title, type, details, year, duration, story) {
+function openProjectModal(title, type, details, year, duration, story, modalImage = 'images/_dev/placeholder.webp') {
     console.log(`Opening modal for: ${title}`);
     
     // Remove existing modal
@@ -225,7 +319,7 @@ function openProjectModal(title, type, details, year, duration, story) {
             
             <div class="modal-content">
                 <div class="modal-image">
-                    <img src="images/placeholder.png" alt="${title}" class="modal-img">
+                    <img src="${modalImage}" alt="${title}" class="modal-img">
                 </div>
                 
                 <div class="modal-info">
@@ -258,6 +352,11 @@ function openProjectModal(title, type, details, year, duration, story) {
     document.body.appendChild(modal);
     document.body.classList.add('modal-open');
     
+    // Show modal by adding active class
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
     // Close on backdrop click
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
@@ -272,9 +371,14 @@ function openProjectModal(title, type, details, year, duration, story) {
 function closeProjectModal() {
     const modal = document.getElementById('project-modal');
     if (modal) {
-        modal.remove();
-        document.body.classList.remove('modal-open');
-        document.removeEventListener('keydown', handleEscapeKey);
+        modal.classList.remove('active');
+        
+        // Wait for animation to complete before removing
+        setTimeout(() => {
+            modal.remove();
+            document.body.classList.remove('modal-open');
+            document.removeEventListener('keydown', handleEscapeKey);
+        }, 300);
     }
 }
 
@@ -283,5 +387,7 @@ function handleEscapeKey(e) {
         closeProjectModal();
     }
 }
+
+
 
 console.log('🎯 Builds.js loaded successfully!'); 
