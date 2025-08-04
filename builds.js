@@ -11,20 +11,23 @@ document.addEventListener('DOMContentLoaded', function() {
     initModals();
 });
 
-// ===== FILTER FUNCTIONALITY =====
+// ===== BUILDS NAVIGATION FUNCTIONALITY =====
 function initFilters() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    const buildsNavLinks = document.querySelectorAll('.builds-nav__link');
     const projectItems = document.querySelectorAll('.project-item');
+    const buildsNavContainer = document.querySelector('.builds-nav__container');
     
-    console.log(`Found ${filterButtons.length} filters and ${projectItems.length} projects`);
+    console.log(`Found ${buildsNavLinks.length} navigation links and ${projectItems.length} projects`);
     
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
+    // Filter functionality
+    buildsNavLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
             const filter = this.dataset.filter;
             console.log(`Filtering by: ${filter}`);
             
-            // Update active button
-            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Update active link
+            buildsNavLinks.forEach(lnk => lnk.classList.remove('active'));
             this.classList.add('active');
             
             // Filter projects
@@ -38,8 +41,35 @@ function initFilters() {
                     item.style.display = 'none';
                 }
             });
+            
+            // Scroll active tab into view
+            scrollActiveTabIntoView(this);
         });
     });
+    
+    // Touch scrolling improvements for mobile
+    if (buildsNavContainer) {
+        buildsNavContainer.addEventListener('touchstart', () => {
+            // Enable smooth touch scrolling
+        });
+    }
+}
+
+// Function to scroll active tab into view
+function scrollActiveTabIntoView(activeLink) {
+    const buildsNavContainer = document.querySelector('.builds-nav__container');
+    if (buildsNavContainer && activeLink) {
+        const containerRect = buildsNavContainer.getBoundingClientRect();
+        const activeRect = activeLink.getBoundingClientRect();
+        
+        if (activeRect.left < containerRect.left || activeRect.right > containerRect.right) {
+            const scrollLeft = activeLink.offsetLeft - (buildsNavContainer.offsetWidth / 2) + (activeLink.offsetWidth / 2);
+            buildsNavContainer.scrollTo({
+                left: scrollLeft,
+                behavior: 'smooth'
+            });
+        }
+    }
 }
 
 // ===== LOAD MORE FUNCTIONALITY =====

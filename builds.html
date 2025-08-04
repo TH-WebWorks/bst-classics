@@ -62,25 +62,42 @@
     <main class="main">
         <!-- Hero Section -->
         <section class="builds-hero">
+            <div class="builds-hero__image">
+                <img src="images/heros/contact-hero.svg" alt="BST Classics Builds Gallery" class="builds-hero__bg">
+            </div>
             <div class="builds-hero__content">
                 <h1 class="builds-hero__title">OUR BUILDS</h1>
                 <p class="builds-hero__subtitle">Witness the transformation of classic automotive legends through our meticulous craftsmanship and unwavering dedication to excellence.</p>
             </div>
         </section>
 
-        <!-- Filter Section -->
-        <section class="filter-section">
-            <div class="container">
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All Projects</button>
-                    <button class="filter-btn" data-filter="restoration">Restoration</button>
-                    <button class="filter-btn" data-filter="custom">Custom Builds</button>
-                    <button class="filter-btn" data-filter="engine">Engine Work</button>
-                    <button class="filter-btn" data-filter="paint">Paint & Body</button>
-                    <button class="filter-btn" data-filter="interior">Interior</button>
+        <!-- Sticky Builds Navigation -->
+        <nav class="builds-nav" id="builds-nav">
+            <div class="builds-nav__wrapper">
+                <div class="builds-nav__container">
+                    <ul class="builds-nav__list">
+                        <li class="builds-nav__item">
+                            <a href="#all-projects" class="builds-nav__link active" data-filter="all">All Projects</a>
+                        </li>
+                        <li class="builds-nav__item">
+                            <a href="#restoration" class="builds-nav__link" data-filter="restoration">Restoration</a>
+                        </li>
+                        <li class="builds-nav__item">
+                            <a href="#custom" class="builds-nav__link" data-filter="custom">Custom Builds</a>
+                        </li>
+                        <li class="builds-nav__item">
+                            <a href="#engine" class="builds-nav__link" data-filter="engine">Engine Work</a>
+                        </li>
+                        <li class="builds-nav__item">
+                            <a href="#paint" class="builds-nav__link" data-filter="paint">Paint & Body</a>
+                        </li>
+                        <li class="builds-nav__item">
+                            <a href="#interior" class="builds-nav__link" data-filter="interior">Interior</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </section>
+        </nav>
 
         <!-- Projects Section -->
         <section class="projects-section">
