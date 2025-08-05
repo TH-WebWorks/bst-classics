@@ -191,7 +191,7 @@
                             
                             <div class="form-group">
                                 <select class="form-select" id="project-type" name="project-type" required>
-                                    <option value="">Select Project Type *</option>
+                                    <option value="" disabled selected hidden></option>
                                     <option value="complete-restoration">Complete Restoration</option>
                                     <option value="paint-body">Paint & Body Work</option>
                                     <option value="engine-performance">Engine & Performance</option>
@@ -200,6 +200,19 @@
                                     <option value="other">Other / Custom Build</option>
                                 </select>
                                 <label for="project-type" class="form-label">Project Type *</label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-select" id="project-timeline" name="project-timeline" required>
+                                    <option value="" disabled selected hidden></option>
+                                    <option value="asap">ASAP / Rush Job</option>
+                                    <option value="3-6-months">3-6 Months</option>
+                                    <option value="6-12-months">6-12 Months</option>
+                                    <option value="1-2-years">1-2 Years</option>
+                                    <option value="2-plus-years">2+ Years</option>
+                                    <option value="flexible">Flexible / No Rush</option>
+                                </select>
+                                <label for="project-timeline" class="form-label">Project Timeline *</label>
                             </div>
                             
                             <div class="form-group">
@@ -216,28 +229,7 @@
             </div>
         </section>
 
-        <!-- Call to Action -->
-        <section class="cta-section">
-            <div class="container">
-                <div class="cta-section__content">
-                    <h2 class="cta-section__title">PREFER TO TALK?</h2>
-                    <p class="cta-section__description">
-                        Sometimes it's easier to discuss your project over the phone. Brandon is always happy 
-                        to talk about classic cars and answer any questions you might have.
-                    </p>
-                    
-                    <div class="cta-buttons">
-                        <a href="tel:5154461215" class="cta-btn">
-                            <i class="fas fa-phone"></i> Call (515) 446-1215
-                        </a>
-                        <a href="about.html" class="cta-btn cta-btn--secondary">
-                            <i class="fas fa-info"></i> Learn About Our Process
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+
 
     <!-- Footer -->
     <footer class="footer">
@@ -313,6 +305,32 @@
             const contactForm = document.getElementById('contact-form');
             const submitBtn = contactForm.querySelector('.submit-btn');
             
+            // Handle floating labels for select elements
+            function handleSelectLabels() {
+                const selectElements = document.querySelectorAll('.form-select');
+                
+                selectElements.forEach(select => {
+                    const label = select.nextElementSibling;
+                    
+                    function updateLabel() {
+                        if (select.selectedIndex > 0) {
+                            label.classList.add('label-active');
+                        } else {
+                            label.classList.remove('label-active');
+                        }
+                    }
+                    
+                    select.addEventListener('change', updateLabel);
+                    select.addEventListener('focus', () => label.classList.add('label-active'));
+                    select.addEventListener('blur', updateLabel);
+                    
+                    // Initial check
+                    updateLabel();
+                });
+            }
+            
+            handleSelectLabels();
+            
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -331,6 +349,7 @@
                     vehicle_make: formData.get('vehicle-make'),
                     vehicle_model: formData.get('vehicle-model'),
                     project_type: formData.get('project-type'),
+                    project_timeline: formData.get('project-timeline'),
                     message: formData.get('message'),
                     to_name: 'BST Classic Rod & Custom'
                 };

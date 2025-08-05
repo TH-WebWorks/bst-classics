@@ -473,12 +473,12 @@
         <!-- Call to Action -->
         <section class="process-cta">
             <div class="container">
-                <h2 class="process-cta__title">Ready to Start Your Build?</h2>
+                <h2 class="process-cta__title">Ready to See Our Work?</h2>
                 <p class="process-cta__text">
-                    Experience the BST Classics difference with our proven 25-step process. 
-                    Let's bring your classic car vision to life with precision, passion, and uncompromising quality.
+                    Witness the transformation of classic automotive legends through our meticulous craftsmanship. 
+                    Browse our gallery of completed restorations and custom builds.
                 </p>
-                <a href="contact.html" class="process-cta__button">Book a Consultation</a>
+                <a href="builds.html" class="process-cta__button">View Our Builds</a>
             </div>
         </section>
     </main>
@@ -529,6 +529,44 @@
             const processNavLinks = document.querySelectorAll('.process-nav__link');
             const processPhases = document.querySelectorAll('.process-phase');
             const processNavContainer = document.querySelector('.process-nav__container');
+            const processNav = document.querySelector('.process-nav');
+            
+            // Sticky Navigation Functionality
+            let navOffset = 0;
+            let isFixed = false;
+            
+            function initStickyNav() {
+                if (processNav) {
+                    navOffset = processNav.offsetTop;
+                    handleStickyNav();
+                }
+            }
+            
+            function handleStickyNav() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const header = document.querySelector('.header');
+                const headerHeight = header ? header.offsetHeight : 80;
+                
+                if (scrollTop >= navOffset - headerHeight) {
+                    if (!isFixed) {
+                        processNav.classList.add('fixed');
+                        // Add padding to prevent content jump
+                        const navHeight = processNav.offsetHeight;
+                        processNav.nextElementSibling.style.marginTop = navHeight + 'px';
+                        isFixed = true;
+                    }
+                } else {
+                    if (isFixed) {
+                        processNav.classList.remove('fixed');
+                        // Remove padding
+                        processNav.nextElementSibling.style.marginTop = '';
+                        isFixed = false;
+                    }
+                }
+            }
+            
+            // Initialize sticky navigation
+            initStickyNav();
             
             // Smooth scrolling for process navigation
             processNavLinks.forEach(link => {
@@ -540,7 +578,7 @@
                     if (targetSection) {
                         const headerHeight = document.querySelector('.header').offsetHeight;
                         const processNavHeight = document.querySelector('.process-nav').offsetHeight;
-                        const offsetTop = targetSection.offsetTop - headerHeight - processNavHeight;
+                        const offsetTop = targetSection.offsetTop - headerHeight - processNavHeight - 10; // Extra spacing
                         
                         window.scrollTo({
                             top: offsetTop,
@@ -574,7 +612,7 @@
                 const scrollPos = window.scrollY;
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const processNavHeight = document.querySelector('.process-nav').offsetHeight;
-                const offset = headerHeight + processNavHeight + 50;
+                const offset = headerHeight + processNavHeight + 100; // Increased offset for better detection
                 
                 processPhases.forEach((phase, index) => {
                     const phaseTop = phase.offsetTop - offset;
@@ -592,9 +630,10 @@
             
             // Throttled scroll listener for performance
             let ticking = false;
-            function handleScroll() {
+            function handleScrollAll() {
                 if (!ticking) {
                     requestAnimationFrame(function() {
+                        handleStickyNav();
                         updateActiveNavLink();
                         ticking = false;
                     });
@@ -602,7 +641,12 @@
                 }
             }
             
-            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('scroll', handleScrollAll);
+            
+            // Recalculate on window resize
+            window.addEventListener('resize', function() {
+                setTimeout(initStickyNav, 100);
+            });
             
             // Initialize on load
             updateActiveNavLink();

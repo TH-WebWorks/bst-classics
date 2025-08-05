@@ -747,10 +747,51 @@ function closeProject() {
 }
 
 // Initialize builds page when DOM is ready
+// Handle floating labels for form selects
+function initializeFormLabels() {
+    const selectElements = document.querySelectorAll('.form-select');
+    
+    selectElements.forEach(select => {
+        const label = select.nextElementSibling;
+        
+        // Function to update label position
+        function updateLabel() {
+            if (select.value && select.value !== '') {
+                label.classList.add('label-active');
+            } else {
+                label.classList.remove('label-active');
+            }
+        }
+        
+        // Handle focus and blur events
+        select.addEventListener('focus', () => {
+            label.classList.add('label-active');
+        });
+        
+        select.addEventListener('blur', () => {
+            updateLabel();
+        });
+        
+        select.addEventListener('change', updateLabel);
+        
+        // Initialize on page load
+        updateLabel();
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded');
     console.log('Current page URL:', window.location.href);
     console.log('Page title:', document.title);
+    
+    // Initialize form labels
+    initializeFormLabels();
+    
+    // Initialize lightbox functionality (restoration page)
+    initializeLightbox();
+    
+    // Initialize smooth scrolling
+    initializeSmoothScroll();
     
     // Debug: Check for all possible selectors
     console.log('Checking for builds-related elements:');
@@ -773,5 +814,70 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ===== LIGHTBOX FUNCTIONALITY =====
+function initializeLightbox() {
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-image');
+    const closeBtn = document.querySelector('.lightbox-close');
+    const plaqueImages = document.querySelectorAll('.tier-plaque');
+
+    if (!modal || !modalImg || !closeBtn) return;
+
+    // Add click listeners to plaque images
+    plaqueImages.forEach(img => {
+        img.addEventListener('click', function() {
+            modal.classList.add('active');
+            modalImg.src = this.src;
+            modalImg.alt = this.alt;
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+    });
+
+    // Close lightbox when clicking close button
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Close lightbox when clicking outside the image
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeLightbox();
+        }
+    });
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+
+    function closeLightbox() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+}
+
+// ===== SMOOTH SCROLLING FOR SCROLL INDICATORS =====
+function initializeSmoothScroll() {
+    const scrollButtons = document.querySelectorAll('a[href^="#"]');
+    
+    scrollButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            
+            if (target) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
 
 console.log('BST Classics website loaded successfully! 🚗'); 
