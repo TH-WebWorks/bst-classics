@@ -1316,6 +1316,40 @@ button {
   font-style: italic;
 }
 
+.footer__service-area {
+  color: var(--text-light);
+  font-size: var(--text-sm);
+  font-style: italic;
+  margin-top: var(--space-sm);
+}
+
+.footer__hours-section {
+  color: var(--text-medium);
+}
+
+.footer__hours-title {
+  color: var(--primary-color);
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.footer__hours-list p {
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+.footer__hours-note {
+  font-style: italic;
+  color: var(--text-light);
+  margin-top: var(--space-md);
+  font-size: var(--text-sm);
+}
+
 .social__links {
   display: flex;
   gap: var(--space-lg);
@@ -1595,6 +1629,18 @@ button {
   .footer__main {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: var(--space-2xl);
+  }
+
+  .footer__hours-section {
+    text-align: center;
+  }
+
+  .footer__hours-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-md);
   }
 
   /* Restoration page responsive styles */
@@ -2749,6 +2795,15 @@ html, body {
   }
 }
 
+/* ===== TABLET RESPONSIVE STYLES ===== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .footer__main {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* ===== MOBILE RESPONSIVE STYLES ===== */
 @media (max-width: 768px) {
   .modal-overlay {
     padding: var(--space-md);
