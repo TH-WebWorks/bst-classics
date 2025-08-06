@@ -1228,8 +1228,25 @@ button {
 }
 
 .featured-project__image {
-  height: 100%;
-  min-height: 400px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.featured-project__car-image {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.1));
+  border-radius: 4px;
 }
 
 /* ===== CTA SECTION ===== */
@@ -1497,6 +1514,19 @@ button {
     gap: var(--space-2xl);
   }
 
+  .featured-project__image {
+    height: auto;
+    padding: var(--space-xs);
+    border-radius: 6px;
+  }
+
+  .featured-project__car-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.08));
+  }
+
   .why-choose__content {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
@@ -1697,6 +1727,25 @@ button {
 
   .restoration-tier__features li {
     text-align: left;
+  }
+
+  /* Mobile featured project adjustments */
+  .featured-project__specs {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .featured-project__image {
+    height: auto;
+    padding: 2px;
+    border-radius: 4px;
+  }
+
+  .featured-project__car-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.06));
   }
 
   .why-choose__stats {
