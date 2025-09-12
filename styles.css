@@ -1598,6 +1598,11 @@ button {
     direction: ltr;
   }
 
+  .tier-plaque {
+    min-width: 400px;
+    max-width: 100%;
+  }
+
   .restoration-tier__text,
   .restoration-tier--reverse .restoration-tier__text {
     padding-right: 0;
@@ -3384,7 +3389,7 @@ html, body {
 
 .restoration-tier__content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: var(--space-5xl);
   align-items: center;
 }
@@ -3479,6 +3484,8 @@ html, body {
 
 .tier-plaque {
   max-width: 100%;
+  min-width: 600px;
+  width: 100%;
   height: auto;
   cursor: pointer;
   transition: var(--transition);
