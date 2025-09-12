@@ -1,6 +1,20 @@
 {
   "projects": [
     {
+      "id": "c10-denali",
+      "title": "1968 Chevy C10",
+      "type": "Custom Build",
+      "categories": ["custom", "performance", "paint", "interior"],
+      "details": "525hp LS3 AWD • TMI Interior • Vintage Air • Dakota Digital",
+      "year": "2024",
+      "duration": "13 Months",
+      "image": "images/builds/C10/1968ChevyC10_Thumbnail.jpeg",
+      "modalImage": "images/builds/C10/1968ChevyC10_Thumbnail.jpeg",
+      "alt": "1968 Chevy C10 custom build with 2008 GMC Yukon Denali chassis swap, 525hp LS3 AWD, TMI interior, and custom paint by BST Classics",
+      "story": "The C10 started its journey with being dug out of the mud in a field 13 months ago. We stripped everything and got to work on the body fixing a lot of rust. From there we found a 2008 GMC Yukon Denali to use as a donor chassis. After making mounts, replacing every suspension component, and dropping in a brand new 525hp LS3 from Chevrolet Performance it was time to get to work on color and interior. TMI hooked us up with the interior as always. AIC rear sub box. The truck is painted WA121J Rip Tide Blue Metallic with WA8624 Summit White top. We used Matrix Edge paint with HOK USC01 clear. This 1 of a kind C10 rides on 20\" Ridler Wheels wrapped in Nitto Tires. Under the hood and inside the cab is all done in a matte finish with panels to enclose and highlight the engine. Ring Brothers gauge bezel house the Dakota Digital gauges and the matching glove box door add to the awe of the interior. A Singer audio head unit is flush mounted in the dash which supports a full kicker sound system. Vintage Air Gen V evap keeps this truck nice and cool. Last but not least is all the chrome! LMC Truck and AMD had a huge hand in all the chrome trim but the real winner is Ogden Chrome for taking our shaved and tucked Coopers Smoothie bumpers and making them look absolutely flawless. Where C10s are a dime a dozen, this C/K AWD Denali 10 is truly 1of1.",
+      "featured": true
+    },
+    {
       "id": "Firebird",
       "title": "Firebird",
       "type": "Frame-Off Restoration",
