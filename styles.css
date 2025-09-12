@@ -2199,7 +2199,25 @@ button {
   /* Mobile-friendly grid layouts */
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: var(--space-2xl);
+    padding: 0 var(--space-md);
+  }
+  
+  .project-card {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .project-image {
+    height: 200px;
+    width: 100%;
+  }
+  
+  .project-info {
+    padding: var(--space-xl);
+  }
+  
+  .project-title {
+    font-size: var(--text-xl);
   }
 
   .stats-grid,
@@ -2536,14 +2554,13 @@ html, body {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: var(--space-2xl);
-  margin-top: var(--space-2xl);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--space-3xl);
+  margin-top: var(--space-3xl);
+  padding: 0 var(--space-lg);
 }
 
 .project-item {
-  background: var(--background-light);
-  border: 1px solid var(--border-light);
   transition: var(--transition);
   cursor: pointer;
 }
@@ -2553,25 +2570,34 @@ html, body {
   overflow: hidden;
   background: var(--background-light);
   border: 1px solid var(--border-light);
+  border-radius: 8px;
   transition: var(--transition);
   cursor: pointer;
   pointer-events: all;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .project-card:hover {
   border-color: var(--secondary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(221, 0, 0, 0.15);
 }
 
 .project-image {
   position: relative;
   overflow: hidden;
-  height: 250px;
+  height: 220px;
+  width: 100%;
 }
 
 .project-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   transition: var(--transition);
 }
 
@@ -2600,18 +2626,6 @@ html, body {
   opacity: 1;
 }
 
-.project-overlay:hover {
-  opacity: 1;
-}
-
-.project-card:hover .project-overlay {
-  opacity: 1;
-}
-
-.project-overlay:hover {
-  opacity: 1;
-}
-
 .view-btn {
   background: var(--secondary-color);
   color: var(--primary-color);
@@ -2621,6 +2635,7 @@ html, body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
+  border-radius: 4px;
   cursor: pointer;
   transition: var(--transition);
   pointer-events: all;
@@ -2635,6 +2650,10 @@ html, body {
 
 .project-info {
   padding: var(--space-xl);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .project-title {
@@ -2644,6 +2663,7 @@ html, body {
   margin-bottom: var(--space-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 .project-type {
@@ -2659,6 +2679,9 @@ html, body {
   color: var(--text-medium);
   line-height: 1.6;
   margin-bottom: var(--space-lg);
+  flex: 1;
+  font-size: var(--text-base);
+  font-weight: 400;
 }
 
 .project-meta {
@@ -2670,7 +2693,7 @@ html, body {
 }
 
 .project-year,
-.project-category {
+.project-duration {
   font-weight: 500;
 }
 
@@ -2735,59 +2758,49 @@ html, body {
 }
 
 .modal-container {
-  background: var(--background-dark);
+  background: var(--background-light);
   border: 1px solid var(--border-light);
-  max-width: 1200px;
+  max-width: 1000px;
   width: 100%;
-  max-height: 95vh;
+  max-height: 90vh;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 }
 
 /* ===== MODAL HEADER - PROFESSIONAL TITLE BAR ===== */
 .modal-header {
   background: var(--background-light);
   border-bottom: 1px solid var(--border-light);
-  padding: var(--space-2xl) var(--space-3xl);
+  padding: var(--space-xl) var(--space-2xl);
   position: relative;
-}
-
-.modal-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: var(--space-3xl);
-  width: 100px;
-  height: 4px;
-  background: var(--secondary-color);
 }
 
 .modal-header h2 {
-  font-size: var(--text-4xl);
-  font-weight: 900;
+  font-size: var(--text-2xl);
+  font-weight: 700;
   color: var(--primary-color);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   margin: 0;
-  line-height: 1.1;
-  position: relative;
-  z-index: 2;
+  line-height: 1.2;
 }
 
 .modal-close {
   position: absolute;
-  top: var(--space-xl);
-  right: var(--space-xl);
+  top: var(--space-lg);
+  right: var(--space-lg);
   background: transparent;
-  border: 2px solid var(--border-light);
+  border: 1px solid var(--border-light);
   color: var(--text-medium);
-  font-size: 1.25rem;
+  font-size: 1rem;
   cursor: pointer;
-  padding: var(--space-md);
+  padding: var(--space-sm);
   transition: var(--transition);
-  width: 48px;
-  height: 48px;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2802,21 +2815,21 @@ html, body {
 /* ===== MODAL CONTENT SHOWCASE ===== */
 .modal-content {
   display: flex;
-  min-height: 500px;
+  flex-direction: column;
+  max-height: 70vh;
   overflow-y: auto;
 }
 
 .modal-image-container {
-  flex: 1.2;
+  width: 100%;
   position: relative;
-  background: var(--background-dark);
-  border-right: 1px solid var(--border-light);
+  background: var(--background-light);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .modal-image {
   width: 100%;
-  height: 100%;
-  min-height: 500px;
+  height: 400px;
   position: relative;
   overflow: hidden;
 }
@@ -2825,30 +2838,37 @@ html, body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  transition: transform 0.5s ease;
-}
-
-.modal-image::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, rgba(221, 0, 0, 0.1) 0%, transparent 50%);
-  z-index: 1;
-  pointer-events: none;
+  object-position: center center;
+  transition: var(--transition);
 }
 
 /* ===== PROJECT DETAILS SECTION ===== */
 .modal-info {
   flex: 1;
-  padding: var(--space-3xl);
+  padding: var(--space-2xl);
   background: var(--background-light);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  overflow-y: auto;
+  max-height: 50vh;
+}
+
+.modal-info::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-info::-webkit-scrollbar-track {
+  background: var(--background-dark);
+}
+
+.modal-info::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 3px;
+}
+
+.modal-info::-webkit-scrollbar-thumb:hover {
+  background: #bb0000;
 }
 
 .modal-project-header {
@@ -2865,31 +2885,19 @@ html, body {
 .badge {
   background: var(--background-dark);
   border: 1px solid var(--border-light);
-  padding: var(--space-sm) var(--space-lg);
+  padding: var(--space-xs) var(--space-md);
   font-size: var(--text-xs);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-medium);
   text-transform: uppercase;
   letter-spacing: 1px;
-  position: relative;
+  border-radius: 4px;
 }
 
 .badge-type {
   background: var(--secondary-color);
   color: var(--primary-color);
   border-color: var(--secondary-color);
-  position: relative;
-}
-
-.badge-type::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
-  background: var(--secondary-color);
-  z-index: -1;
 }
 
 .badge-year {
@@ -2911,67 +2919,43 @@ html, body {
 }
 
 .modal-section h3 {
-  font-size: var(--text-xl);
-  font-weight: 900;
+  font-size: var(--text-lg);
+  font-weight: 700;
   color: var(--primary-color);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   text-transform: uppercase;
   letter-spacing: 1px;
-  position: relative;
-  padding-bottom: var(--space-md);
-}
-
-.modal-section h3::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 40px;
-  height: 2px;
-  background: var(--secondary-color);
 }
 
 .modal-section p {
   color: var(--text-medium);
-  line-height: 1.7;
+  line-height: 1.6;
   margin-bottom: 0;
   font-size: var(--text-base);
 }
 
 /* ===== SPECIFICATIONS STYLING ===== */
 .modal-section.specifications p {
-  font-size: var(--text-lg);
-  font-weight: 600;
+  font-size: var(--text-base);
+  font-weight: 500;
   color: var(--primary-color);
-  letter-spacing: 0.5px;
 }
 
 /* ===== MODAL FOOTER - CALL TO ACTION ===== */
 .modal-footer {
-  padding: var(--space-2xl) var(--space-3xl);
-  background: var(--background-dark);
+  padding: var(--space-xl) var(--space-2xl);
+  background: var(--background-light);
   border-top: 1px solid var(--border-light);
   display: flex;
   gap: var(--space-lg);
   align-items: center;
-  position: relative;
-}
-
-.modal-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: var(--space-3xl);
-  width: 60px;
-  height: 2px;
-  background: var(--secondary-color);
 }
 
 .modal-footer .btn {
   flex: 1;
   justify-content: center;
-  min-height: 52px;
-  font-weight: 700;
+  min-height: 44px;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -2979,7 +2963,7 @@ html, body {
 .modal-footer .btn--secondary {
   background: transparent;
   color: var(--text-medium);
-  border: 2px solid var(--border-light);
+  border: 1px solid var(--border-light);
 }
 
 .modal-footer .btn--secondary:hover {
@@ -2991,24 +2975,7 @@ html, body {
 .modal-footer .btn--primary {
   background: var(--secondary-color);
   color: var(--primary-color);
-  border: 2px solid var(--secondary-color);
-  position: relative;
-  overflow: hidden;
-}
-
-.modal-footer .btn--primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.modal-footer .btn--primary:hover::before {
-  left: 100%;
+  border: 1px solid var(--secondary-color);
 }
 
 .modal-footer .btn--primary:hover {
@@ -3032,13 +2999,11 @@ html, body {
   }
   
   .modal-image-container {
-    border-right: none;
     border-bottom: 1px solid var(--border-light);
   }
   
   .modal-image {
-    min-height: 300px;
-    height: 300px;
+    height: 320px;
   }
   
   .modal-info {
@@ -3117,8 +3082,7 @@ html, body {
   }
   
   .modal-image {
-    min-height: 250px;
-    height: 250px;
+    height: 260px;
   }
 }
 
@@ -4633,16 +4597,17 @@ html, body {
   border-radius: var(--border-radius);
   white-space: nowrap;
   display: block;
+  position: relative;
 }
 
 .builds-nav__link:hover {
   background: var(--secondary-color);
   color: var(--primary-color);
   border-color: var(--secondary-color);
+  transform: translateY(-2px);
 }
 
-.builds-nav__link.active,
-.builds-nav__link:first-of-type {
+.builds-nav__link.active {
   background: var(--secondary-color);
   color: var(--primary-color);
   border-color: var(--secondary-color);

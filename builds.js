@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // ===== PROJECT RENDERING =====
 function renderProjects() {
-    const container = document.querySelector('.projects-grid');
+    const container = document.getElementById('projects-container');
     if (!container) {
         console.error('❌ Projects container not found!');
         return;
@@ -236,7 +236,7 @@ function createProjectHTML(project) {
                 <div class="project-image">
                     <img src="${project.image}" alt="${project.alt || project.title}" class="project-img">
                     <div class="project-overlay">
-                        <button class="view-btn" onclick="openProjectModal('${project.title}', '${project.type}', '${project.details}', '${project.year}', '${project.duration}', '${project.story}', '${project.modalImage}')">
+                        <button class="view-btn" data-project-id="${project.id}">
                             <i class="fas fa-eye"></i> View Details
                         </button>
                     </div>
@@ -262,35 +262,47 @@ function initModals() {
     console.log(`🔍 Found ${viewButtons.length} view buttons for modal initialization`);
     
     viewButtons.forEach((button, index) => {
-        if (button.onclick) {
-            console.log(`⚠️ Button ${index} already has onclick handler`);
-            return; // Skip if already has onclick
-        }
-        
+        // Remove any existing event listeners to prevent duplicates
+        button.replaceWith(button.cloneNode(true));
+    });
+    
+    // Re-query after replacing nodes
+    const freshButtons = document.querySelectorAll('.view-btn');
+    
+    freshButtons.forEach((button, index) => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             console.log(`🎯 View button ${index} clicked`);
             
+            const projectId = this.getAttribute('data-project-id');
             const projectCard = this.closest('.project-item');
+            
             if (!projectCard) {
                 console.error('❌ Project card not found!');
                 return;
             }
             
-            const title = projectCard.querySelector('.project-title')?.textContent || 'Unknown Project';
-            const type = projectCard.querySelector('.project-type')?.textContent || 'Unknown Type';
-            const details = projectCard.querySelector('.project-details')?.textContent || 'No details available';
-            const year = projectCard.querySelector('.project-year')?.textContent || 'Unknown Year';
-            const duration = projectCard.querySelector('.project-duration')?.textContent || 'Unknown Duration';
-            const story = `This ${title} represents one of our signature restoration projects. Every detail was carefully planned and executed to exceed factory specifications while maintaining authentic character.`;
-            const modalImage = projectCard.querySelector('.project-img')?.src || 'images/_dev/placeholder.webp';
+            // Find the project data
+            const project = projectsData.projects.find(p => p.id === projectId);
+            if (!project) {
+                console.error('❌ Project data not found!');
+                return;
+            }
             
-            console.log(`📋 Opening modal for: ${title}`);
-            openProjectModal(title, type, details, year, duration, story, modalImage);
+            console.log(`📋 Opening modal for: ${project.title}`);
+            openProjectModal(
+                project.title, 
+                project.type, 
+                project.details, 
+                project.year, 
+                project.duration, 
+                project.story, 
+                project.modalImage || project.image
+            );
         });
     });
     
-    console.log(`✅ Modal initialization complete for ${viewButtons.length} buttons`);
+    console.log(`✅ Modal initialization complete for ${freshButtons.length} buttons`);
 }
 
 // ===== MODAL FUNCTIONS =====
