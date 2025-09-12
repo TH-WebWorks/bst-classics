@@ -880,4 +880,163 @@ function initializeSmoothScroll() {
     });
 }
 
+// ===== FEATURED PROJECTS SLIDESHOW =====
+class FeaturedProjectsSlideshow {
+    constructor() {
+        this.slides = document.querySelectorAll('.slide');
+        this.dots = document.querySelectorAll('.dot');
+        this.prevBtn = document.querySelector('.slideshow__btn--prev');
+        this.nextBtn = document.querySelector('.slideshow__btn--next');
+        this.container = document.querySelector('.slideshow__container');
+        this.currentSlide = 0;
+        this.totalSlides = this.slides.length;
+        this.autoSlideInterval = null;
+        this.autoSlideDelay = 5000; // 5 seconds
+        
+        this.init();
+    }
+    
+    init() {
+        if (this.slides.length === 0) return;
+        
+        this.bindEvents();
+        this.startAutoSlide();
+        this.updateSlideDisplay(true);
+        this.updateContainerHeight();
+        window.addEventListener('resize', () => this.updateContainerHeight());
+    }
+    
+    bindEvents() {
+        // Previous button
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => {
+                this.stopAutoSlide();
+                this.previousSlide();
+                this.startAutoSlide();
+            });
+        }
+        
+        // Next button
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => {
+                this.stopAutoSlide();
+                this.nextSlide();
+                this.startAutoSlide();
+            });
+        }
+        
+        // Dot navigation
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.stopAutoSlide();
+                this.goToSlide(index);
+                this.startAutoSlide();
+            });
+        });
+        
+        // Pause auto-slide on hover
+        const slideshow = document.querySelector('.featured-projects__slideshow');
+        if (slideshow) {
+            slideshow.addEventListener('mouseenter', () => this.stopAutoSlide());
+            slideshow.addEventListener('mouseleave', () => this.startAutoSlide());
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                this.stopAutoSlide();
+                this.previousSlide();
+                this.startAutoSlide();
+            } else if (e.key === 'ArrowRight') {
+                this.stopAutoSlide();
+                this.nextSlide();
+                this.startAutoSlide();
+            }
+        });
+    }
+    
+    goToSlide(slideIndex) {
+        if (slideIndex < 0 || slideIndex >= this.totalSlides) return;
+        const current = this.slides[this.currentSlide];
+        const next = this.slides[slideIndex];
+
+        // Reset classes
+        this.slides.forEach(slide => slide.classList.remove('active', 'prev', 'to-right'));
+        this.dots.forEach(dot => dot.classList.remove('active'));
+
+        // Determine direction
+        const goingForward = slideIndex > this.currentSlide;
+
+        // Prepare next slide position
+        next.classList.add(goingForward ? 'to-right' : 'prev');
+        // Force reflow so the class takes effect before transition
+        void next.offsetWidth;
+
+        // Move current slide out and next slide in
+        current.classList.add(goingForward ? 'prev' : 'to-right');
+        next.classList.remove(goingForward ? 'to-right' : 'prev');
+        next.classList.add('active');
+
+        this.dots[slideIndex].classList.add('active');
+        this.currentSlide = slideIndex;
+
+        this.updateSlideDisplay();
+        this.updateContainerHeight();
+    }
+    
+    nextSlide() {
+        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        this.goToSlide(nextIndex);
+    }
+    
+    previousSlide() {
+        const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.goToSlide(prevIndex);
+    }
+    
+    startAutoSlide() {
+        this.stopAutoSlide();
+        this.autoSlideInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.autoSlideDelay);
+    }
+    
+    stopAutoSlide() {
+        if (this.autoSlideInterval) {
+            clearInterval(this.autoSlideInterval);
+            this.autoSlideInterval = null;
+        }
+    }
+    
+    updateSlideDisplay() {
+        // Update button states
+        if (this.prevBtn) {
+            this.prevBtn.disabled = this.currentSlide === 0;
+        }
+        if (this.nextBtn) {
+            this.nextBtn.disabled = this.currentSlide === this.totalSlides - 1;
+        }
+    }
+
+    updateContainerHeight() {
+        if (!this.container || this.slides.length === 0) return;
+        const active = this.slides[this.currentSlide];
+        // Temporarily ensure active slide is visible to measure height
+        const previousTransition = active.style.transition;
+        active.style.transition = 'none';
+        // Force reflow
+        const height = active.scrollHeight;
+        // Animate container height to match active slide
+        this.container.style.height = height + 'px';
+        // restore
+        // Allow CSS transitions to handle slide animation
+        setTimeout(() => { active.style.transition = previousTransition; }, 0);
+    }
+}
+
+// Initialize slideshow when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new FeaturedProjectsSlideshow();
+});
+
 console.log('BST Classics website loaded successfully! 🚗'); 
