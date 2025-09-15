@@ -41,6 +41,34 @@
       "alt": "1968 MGB restoration with 4.3L V6 conversion, Tremec 5-speed transmission, BMW Helrot Red paint, and custom fender flares by BST Classics",
       "story": "This 1968 MGB had quite the journey before finding its way to BST Classics. After sitting in a garage for 38 years, this former SCCA Championship car was brought back to life with a mission to retain its racing heritage while adding modern performance. The extensive body work included custom fender flares to accommodate the new powerplant and give it that aggressive racing stance. The stunning BMW Helrot Red paint was carefully applied, bringing the classic British roadster back to its former glory. Originally, the inline 4-cylinder engine was freshened and performed well, but after a minor fender bender, the customer saw an opportunity to take this build to the next level. We installed a new 4.3L fuel-injected V6 engine coupled with a Tremec 5-speed transmission, transforming this classic roadster into a modern performance machine. This unique build was the first of many innovative projects for BST Classics, and we had an absolute blast working on it. The customer's goal was to 'feel 19 again,' and we're confident this MGB delivers that youthful excitement with every drive. The combination of classic British styling, modern V6 power, and racing heritage makes this MGB a truly special build that stands out in any crowd.",
       "featured": true
+    },
+    {
+      "id": "gmc-pickup-1949",
+      "title": "1949 GMC Pickup",
+      "type": "Custom Build",
+      "categories": ["custom", "performance", "restoration", "engine"],
+      "details": ".060 Over SBC 350 • Stage 3 700R4 • Mustang II Front • 4-Link Rear • Ridler Wheels",
+      "year": "2024",
+      "duration": "Ongoing",
+      "image": "images/builds/1949_GMC_Pickup/1949_GMC_Pickup_thumbnail.jpeg",
+      "modalImage": "images/builds/1949_GMC_Pickup/1949_GMC_Pickup_thumbnail.jpeg",
+      "alt": "1949 GMC Pickup custom build with .060 over SBC 350, Stage 3 700R4 transmission, Mustang II front suspension, and Ridler wheels by BST Classics",
+      "story": "This 1949 GMC Pickup has an incredible backstory - pulled from a field where it had been parked since 1976, this truck was ready for a complete transformation. We gutted the entire vehicle and started from scratch with modern performance upgrades. The suspension received a complete overhaul with a Mustang II front suspension paired with a 4-link rear suspension system, matched with an S10 ZR2 position rear end for optimal performance and handling. Under the hood, we installed a .060 over SBC 350 small block Chevy engine mated to a Stage 3 700R4 transmission, providing plenty of power and smooth shifting. The truck now rides on stylish Ridler wheels and features Wilwood disc brakes for reliable stopping power. This 'shop rat' has become a real head-turner wherever it goes, combining classic 1940s truck styling with modern performance and reliability. While there's still work to be done on this ongoing project, we're having a blast with this build and enjoying every mile. It's a perfect example of how a forgotten field truck can be transformed into a powerful, reliable, and stylish classic that captures attention and delivers performance.",
+      "featured": true
+    },
+    {
+      "id": "gto-1967",
+      "title": "1967 Pontiac GTO",
+      "type": "Show & Go Paint & Body",
+      "categories": ["paint", "restoration", "custom"],
+      "details": "Complete Bodywork • Original Silver Glaze Paint • Matrix Paint • HOK USC01 Clear • 4-Speed",
+      "year": "2024",
+      "duration": "8 Months",
+      "image": "images/builds/1967_Pontiac_GTO/1967_Pontiac_GTO_Thumbnail.jpeg",
+      "modalImage": "images/builds/1967_Pontiac_GTO/1967_Pontiac_GTO_Thumbnail.jpeg",
+      "alt": "1967 Pontiac GTO Show & Go paint and body restoration with original Silver Glaze paint, Matrix paint, and House of Kolor clear by BST Classics",
+      "story": "This 1967 Pontiac GTO represents a perfect example of our Show & Go paint and body service, where we focus on delivering exceptional paint and bodywork while allowing customers to handle other aspects of their build. We completed all the comprehensive bodywork, ensuring every panel was straight and smooth, followed by professional paint application and precise glass and trim installation. The customer chose to maintain the car's original Silver Glaze paint color, which we expertly applied using high-quality Matrix paint products and finished with House of Kolor USC01 clear coat for that deep, lustrous shine that GTO enthusiasts demand. This 4-speed GTO showcases our commitment to quality craftsmanship in paint and body work. The customer opted to install the door glass and complete the interior work himself, which is a popular choice with our Show & Go service - we handle the complex paint and body restoration while customers can tackle the mechanical and interior aspects at their own pace. The result is a stunning GTO that maintains its classic muscle car appeal with a flawless finish that will turn heads at any car show or cruise night.",
+      "featured": true
     }
   ],
   "categories": [
@@ -81,7 +109,7 @@
     }
   ],
   "settings": {
-    "projectsPerPage": 3,
+    "projectsPerPage": 4,
     "defaultCategory": "all"
   }
 } 
