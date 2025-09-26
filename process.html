@@ -517,6 +517,11 @@
     <script>
         // Enhanced Process Navigation Functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Immediately set proper spacing for first process phase
+            const firstProcessPhase = document.querySelector('.process-phase:first-of-type');
+            if (firstProcessPhase) {
+                firstProcessPhase.style.marginTop = '200px';
+            }
             const processNavLinks = document.querySelectorAll('.process-nav__link');
             const processPhases = document.querySelectorAll('.process-phase');
             const processNavContainer = document.querySelector('.process-nav__container');
@@ -543,14 +548,14 @@
                         processNav.classList.add('fixed');
                         // Add padding to prevent content jump
                         const navHeight = processNav.offsetHeight;
-                        processNav.nextElementSibling.style.marginTop = navHeight + 'px';
+                        processNav.nextElementSibling.style.marginTop = (navHeight + 120) + 'px';
                         isFixed = true;
                     }
                 } else {
                     if (isFixed) {
                         processNav.classList.remove('fixed');
-                        // Remove padding
-                        processNav.nextElementSibling.style.marginTop = '';
+                        // Keep minimum spacing even when not fixed
+                        processNav.nextElementSibling.style.marginTop = '200px';
                         isFixed = false;
                     }
                 }
