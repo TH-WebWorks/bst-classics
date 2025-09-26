@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="description" content="View BST Classics's completed restoration and custom build projects. 50+ classic cars restored including Camaros, Mustangs, Corvettes. Quality craftsmanship since 2010.">
     <meta name="keywords" content="classic car builds, restoration projects, custom builds, BST Classics gallery, classic Camaro restoration, vintage Mustang builds, classic Corvette restoration, muscle car gallery, Iowa restoration projects, completed classic cars, before and after restoration">
     <meta name="author" content="BST Classics">
@@ -33,6 +33,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        /* QUICK FIX FOR GREY AREAS - OVERRIDE ANY PROBLEMATIC BACKGROUNDS */
+        body, .main, .builds-hero, .builds-nav, .projects-section, .container {
+            background: var(--background-dark) !important;
+        }
+        
+        /* Ensure seamless connection between sections */
+        .builds-hero {
+            margin-bottom: 0 !important;
+        }
+        
+        .builds-nav {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+        
+        .projects-section {
+            margin-top: 0 !important;
+            padding-top: var(--space-3xl) !important;
+        }
+    </style>
 </head>
 <body>
     <!-- Header/Navigation -->
@@ -86,12 +108,25 @@
             <div class="builds-hero__content">
                 <h1 class="builds-hero__title">OUR BUILDS</h1>
                 <p class="builds-hero__subtitle">Witness the transformation of classic automotive legends through our meticulous craftsmanship and unwavering dedication to excellence.</p>
+                
+                <!-- Mobile Dropdown Filter - INSIDE HERO -->
+                <div class="builds-nav__mobile-dropdown">
+                    <select class="builds-filter-select" id="builds-filter-select">
+                        <option value="all">All Projects</option>
+                        <option value="restoration">Restoration</option>
+                        <option value="custom">Custom Builds</option>
+                        <option value="engine">Engine Work</option>
+                        <option value="paint">Paint & Body</option>
+                        <option value="interior">Interior</option>
+                    </select>
+                </div>
             </div>
         </section>
 
-        <!-- Sticky Builds Navigation -->
+        <!-- Desktop Only Navigation -->
         <nav class="builds-nav" id="builds-nav">
             <div class="builds-nav__wrapper">
+                <!-- Desktop Tab Navigation -->
                 <div class="builds-nav__container">
                     <ul class="builds-nav__list">
                         <li class="builds-nav__item">
@@ -208,4 +243,4 @@
     <script src="script.js"></script>
     <script src="builds.js"></script>
 </body>
-</html> 
+</html>
