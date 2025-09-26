@@ -24,6 +24,7 @@ function showMenu() {
     navMenu.classList.add('show-menu');
     navToggle.classList.add('active');
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('mobile-menu-open');
     
     // Focus first link for accessibility
     setTimeout(() => {
@@ -39,6 +40,7 @@ function hideMenu() {
     navMenu.classList.remove('show-menu');
     navToggle.classList.remove('active');
     document.body.style.overflow = 'auto';
+    document.body.classList.remove('mobile-menu-open');
 }
 
 // Close menu when clicking on nav links
@@ -891,7 +893,8 @@ class FeaturedProjectsSlideshow {
         this.currentSlide = 0;
         this.totalSlides = this.slides.length;
         this.autoSlideInterval = null;
-        this.autoSlideDelay = 5000; // 5 seconds
+        this.autoSlideDelay = 10000; // 10 seconds - more time to read
+        this.isTransitioning = false;
         
         this.init();
     }
@@ -901,9 +904,8 @@ class FeaturedProjectsSlideshow {
         
         this.bindEvents();
         this.startAutoSlide();
-        this.updateSlideDisplay(true);
-        this.updateContainerHeight();
-        window.addEventListener('resize', () => this.updateContainerHeight());
+        this.updateSlideDisplay();
+        this.setInitialHeight();
     }
     
     bindEvents() {
@@ -956,32 +958,25 @@ class FeaturedProjectsSlideshow {
     }
     
     goToSlide(slideIndex) {
-        if (slideIndex < 0 || slideIndex >= this.totalSlides) return;
-        const current = this.slides[this.currentSlide];
-        const next = this.slides[slideIndex];
-
-        // Reset classes
-        this.slides.forEach(slide => slide.classList.remove('active', 'prev', 'to-right'));
-        this.dots.forEach(dot => dot.classList.remove('active'));
-
-        // Determine direction
-        const goingForward = slideIndex > this.currentSlide;
-
-        // Prepare next slide position
-        next.classList.add(goingForward ? 'to-right' : 'prev');
-        // Force reflow so the class takes effect before transition
-        void next.offsetWidth;
-
-        // Move current slide out and next slide in
-        current.classList.add(goingForward ? 'prev' : 'to-right');
-        next.classList.remove(goingForward ? 'to-right' : 'prev');
-        next.classList.add('active');
-
+        if (slideIndex < 0 || slideIndex >= this.totalSlides || this.isTransitioning) return;
+        
+        this.isTransitioning = true;
+        
+        // Remove active class from current slide
+        this.slides[this.currentSlide].classList.remove('active');
+        this.dots[this.currentSlide].classList.remove('active');
+        
+        // Add active class to new slide
+        this.slides[slideIndex].classList.add('active');
         this.dots[slideIndex].classList.add('active');
+        
         this.currentSlide = slideIndex;
-
         this.updateSlideDisplay();
-        this.updateContainerHeight();
+        
+        // Reset transition flag after animation completes
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 500); // Match CSS transition duration
     }
     
     nextSlide() {
@@ -1018,19 +1013,11 @@ class FeaturedProjectsSlideshow {
         }
     }
 
-    updateContainerHeight() {
+    setInitialHeight() {
         if (!this.container || this.slides.length === 0) return;
         const active = this.slides[this.currentSlide];
-        // Temporarily ensure active slide is visible to measure height
-        const previousTransition = active.style.transition;
-        active.style.transition = 'none';
-        // Force reflow
         const height = active.scrollHeight;
-        // Animate container height to match active slide
         this.container.style.height = height + 'px';
-        // restore
-        // Allow CSS transitions to handle slide animation
-        setTimeout(() => { active.style.transition = previousTransition; }, 0);
     }
 }
 
