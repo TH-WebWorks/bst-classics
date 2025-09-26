@@ -1,4 +1,4 @@
-﻿/* ===== CSS VARIABLES ===== */
+/* ===== CSS VARIABLES ===== */
 :root {
   /* Colors - Clean Professional Theme */
   --primary-color: #ffffff;
@@ -115,6 +115,7 @@ button {
     min-height: 45vh;
   }
 
+  .builds-hero {
     min-height: 35vh;
   }
 
@@ -1861,6 +1862,7 @@ button {
   /* Better typography scaling for mobile */
   .hero__title,
   .page-hero__title,
+  .builds-hero__title,
   .contact-hero__title,
   .process-hero__title,
   .social-hero__title {
@@ -1871,6 +1873,7 @@ button {
 
   .hero__subtitle,
   .page-hero__subtitle,
+  .builds-hero__subtitle,
   .contact-hero__subtitle,
   .process-hero__subtitle,
   .social-hero__subtitle {
@@ -2082,6 +2085,7 @@ button {
     min-height: 35vh;
   }
 
+  .builds-hero {
     min-height: 30vh;
   }
 
@@ -2195,6 +2199,7 @@ button {
   /* Improve mobile performance */
   .hero__bg,
   .page-hero__bg,
+  .builds-hero__bg,
   .contact-hero__bg,
   .restoration-hero__bg,
   .process-hero__bg {
@@ -2230,6 +2235,7 @@ button {
 @media (max-width: 991px) and (orientation: landscape) {
   .hero,
   .page-hero,
+  .builds-hero,
   .contact-hero,
   .restoration-hero,
   .process-hero {
@@ -2264,6 +2270,7 @@ button {
 .hero__content,
 .page-hero__content,
 .about-hero__content,
+.builds-hero__content,
 .contact-hero__content,
 .process-hero__content,
 .restoration-hero__content,
@@ -2362,6 +2369,7 @@ html, body {
   
   .hero__bg,
   .page-hero__bg,
+  .builds-hero__bg,
   .contact-hero__bg,
   .restoration-hero__bg,
   .process-hero__bg {
@@ -2372,6 +2380,7 @@ html, body {
 /* Mobile-friendly sticky elements - only disable on very small screens */
 @media (max-width: 480px) {
   .process-nav,
+  .builds-nav {
     position: relative;
     top: auto;
     z-index: 50;
@@ -2514,32 +2523,38 @@ html, body {
   }
   
   /* CENTERED CTA SECTION */
+  .builds-cta {
     padding: var(--space-5xl) var(--space-lg);
     text-align: center;
     background: var(--background-dark);
   }
   
+  .builds-cta__content {
     max-width: 600px;
     margin: 0 auto;
   }
   
+  .builds-cta__title {
     font-size: clamp(2rem, 8vw, 3rem);
     margin-bottom: var(--space-xl);
     color: var(--primary-color);
   }
   
+  .builds-cta__text {
     font-size: var(--text-lg);
     line-height: 1.7;
     margin-bottom: var(--space-2xl);
     color: #cccccc;
   }
   
+  .builds-cta__buttons {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
     align-items: center;
   }
   
+  .builds-cta__buttons .btn {
     width: 100%;
     max-width: 300px;
     min-height: 56px;
@@ -2549,25 +2564,31 @@ html, body {
     transition: all 0.3s ease;
   }
   
+  .builds-cta__buttons .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(221, 0, 0, 0.3);
   }
 
 /* ===== SMALL MOBILE OPTIMIZATIONS ===== */
 @media (max-width: 480px) {
+  .builds-hero {
     min-height: 55vh;
   }
   
+  .builds-hero__title {
     font-size: clamp(2rem, 9vw, 3rem);
     letter-spacing: 2px;
   }
   
+  .builds-hero__subtitle {
     font-size: var(--text-base);
   }
   
+  .builds-nav__wrapper {
     padding: 0 var(--space-md);
   }
   
+  .builds-filter-select {
     padding: var(--space-md) var(--space-lg);
     font-size: var(--text-base);
     min-height: 56px;
@@ -2620,15 +2641,19 @@ html, body {
     font-size: var(--text-lg);
   }
   
+  .builds-cta {
     padding: var(--space-5xl) var(--space-md);
   }
   
+  .builds-cta__title {
     font-size: clamp(2rem, 8vw, 2.8rem);
   }
   
+  .builds-cta__text {
     font-size: var(--text-lg);
   }
   
+  .builds-cta__buttons .btn {
     min-height: 64px;
     max-width: 320px;
     border-radius: 12px;
@@ -4083,7 +4108,7 @@ html, body {
 }
 
 .restoration-tier__features li::before {
-  content: 'â–¶';
+  content: '▶';
   position: absolute;
   left: 0;
   color: var(--secondary-color);
@@ -4158,6 +4183,8 @@ html, body {
   flex-wrap: wrap;
 }
 
+/* ===== BUILDS CTA SECTION ===== */
+.builds-cta {
   background: var(--background-dark);
   text-align: center;
   padding: var(--space-6xl) 0;
@@ -4167,12 +4194,14 @@ html, body {
 
 
 
+.builds-cta__content {
   position: relative;
   z-index: 2;
   max-width: 700px;
   margin: 0 auto;
 }
 
+.builds-cta__title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 900;
   color: var(--primary-color);
@@ -4182,6 +4211,7 @@ html, body {
   line-height: 1.2;
 }
 
+.builds-cta__text {
   font-size: var(--text-lg);
   color: #cccccc;
   line-height: 1.7;
@@ -4189,6 +4219,7 @@ html, body {
   font-weight: 400;
 }
 
+.builds-cta__buttons {
   display: flex;
   justify-content: center;
   gap: var(--space-xl);
@@ -4869,6 +4900,8 @@ html, body {
   border-color: var(--secondary-color);
 }
 
+/* ===== BUILDS NAVIGATION ===== */
+.builds-nav {
   background: var(--background-dark);
   border-bottom: 1px solid var(--border-light);
   padding: var(--space-xl) 0;
@@ -4877,6 +4910,7 @@ html, body {
   z-index: 99;
 }
 
+.builds-nav__wrapper {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -4884,6 +4918,7 @@ html, body {
   justify-content: center;
 }
 
+.builds-nav__container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4893,9 +4928,11 @@ html, body {
   -ms-overflow-style: none;
 }
 
+.builds-nav__container::-webkit-scrollbar {
   display: none;
 }
 
+.builds-nav__list {
   display: flex;
   gap: var(--space-sm);
   flex-wrap: nowrap;
@@ -4903,19 +4940,31 @@ html, body {
 }
 
 /* Hide mobile dropdown on desktop */
+.builds-nav__mobile-dropdown {
   display: none;
 }
 
+/* ===== NUCLEAR BUILDS PAGE OVERRIDE ===== */
 
+/* FORCE EVERYTHING ON BUILDS PAGE TO BE DARK - NO EXCEPTIONS */
+body:has(.builds-hero),
+.builds-hero,
+.builds-hero *,
+.builds-nav,
+.builds-nav *,
 .projects-section,
 .projects-section *,
+.builds-cta,
+.builds-cta *,
 .main,
 .container {
   background: var(--background-dark) !important;
 }
 
+/* MOBILE BUILDS OVERRIDES */
 @media (max-width: 768px) {
   /* Show mobile dropdown in hero with proper positioning */
+  .builds-hero__content .builds-nav__mobile-dropdown {
     display: block !important;
     margin-top: var(--space-xl) !important;
     width: 100% !important;
@@ -4925,6 +4974,7 @@ html, body {
   }
   
   /* Hide desktop navigation completely */
+  .builds-nav {
     display: none !important;
   }
   
@@ -4932,11 +4982,20 @@ html, body {
   body,
   html,
   .main,
+  .builds-hero,
+  .builds-hero__content,
+  .builds-hero__image,
+  .builds-nav,
+  .builds-nav__wrapper,
+  .builds-nav__container,
   .projects-section,
   .projects-section .container,
   .projects-grid,
   .project-card,
   .project-item,
+  .builds-cta,
+  .builds-cta .container,
+  .builds-cta__content,
   .load-more-section,
   .load-more-btn {
     background: var(--background-dark) !important;
@@ -4958,6 +5017,7 @@ html, body {
   }
   
   /* Mobile filter select styling */
+  .builds-filter-select {
     width: 100% !important;
     max-width: 100% !important;
     background: var(--background-light) !important;
@@ -4980,6 +5040,7 @@ html, body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   }
   
+  .builds-filter-select:focus {
     outline: none !important;
     border-color: var(--secondary-color) !important;
     box-shadow: 0 0 0 4px rgba(221, 0, 0, 0.2) !important;
@@ -4987,11 +5048,14 @@ html, body {
   }
 }
 
+/* ===== ADDITIONAL DESKTOP BUILDS FIXES ===== */
 @media (min-width: 769px) {
   /* Ensure no gaps or light backgrounds on desktop */
+  .builds-hero {
     margin-bottom: 0;
   }
   
+  .builds-nav {
     margin-top: 0;
     background: var(--background-dark);
   }
@@ -5007,9 +5071,11 @@ html, body {
   }
 }
 
+.builds-nav__item {
   list-style: none;
 }
 
+.builds-nav__link {
   background: transparent;
   color: var(--text-medium);
   border: 2px solid var(--border-light);
@@ -5026,12 +5092,14 @@ html, body {
   position: relative;
 }
 
+.builds-nav__link:hover {
   background: var(--secondary-color);
   color: var(--primary-color);
   border-color: var(--secondary-color);
   transform: translateY(-2px);
 }
 
+.builds-nav__link.active {
   background: var(--secondary-color);
   color: var(--primary-color);
   border-color: var(--secondary-color);

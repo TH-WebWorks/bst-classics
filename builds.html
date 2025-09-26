@@ -28,33 +28,12 @@
     <title>Classic Car Builds & Restoration Gallery | BST Classics | Norwalk, IA</title>
     
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="builds.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    
-    <style>
-        /* QUICK FIX FOR GREY AREAS - OVERRIDE ANY PROBLEMATIC BACKGROUNDS */
-        body, .main, .builds-hero, .builds-nav, .projects-section, .container {
-            background: var(--background-dark) !important;
-        }
-        
-        /* Ensure seamless connection between sections */
-        .builds-hero {
-            margin-bottom: 0 !important;
-        }
-        
-        .builds-nav {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-        }
-        
-        .projects-section {
-            margin-top: 0 !important;
-            padding-top: var(--space-3xl) !important;
-        }
-    </style>
 </head>
 <body>
     <!-- Header/Navigation -->
@@ -107,62 +86,57 @@
             </div>
             <div class="builds-hero__content">
                 <h1 class="builds-hero__title">OUR BUILDS</h1>
-                <p class="builds-hero__subtitle">Witness the transformation of classic automotive legends through our meticulous craftsmanship and unwavering dedication to excellence.</p>
-                
-                <!-- Mobile Dropdown Filter - INSIDE HERO -->
-                <div class="builds-nav__mobile-dropdown">
-                    <select class="builds-filter-select" id="builds-filter-select">
-                        <option value="all">All Projects</option>
-                        <option value="restoration">Restoration</option>
-                        <option value="custom">Custom Builds</option>
-                        <option value="engine">Engine Work</option>
-                        <option value="paint">Paint & Body</option>
-                        <option value="interior">Interior</option>
-                    </select>
+                <p class="builds-hero__subtitle">
+                    Witness the transformation of classic automotive legends through our meticulous 
+                    craftsmanship and unwavering dedication to excellence.
+                </p>
+            </div>
+        </section>
+
+        <!-- Mobile Filter Dropdown (shown only on mobile) -->
+        <section class="builds-mobile-filter">
+            <div class="container">
+                <select class="builds-mobile-select" id="builds-mobile-select">
+                    <option value="all">All Projects</option>
+                    <option value="restoration">Restoration</option>
+                    <option value="custom">Custom Builds</option>
+                    <option value="performance">Performance</option>
+                    <option value="engine">Engine Work</option>
+                    <option value="paint">Paint & Body</option>
+                    <option value="interior">Interior</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Desktop Filter Navigation -->
+        <section class="builds-filters">
+            <div class="container">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All Projects</button>
+                    <button class="filter-tab" data-filter="restoration">Restoration</button>
+                    <button class="filter-tab" data-filter="custom">Custom Builds</button>
+                    <button class="filter-tab" data-filter="performance">Performance</button>
+                    <button class="filter-tab" data-filter="engine">Engine Work</button>
+                    <button class="filter-tab" data-filter="paint">Paint & Body</button>
+                    <button class="filter-tab" data-filter="interior">Interior</button>
                 </div>
             </div>
         </section>
 
-        <!-- Desktop Only Navigation -->
-        <nav class="builds-nav" id="builds-nav">
-            <div class="builds-nav__wrapper">
-                <!-- Desktop Tab Navigation -->
-                <div class="builds-nav__container">
-                    <ul class="builds-nav__list">
-                        <li class="builds-nav__item">
-                            <a href="#all-projects" class="builds-nav__link filter-tab active" data-filter="all">All Projects</a>
-                        </li>
-                        <li class="builds-nav__item">
-                            <a href="#restoration" class="builds-nav__link filter-tab" data-filter="restoration">Restoration</a>
-                        </li>
-                        <li class="builds-nav__item">
-                            <a href="#custom" class="builds-nav__link filter-tab" data-filter="custom">Custom Builds</a>
-                        </li>
-                        <li class="builds-nav__item">
-                            <a href="#engine" class="builds-nav__link filter-tab" data-filter="engine">Engine Work</a>
-                        </li>
-                        <li class="builds-nav__item">
-                            <a href="#paint" class="builds-nav__link filter-tab" data-filter="paint">Paint & Body</a>
-                        </li>
-                        <li class="builds-nav__item">
-                            <a href="#interior" class="builds-nav__link filter-tab" data-filter="interior">Interior</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
         <!-- Projects Section -->
-        <section class="projects-section">
+        <section class="builds-projects">
             <div class="container">
-                <div class="projects-grid" id="projects-container">
+                <div class="projects-grid" id="projects-grid">
                     <!-- Projects will be dynamically loaded from projects.json -->
                 </div>
 
-                <!-- Load More Section -->
-                <div class="load-more-section">
-                    <button class="load-more-btn" id="load-more-btn">Load More Projects</button>
-                    <p class="project-counter" id="project-counter">Loading projects...</p>
+                <!-- Load More Button -->
+                <div class="builds-load-more" id="load-more-section">
+                    <button class="load-more-btn" id="load-more-btn">
+                        <i class="fas fa-plus"></i>
+                        Load More Projects
+                    </button>
+                    <p class="projects-counter" id="projects-counter">Loading projects...</p>
                 </div>
             </div>
         </section>
@@ -171,19 +145,93 @@
         <section class="builds-cta">
             <div class="container">
                 <div class="builds-cta__content">
-                    <h2 class="builds-cta__title">Ready to Meet Our Team?</h2>
+                    <h2 class="builds-cta__title">Ready to Start Your Build?</h2>
                     <p class="builds-cta__text">
-                        Learn about the passionate craftsmen behind these incredible transformations. 
-                        Discover our story, experience, and dedication to classic car excellence.
+                        Transform your classic car vision into reality. Our expert team is ready to 
+                        bring your dream restoration to life with unmatched craftsmanship and attention to detail.
                     </p>
                     <div class="builds-cta__buttons">
-                        <a href="about.html" class="btn btn--primary btn--large">Meet Our Team</a>
-                        <a href="tel:5154461215" class="btn btn--secondary btn--large">Call (515) 446-1215</a>
+                        <a href="contact.html" class="btn btn--primary btn--large">
+                            <i class="fas fa-envelope"></i>
+                            Get Your Quote
+                        </a>
+                        <a href="tel:5154461215" class="btn btn--secondary btn--large">
+                            <i class="fas fa-phone"></i>
+                            Call (515) 446-1215
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Project Modal -->
+    <div class="project-modal-overlay" id="project-modal-overlay">
+        <div class="project-modal">
+            <div class="project-modal__header">
+                <h2 class="project-modal__title" id="modal-title">Project Details</h2>
+                <button class="project-modal__close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="project-modal__content">
+                <div class="project-modal__image">
+                    <img src="" alt="" class="project-modal__img" id="modal-image">
+                    <div class="project-modal__badges" id="modal-badges">
+                        <!-- Badges will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="project-modal__info">
+                    <!-- Tab Navigation -->
+                    <div class="modal-tabs">
+                        <button class="modal-tab active" data-tab="overview">Overview</button>
+                        <button class="modal-tab" data-tab="specs">Specifications</button>
+                        <button class="modal-tab" data-tab="story">Full Story</button>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div class="modal-tab-content">
+                        <div class="tab-panel active" id="tab-overview">
+                            <div class="project-summary" id="modal-summary">
+                                <!-- Project summary will be inserted here -->
+                            </div>
+                            <div class="project-highlights" id="modal-highlights">
+                                <!-- Key highlights will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="tab-specs">
+                            <div class="specs-grid" id="modal-specs">
+                                <!-- Specifications will be inserted here -->
+                            </div>
+                            <div class="project-categories" id="modal-categories">
+                                <!-- Categories will be inserted here -->
+                            </div>
+                        </div>
+                        
+                        <div class="tab-panel" id="tab-story">
+                            <div class="project-full-story" id="modal-story">
+                                <!-- Full story will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-modal__footer">
+                <button class="btn btn--secondary" id="modal-close-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Gallery
+                </button>
+                <a href="contact.html" class="btn btn--primary">
+                    <i class="fas fa-envelope"></i>
+                    Get Quote for Similar Project
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

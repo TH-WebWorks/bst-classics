@@ -1,664 +1,510 @@
-// BST Classics - Builds Page Functionality
-console.log('🚗 Builds page loading...');
+// ===== BUILDS PAGE JAVASCRIPT - FRESH START =====
+// Clean, simple implementation that works perfectly with projects.json
 
-// ===== DATA LOADING =====
-let projectsData = {
-    projects: [],
-    categories: [],
-    settings: {}
-};
+document.addEventListener('DOMContentLoaded', function() {
+    let allProjects = [];
+    let currentFilter = 'all';
+    let projectsLoaded = 0;
+    const projectsPerLoad = 6;
+
+    // Initialize the builds page
+    initBuildsPage();
+
+    function initBuildsPage() {
+        loadProjectsData();
+        setupFilterListeners();
+        setupLoadMoreListener();
+    }
 
 // Load projects from JSON
 async function loadProjectsData() {
     try {
-        console.log('📋 Loading projects data from JSON...');
+            showLoading();
         const response = await fetch('projects.json');
+            const data = await response.json();
+            allProjects = data.projects || [];
         
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            if (allProjects.length === 0) {
+                showError('No projects found');
+                return;
         }
         
-        projectsData = await response.json();
-        console.log(`✅ Loaded ${projectsData.projects.length} projects`);
+            displayProjects();
+            updateCounter();
         
-        return projectsData;
     } catch (error) {
-        console.error('❌ Failed to load projects data:', error);
-        
-        // Fallback to empty structure
-        projectsData = {
-            projects: [],
-            categories: [
-                { id: 'all', name: 'All Projects', slug: 'all' }
-            ],
-            settings: { projectsPerPage: 6, defaultCategory: 'all' }
-        };
-        
-        return projectsData;
+            console.error('Error loading projects:', error);
+            showError('Failed to load projects. Please try again later.');
+        }
     }
-}
 
-// Wait for page to load completely
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log('✅ Builds page ready!');
-    
-    // Load data first, then initialize
-    await loadProjectsData();
-    
-    // Render initial projects
-    renderProjects();
-    
-    // Initialize all functionality
-    initFilters();
-    initLoadMore();
-    initModals();
-});
-
-// ===== PROJECT RENDERING =====
-function renderProjects() {
-    const container = document.getElementById('projects-container');
-    if (!container) {
-        console.error('❌ Projects container not found!');
-        return;
-    }
-    
-    // Clear existing projects (in case of re-render)
-    container.innerHTML = '';
-    
-    // Render initial projects (first batch based on settings)
-    const projectsPerPage = projectsData.settings.projectsPerPage || 6;
-    const initialProjects = projectsData.projects.slice(0, projectsPerPage);
-    
-    console.log(`🎨 Rendering ${initialProjects.length} initial projects`);
-    
-    initialProjects.forEach(project => {
-        const projectHTML = createProjectHTML(project);
-        container.insertAdjacentHTML('beforeend', projectHTML);
-    });
-    
-    // Update project counter
-    updateProjectCounter();
-}
-
-function updateProjectCounter() {
-    const counter = document.getElementById('project-counter');
-    if (counter) {
-        const visibleProjects = document.querySelectorAll('.project-item:not([style*="display: none"])').length;
-        const totalProjects = projectsData.projects.length;
-        counter.textContent = `Showing ${visibleProjects} of ${totalProjects} completed projects`;
-    }
-}
-
-// ===== BUILDS NAVIGATION FUNCTIONALITY =====
-function initFilters() {
-    const buildsNavLinks = document.querySelectorAll('.builds-nav__link');
-    const projectItems = document.querySelectorAll('.project-item');
-    const buildsNavContainer = document.querySelector('.builds-nav__container');
-    const mobileDropdown = document.getElementById('builds-filter-select');
-    
-    console.log(`Found ${buildsNavLinks.length} navigation links and ${projectItems.length} projects`);
-    
-    // Mobile dropdown functionality
-    if (mobileDropdown) {
-        mobileDropdown.addEventListener('change', function(e) {
-            const filter = this.value;
-            console.log(`Mobile filtering by: ${filter}`);
-            
-            // Update desktop active link to match
-            buildsNavLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.dataset.filter === filter) {
-                    link.classList.add('active');
-                }
+    // Setup filter event listeners
+    function setupFilterListeners() {
+        // Desktop filter tabs
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const filter = this.dataset.filter;
+                setActiveFilter(filter);
+                applyFilter(filter);
             });
-            
-            // Apply filter
-            applyFilter(filter);
         });
+
+        // Mobile filter dropdown
+        const mobileSelect = document.getElementById('builds-mobile-select');
+        if (mobileSelect) {
+            mobileSelect.addEventListener('change', function() {
+                const filter = this.value;
+                applyFilter(filter);
+                
+                // Sync desktop tabs
+                filterTabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.filter === filter);
+                });
+            });
+        }
     }
-    
-    // Desktop tab functionality
-    buildsNavLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const filter = this.dataset.filter;
-            console.log(`Desktop filtering by: ${filter}`);
-            
-            // Update active link
-            buildsNavLinks.forEach(lnk => lnk.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Update mobile dropdown to match
-            if (mobileDropdown) {
-                mobileDropdown.value = filter;
-            }
-            
-            // Apply filter
-            applyFilter(filter);
-            
-            // Scroll active tab into view
-            scrollActiveTabIntoView(this);
+
+    // Setup load more button
+    function setupLoadMoreListener() {
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                displayProjects(true); // append mode
+            });
+        }
+    }
+
+    // Set active filter for desktop tabs
+    function setActiveFilter(filter) {
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.filter === filter);
         });
-    });
-    
-    // Centralized filter application function
+        
+        // Sync mobile dropdown
+        const mobileSelect = document.getElementById('builds-mobile-select');
+        if (mobileSelect) {
+            mobileSelect.value = filter;
+        }
+    }
+
+    // Apply filter and reset view
     function applyFilter(filter) {
-        const projectItems = document.querySelectorAll('.project-item');
+        currentFilter = filter;
+        projectsLoaded = 0;
         
-        projectItems.forEach(item => {
-            const categories = item.dataset.category || '';
-            
-            if (filter === 'all' || categories.includes(filter)) {
-                item.style.display = 'block';
-                item.style.opacity = '1';
-            } else {
-                item.style.display = 'none';
-            }
-        });
+        // Clear existing projects
+        const grid = document.getElementById('projects-grid');
+        grid.innerHTML = '';
         
-        // Update project counter after filtering
-        updateProjectCounter();
+        displayProjects();
     }
-    
-    // Enhanced touch scrolling and mobile improvements
-    if (buildsNavContainer) {
-        let isScrolling = false;
-        let startX = 0;
-        let scrollLeft = 0;
-        
-        // Touch events for better mobile scrolling
-        buildsNavContainer.addEventListener('touchstart', (e) => {
-            isScrolling = true;
-            startX = e.touches[0].pageX - buildsNavContainer.offsetLeft;
-            scrollLeft = buildsNavContainer.scrollLeft;
-            buildsNavContainer.style.scrollSnapType = 'none';
-        });
-        
-        buildsNavContainer.addEventListener('touchmove', (e) => {
-            if (!isScrolling) return;
-            e.preventDefault();
-            const x = e.touches[0].pageX - buildsNavContainer.offsetLeft;
-            const walk = (x - startX) * 1.5; // Scroll speed multiplier
-            buildsNavContainer.scrollLeft = scrollLeft - walk;
-        });
-        
-        buildsNavContainer.addEventListener('touchend', () => {
-            isScrolling = false;
-            setTimeout(() => {
-                buildsNavContainer.style.scrollSnapType = 'x mandatory';
-            }, 100);
-        });
-        
-        // Add momentum scrolling for iOS
-        buildsNavContainer.style.webkitOverflowScrolling = 'touch';
-    }
-    
-    // Mobile-specific initialization
-    if (window.innerWidth <= 768) {
-        initMobileEnhancements();
-    }
-    
-    // Ensure mobile dropdown starts with "All Projects" selected
-    if (mobileDropdown) {
-        mobileDropdown.value = 'all';
-    }
-}
 
-// Enhanced function to scroll active tab into view with mobile optimization
-function scrollActiveTabIntoView(activeLink) {
-    const buildsNavContainer = document.querySelector('.builds-nav__container');
-    if (buildsNavContainer && activeLink) {
-        const containerRect = buildsNavContainer.getBoundingClientRect();
-        const activeRect = activeLink.getBoundingClientRect();
+    // Display projects based on current filter
+    function displayProjects(append = false) {
+        const filteredProjects = getFilteredProjects();
+        const startIndex = append ? projectsLoaded : 0;
+        const endIndex = Math.min(startIndex + projectsPerLoad, filteredProjects.length);
+        const projectsToShow = filteredProjects.slice(startIndex, endIndex);
+
+        const grid = document.getElementById('projects-grid');
         
-        // More responsive scrolling for mobile
-        const isMobile = window.innerWidth <= 768;
-        const scrollPadding = isMobile ? 20 : 40;
+        if (!append) {
+            grid.innerHTML = '';
+            projectsLoaded = 0;
+        }
+
+        // Create and append project cards
+        projectsToShow.forEach((project, index) => {
+            const card = createProjectCard(project);
+            card.style.animationDelay = `${(startIndex + index) * 0.1}s`;
+            grid.appendChild(card);
+        });
+
+        projectsLoaded = endIndex;
+        updateCounter();
+        updateLoadMoreButton(filteredProjects.length);
+    }
+
+    // Get filtered projects based on current filter
+    function getFilteredProjects() {
+        if (currentFilter === 'all') {
+            return allProjects;
+        }
         
-        if (activeRect.left < containerRect.left + scrollPadding || 
-            activeRect.right > containerRect.right - scrollPadding) {
-            
-            let scrollLeft;
-            if (isMobile) {
-                // On mobile, scroll to center the active tab
-                scrollLeft = activeLink.offsetLeft - (buildsNavContainer.offsetWidth / 2) + (activeLink.offsetWidth / 2);
+        const filtered = allProjects.filter(project => {
+            if (!project.categories) return false;
+            return project.categories.includes(currentFilter);
+        });
+        
+        console.log(`Filter "${currentFilter}" found ${filtered.length} projects:`, filtered.map(p => p.title));
+        return filtered;
+    }
+
+    // Create individual project card - SIMPLE AND WORKING
+    function createProjectCard(project) {
+        const card = document.createElement('a');
+        card.href = '#';
+        card.className = 'project-card';
+        card.style.display = 'block';
+        card.style.textDecoration = 'none';
+        card.style.color = 'inherit';
+        // Add accessibility attributes
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `View details for ${project.title || 'Classic Car Project'}`);
+        
+        // Get project data with fallbacks
+        const title = project.title || 'Classic Car Project';
+        const description = project.details || project.description || 'Professional restoration showcasing expert craftsmanship and attention to detail.';
+        const year = project.year || 'Classic';
+        const type = project.type || 'Restoration';
+        const thumbnail = project.image || project.thumbnail || 'images/_dev/placeholder.webp';
+        
+        console.log('Creating card for project:', title, 'with image:', thumbnail);
+        
+        card.innerHTML = `
+            <div class="project-image">
+                <img src="${thumbnail}" 
+                     alt="${title}" 
+                     class="project-img"
+                     loading="lazy"
+                     onerror="this.src='images/_dev/placeholder.webp'">
+                <div class="project-overlay">
+                    <div class="project-view-indicator">
+                        <i class="fas fa-eye"></i>
+                        <span>Click to View</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-info">
+                <h3 class="project-title">${title}</h3>
+                <p class="project-description">${description}</p>
+                <div class="project-meta">
+                    <span class="project-year">${year}</span>
+                    <span class="project-type">${type}</span>
+                </div>
+            </div>
+        `;
+        
+        // Click and keyboard handler
+        function handleCardActivation(e) {
+            e.preventDefault();
+            console.log('CARD ACTIVATED for project:', project.title);
+            openProjectModal(project.id);
+        }
+        
+        card.addEventListener('click', handleCardActivation);
+        card.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                handleCardActivation(e);
+            }
+        });
+        
+        return card;
+    }
+
+    // Update project counter
+    function updateCounter() {
+        const filteredProjects = getFilteredProjects();
+        const counter = document.getElementById('projects-counter');
+        
+        if (counter) {
+            const filterText = currentFilter === 'all' ? 'projects' : `${currentFilter} projects`;
+            counter.textContent = `Showing ${projectsLoaded} of ${filteredProjects.length} ${filterText}`;
+        }
+    }
+
+    // Update load more button visibility
+    function updateLoadMoreButton(totalProjects) {
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const loadMoreSection = document.getElementById('load-more-section');
+        
+        if (loadMoreBtn && loadMoreSection) {
+            if (projectsLoaded >= totalProjects) {
+                loadMoreBtn.style.display = 'none';
             } else {
-                // On desktop, scroll with padding
-                scrollLeft = activeRect.left < containerRect.left ? 
-                    activeLink.offsetLeft - scrollPadding : 
-                    activeLink.offsetLeft - buildsNavContainer.offsetWidth + activeLink.offsetWidth + scrollPadding;
+                loadMoreBtn.style.display = 'inline-flex';
+            }
+        }
+    }
+
+    // Show loading state
+    function showLoading() {
+        const grid = document.getElementById('projects-grid');
+        if (grid) {
+            grid.innerHTML = '<div class="projects-loading"><i class="fas fa-spinner fa-spin"></i> Loading projects...</div>';
+        }
+    }
+
+    // Show error state
+    function showError(message) {
+        const grid = document.getElementById('projects-grid');
+        if (grid) {
+            grid.innerHTML = `<div class="projects-error"><i class="fas fa-exclamation-triangle"></i> ${message}</div>`;
+        }
+        
+        const counter = document.getElementById('projects-counter');
+        if (counter) {
+            counter.textContent = 'Unable to load projects';
+        }
+    }
+
+    // Setup modal functionality
+    setupModalListeners();
+
+    // Global function for project modal
+    window.openProjectModal = function(projectId) {
+        const project = allProjects.find(p => p.id === projectId);
+        
+        if (project) {
+            showProjectModal(project);
+        } else {
+            console.error('Project not found:', projectId);
+            console.log('Available projects:', allProjects.map(p => p.id));
+        }
+    };
+
+    // Setup modal event listeners
+    function setupModalListeners() {
+        const modalOverlay = document.getElementById('project-modal-overlay');
+        const modalClose = document.getElementById('modal-close');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+
+        // Close modal when clicking overlay
+        modalOverlay?.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeProjectModal();
+            }
+        });
+
+        // Close modal with close button
+        modalClose?.addEventListener('click', closeProjectModal);
+        modalCloseBtn?.addEventListener('click', closeProjectModal);
+
+        // Close modal with escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay?.classList.contains('active')) {
+                closeProjectModal();
+            }
+        });
+
+        // Setup tab functionality
+        setupModalTabs();
+    }
+
+    // Setup modal tab functionality
+    function setupModalTabs() {
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-tab')) {
+                const targetTab = e.target.dataset.tab;
+                switchModalTab(targetTab);
+            }
+        });
+    }
+
+    // Switch between modal tabs
+    function switchModalTab(targetTab) {
+        // Update tab buttons
+        const tabs = document.querySelectorAll('.modal-tab');
+        tabs.forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.tab === targetTab);
+        });
+
+        // Update tab panels
+        const panels = document.querySelectorAll('.tab-panel');
+        panels.forEach(panel => {
+            panel.classList.toggle('active', panel.id === `tab-${targetTab}`);
+        });
+    }
+
+    // Show project modal with data
+    function showProjectModal(project) {
+        const modalOverlay = document.getElementById('project-modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalImage = document.getElementById('modal-image');
+        const modalBadges = document.getElementById('modal-badges');
+        const modalSpecs = document.getElementById('modal-specs');
+        const modalCategories = document.getElementById('modal-categories');
+
+        if (!modalOverlay) return;
+
+        // Set modal content
+        if (modalTitle) {
+            modalTitle.textContent = project.title || 'Classic Car Project';
+        }
+
+        if (modalImage) {
+            const imageSrc = project.modalImage || project.image || project.thumbnail || 'images/_dev/placeholder.webp';
+            console.log('Setting modal image:', imageSrc, 'for project:', project.title);
+            modalImage.src = imageSrc;
+            modalImage.alt = project.alt || project.title || 'Classic Car Project';
+            modalImage.onerror = function() {
+                console.log('Image failed to load:', imageSrc);
+                this.src = 'images/_dev/placeholder.webp';
+            };
+        }
+
+        // Set badges
+        if (modalBadges) {
+            modalBadges.innerHTML = '';
+            
+            if (project.year) {
+                const yearBadge = document.createElement('span');
+                yearBadge.className = 'modal-badge modal-badge--primary';
+                yearBadge.textContent = project.year;
+                modalBadges.appendChild(yearBadge);
             }
             
-            buildsNavContainer.scrollTo({
-                left: Math.max(0, scrollLeft),
-                behavior: 'smooth'
+            if (project.type) {
+                const typeBadge = document.createElement('span');
+                typeBadge.className = 'modal-badge';
+                typeBadge.textContent = project.type;
+                modalBadges.appendChild(typeBadge);
+            }
+        }
+
+        // Set overview tab content
+        const modalSummary = document.getElementById('modal-summary');
+        const modalHighlights = document.getElementById('modal-highlights');
+        const modalStory = document.getElementById('modal-story');
+        
+        if (modalSummary) {
+            const summary = project.description || 'Professional restoration project showcasing expert craftsmanship and attention to detail.';
+            modalSummary.innerHTML = `
+                <h3>Project Overview</h3>
+                <p>${summary}</p>
+            `;
+        }
+        
+        if (modalHighlights && project.details) {
+            modalHighlights.innerHTML = `
+                <h4>Key Features</h4>
+                <div class="features-list">
+                    ${project.details.split('•').map(feature => 
+                        feature.trim() ? `<span class="feature-tag">${feature.trim()}</span>` : ''
+                    ).join('')}
+                </div>
+            `;
+        }
+        
+        if (modalStory && project.story) {
+            modalStory.innerHTML = `
+                <h3>The Complete Story</h3>
+                <div class="story-content">
+                    <p>${project.story}</p>
+            </div>
+            `;
+        }
+
+        // Set specifications
+        if (modalSpecs) {
+            modalSpecs.innerHTML = `
+                <div class="specs-section">
+                    <h3><i class="fas fa-cogs"></i> Project Specifications</h3>
+                    <div class="specs-grid" id="specs-grid-container"></div>
+                </div>
+            `;
+            
+            const specsContainer = modalSpecs.querySelector('#specs-grid-container');
+            
+            // Add common specifications with icons
+            const specs = [
+                { label: 'Year', value: project.year || 'Classic', icon: 'fas fa-calendar-alt' },
+                { label: 'Make', value: project.make || 'Classic', icon: 'fas fa-industry' },
+                { label: 'Model', value: project.model || 'Restoration', icon: 'fas fa-car' },
+                { label: 'Type', value: project.type || 'Restoration', icon: 'fas fa-wrench' },
+                { label: 'Duration', value: project.duration || '6-12 Months', icon: 'fas fa-clock' },
+                { label: 'Status', value: project.status || 'Completed', icon: 'fas fa-check-circle' }
+            ];
+
+            specs.forEach(spec => {
+                const specItem = document.createElement('div');
+                specItem.className = 'spec-item';
+                specItem.innerHTML = `
+                    <div class="spec-icon">
+                        <i class="${spec.icon}"></i>
+                    </div>
+                    <div class="spec-content">
+                        <div class="spec-label">${spec.label}</div>
+                        <div class="spec-value">${spec.value}</div>
+                    </div>
+                `;
+                specsContainer.appendChild(specItem);
+            });
+        }
+
+        // Set categories
+        if (modalCategories && project.categories) {
+            modalCategories.innerHTML = `
+                <div class="categories-section">
+                    <h3><i class="fas fa-tags"></i> Services Included</h3>
+                    <div class="category-tags" id="category-tags-container"></div>
+                </div>
+            `;
+            
+            const categoryContainer = modalCategories.querySelector('#category-tags-container');
+            
+            project.categories.forEach(category => {
+                const tag = document.createElement('span');
+                tag.className = 'category-tag';
+                tag.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                categoryContainer.appendChild(tag);
+            });
+        }
+
+        // Reset to overview tab
+        switchModalTab('overview');
+        
+        // Show modal
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Close project modal
+    function closeProjectModal() {
+        const modalOverlay = document.getElementById('project-modal-overlay');
+        if (modalOverlay) {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Make closeProjectModal available globally
+    window.closeProjectModal = closeProjectModal;
+
+    // Handle responsive changes
+    function handleResize() {
+        const isMobile = window.innerWidth <= 768;
+        const mobileFilter = document.querySelector('.builds-mobile-filter');
+        const desktopFilters = document.querySelector('.builds-filters');
+        
+        if (mobileFilter && desktopFilters) {
+            mobileFilter.style.display = isMobile ? 'block' : 'none';
+            desktopFilters.style.display = isMobile ? 'none' : 'block';
+        }
+    }
+
+    // Listen for window resize
+    window.addEventListener('resize', handleResize);
+    
+    // Initial check
+    handleResize();
+
+    // Smooth scroll for filter changes on mobile
+    function scrollToProjects() {
+        const projectsSection = document.querySelector('.builds-projects');
+        if (projectsSection && window.innerWidth <= 768) {
+            projectsSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
             });
         }
     }
-}
 
-// ===== LOAD MORE FUNCTIONALITY =====
-let additionalProjectsLoaded = false;
-
-function initLoadMore() {
-    const loadMoreBtn = document.getElementById('load-more-btn');
-    
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', loadMoreProjects);
-    }
-}
-
-function loadMoreProjects() {
-    if (additionalProjectsLoaded) return;
-    
-    console.log('Loading more projects...');
-    
-    const container = document.getElementById('projects-container');
-    const loadMoreBtn = document.getElementById('load-more-btn');
-    
-    if (!container) {
-        console.error('Projects container not found!');
-        return;
-    }
-    
-    // Show loading state
-    loadMoreBtn.textContent = 'Loading...';
-    loadMoreBtn.disabled = true;
-    
-    // Get currently displayed projects count
-    const currentProjects = document.querySelectorAll('.project-item').length;
-    const totalProjects = projectsData.projects.length;
-    const projectsPerPage = projectsData.settings.projectsPerPage || 6;
-    
-    // Calculate remaining projects to load
-    const remainingProjects = projectsData.projects.slice(currentProjects);
-    
-    if (remainingProjects.length === 0) {
-        loadMoreBtn.textContent = 'All Projects Loaded';
-        loadMoreBtn.disabled = true;
-        additionalProjectsLoaded = true;
-        return;
-    }
-    
-    // Add projects after short delay
-    setTimeout(() => {
-        remainingProjects.forEach((project, index) => {
-            const projectHTML = createProjectHTML(project);
-            container.insertAdjacentHTML('beforeend', projectHTML);
-        });
-        
-        // Update UI
-        const newTotal = document.querySelectorAll('.project-item').length;
-        
-        if (newTotal >= totalProjects) {
-            loadMoreBtn.textContent = 'All Projects Loaded';
-            loadMoreBtn.disabled = true;
-            additionalProjectsLoaded = true;
-        } else {
-            loadMoreBtn.textContent = 'Load More Projects';
-            loadMoreBtn.disabled = false;
-        }
-        
-        // Update counter
-        updateProjectCounter();
-        
-        // Re-initialize modals for new projects
-        initModals();
-        
-        console.log(`✅ Loaded ${remainingProjects.length} additional projects!`);
-        
-    }, 1000);
-}
-
-// ===== PROJECT HTML GENERATOR =====
-function createProjectHTML(project) {
-    // Convert categories array to space-separated string for data-category
-    const categoryStr = Array.isArray(project.categories) ? project.categories.join(' ') : project.categories || '';
-    
-    return `
-        <div class="project-item" data-category="${categoryStr}">
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="${project.image}" alt="${project.alt || project.title}" class="project-img">
-                    <div class="project-overlay">
-                        <button class="view-btn" data-project-id="${project.id}">
-                            <i class="fas fa-eye"></i> View Details
-                        </button>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">${project.title}</h3>
-                    <p class="project-type">${project.type}</p>
-                    <p class="project-details">${project.details}</p>
-                    <div class="project-meta">
-                        <span class="project-year">${project.year}</span>
-                        <span class="project-duration">${project.duration}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-// ===== MODAL FUNCTIONALITY =====
-function initModals() {
-    // Add click handlers to existing view buttons
-    const viewButtons = document.querySelectorAll('.view-btn');
-    console.log(`🔍 Found ${viewButtons.length} view buttons for modal initialization`);
-    
-    viewButtons.forEach((button, index) => {
-        // Remove any existing event listeners to prevent duplicates
-        button.replaceWith(button.cloneNode(true));
+    // Add scroll to projects after filter change on mobile
+    document.getElementById('builds-mobile-select')?.addEventListener('change', function() {
+        setTimeout(scrollToProjects, 300);
     });
-    
-    // Re-query after replacing nodes
-    const freshButtons = document.querySelectorAll('.view-btn');
-    
-    freshButtons.forEach((button, index) => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log(`🎯 View button ${index} clicked`);
-            
-            const projectId = this.getAttribute('data-project-id');
-            const projectCard = this.closest('.project-card');
-            
-            if (!projectCard) {
-                console.error('❌ Project card not found!');
-                return;
-            }
-            
-            // Find the project data
-            const project = projectsData.projects.find(p => p.id === projectId);
-            if (!project) {
-                console.error('❌ Project data not found!');
-                return;
-            }
-            
-            console.log(`📋 Opening modal for: ${project.title}`);
-            openProjectModal(
-                project.title, 
-                project.type, 
-                project.details, 
-                project.year, 
-                project.duration, 
-                project.story, 
-                project.modalImage || project.image
-            );
-        });
-    });
-    
-    console.log(`✅ Modal initialization complete for ${freshButtons.length} buttons`);
-}
-
-// ===== MODAL FUNCTIONS =====
-function openProjectModal(title, type, details, year, duration, story, modalImage = 'images/_dev/placeholder.webp') {
-    console.log(`Opening modal for: ${title}`);
-    
-    // Remove existing modal
-    const existingModal = document.getElementById('project-modal');
-    if (existingModal) {
-        existingModal.remove();
-    }
-    
-    // Create modal
-    const modal = document.createElement('div');
-    modal.id = 'project-modal';
-    modal.className = 'modal-overlay';
-    
-    modal.innerHTML = `
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2>${title}</h2>
-                <button class="modal-close" aria-label="Close project details">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="modal-content">
-                <div class="modal-image-container">
-                    <div class="modal-image">
-                        <img src="${modalImage}" alt="${title} - ${type} by BST Classics" class="modal-img">
-                    </div>
-                </div>
-                
-                <div class="modal-info">
-                    <div class="modal-project-header">
-                        <div class="modal-badges">
-                            <span class="badge badge-type">${type}</span>
-                            <span class="badge badge-year">${year}</span>
-                            <span class="badge badge-duration">${duration}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-sections">
-                        <div class="modal-section specifications">
-                            <h3>Specifications</h3>
-                            <p>${details}</p>
-                        </div>
-                        
-                        <div class="modal-section">
-                            <h3>Project Story</h3>
-                            <p>${story}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <button class="btn btn--secondary">
-                    <i class="fas fa-times"></i> Close
-                </button>
-                <a href="contact.html" class="btn btn--primary">
-                    <i class="fas fa-envelope"></i> Start Your Project
-                </a>
-            </div>
-        </div>
-    `;
-    
-    // Add to page
-    document.body.appendChild(modal);
-    document.body.classList.add('modal-open');
-    
-    // Show modal by adding active class
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-    
-    // Add event listeners for closing
-    const closeBtn = modal.querySelector('.modal-close');
-    const footerCloseBtn = modal.querySelector('.btn--secondary');
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🖱️ X button clicked');
-            window.closeProjectModal();
-        });
-    }
-    
-    if (footerCloseBtn) {
-        footerCloseBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🖱️ Footer close button clicked');
-            window.closeProjectModal();
-        });
-    }
-    
-    // Close on backdrop click
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            console.log('🖱️ Backdrop clicked');
-            window.closeProjectModal();
-        }
-    });
-    
-    // Close on escape key
-    document.addEventListener('keydown', handleEscapeKey);
-}
-
-// Make closeProjectModal globally available
-window.closeProjectModal = function() {
-    console.log('🔐 Closing modal...');
-    const modal = document.getElementById('project-modal');
-    if (modal) {
-        modal.classList.remove('active');
-        
-        // Wait for animation to complete before removing
-        setTimeout(() => {
-            modal.remove();
-            document.body.classList.remove('modal-open');
-            document.removeEventListener('keydown', handleEscapeKey);
-            console.log('✅ Modal closed successfully');
-        }, 300);
-    } else {
-        console.error('❌ Modal not found');
-    }
-};
-
-function handleEscapeKey(e) {
-    if (e.key === 'Escape') {
-        console.log('⌨️ Escape key pressed');
-        window.closeProjectModal();
-    }
-}
-
-
-
-// ===== MOBILE ENHANCEMENT FUNCTIONS =====
-function initMobileEnhancements() {
-    console.log('📱 Initializing mobile enhancements...');
-    
-    // Add touch-friendly project card interactions
-    enhanceProjectCardInteractions();
-    
-    // Improve modal touch behavior
-    enhanceMobileModals();
-    
-    // Add swipe gesture support for project filtering
-    addSwipeGestures();
-    
-    console.log('✅ Mobile enhancements initialized');
-}
-
-function enhanceProjectCardInteractions() {
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    projectCards.forEach(card => {
-        // Add visual feedback on touch
-        card.addEventListener('touchstart', function() {
-            this.style.transform = 'scale(0.98)';
-        });
-        
-        card.addEventListener('touchend', function() {
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 100);
-        });
-        
-        // Don't prevent default on touchend as it breaks button clicks
-        // Just prevent double-tap zoom with touch-action CSS
-    });
-}
-
-function enhanceMobileModals() {
-    // Override modal opening for better mobile experience
-    const originalOpenModal = window.openProjectModal;
-    
-    // Add mobile-specific modal handling
-    document.addEventListener('touchmove', function(e) {
-        if (document.body.classList.contains('modal-open')) {
-            const modal = document.getElementById('project-modal');
-            if (modal && e.target === modal) {
-                e.preventDefault();
-            }
-        }
-    }, { passive: false });
-}
-
-function addSwipeGestures() {
-    const buildsNavContainer = document.querySelector('.builds-nav__container');
-    if (!buildsNavContainer) return;
-    
-    let startX = 0;
-    let startY = 0;
-    let isSwipe = false;
-    
-    buildsNavContainer.addEventListener('touchstart', function(e) {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        isSwipe = true;
-    });
-    
-    buildsNavContainer.addEventListener('touchmove', function(e) {
-        if (!isSwipe) return;
-        
-        const deltaX = Math.abs(e.touches[0].clientX - startX);
-        const deltaY = Math.abs(e.touches[0].clientY - startY);
-        
-        // If it's more vertical than horizontal, it's not a swipe
-        if (deltaY > deltaX) {
-            isSwipe = false;
-        }
-    });
-    
-    buildsNavContainer.addEventListener('touchend', function(e) {
-        if (!isSwipe) return;
-        
-        const endX = e.changedTouches[0].clientX;
-        const deltaX = endX - startX;
-        
-        // Minimum swipe distance
-        if (Math.abs(deltaX) > 50) {
-            const activeLink = document.querySelector('.builds-nav__link.active');
-            if (activeLink) {
-                const links = Array.from(document.querySelectorAll('.builds-nav__link'));
-                const currentIndex = links.indexOf(activeLink);
-                
-                let nextIndex;
-                if (deltaX > 0 && currentIndex > 0) {
-                    // Swipe right - go to previous
-                    nextIndex = currentIndex - 1;
-                } else if (deltaX < 0 && currentIndex < links.length - 1) {
-                    // Swipe left - go to next
-                    nextIndex = currentIndex + 1;
-                }
-                
-                if (nextIndex !== undefined) {
-                    links[nextIndex].click();
-                }
-            }
-        }
-        
-        isSwipe = false;
-    });
-}
-
-// Handle responsive navigation on window resize
-window.addEventListener('resize', function() {
-    const isMobile = window.innerWidth <= 768;
-    const activeLink = document.querySelector('.builds-nav__link.active');
-    
-    if (isMobile && activeLink) {
-        // Ensure active tab is visible on orientation change
-        setTimeout(() => scrollActiveTabIntoView(activeLink), 100);
-    }
 });
-
-// Add viewport height fix for mobile browsers
-function setViewportHeight() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-// Set initial viewport height
-setViewportHeight();
-
-// Update viewport height on resize and orientation change
-window.addEventListener('resize', setViewportHeight);
-window.addEventListener('orientationchange', () => {
-    setTimeout(setViewportHeight, 100);
-});
-
-console.log('🎯 Builds.js loaded successfully!'); 
