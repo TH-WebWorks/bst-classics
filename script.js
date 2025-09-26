@@ -821,4 +821,216 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+<<<<<<< Updated upstream
+=======
+// ===== LIGHTBOX FUNCTIONALITY =====
+function initializeLightbox() {
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-image');
+    const closeBtn = document.querySelector('.lightbox-close');
+    const plaqueImages = document.querySelectorAll('.tier-plaque');
+
+    if (!modal || !modalImg || !closeBtn) return;
+
+    // Add click listeners to plaque images
+    plaqueImages.forEach(img => {
+        img.addEventListener('click', function() {
+            modal.classList.add('active');
+            modalImg.src = this.src;
+            modalImg.alt = this.alt;
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+    });
+
+    // Close lightbox when clicking close button
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Close lightbox when clicking outside the image
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeLightbox();
+        }
+    });
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+
+    function closeLightbox() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+}
+
+// ===== SMOOTH SCROLLING FOR SCROLL INDICATORS =====
+function initializeSmoothScroll() {
+    const scrollButtons = document.querySelectorAll('a[href^="#"]');
+    
+    scrollButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            
+            if (target) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = target.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// ===== FEATURED PROJECTS SLIDESHOW =====
+class FeaturedProjectsSlideshow {
+    constructor() {
+        this.slides = document.querySelectorAll('.slide');
+        this.dots = document.querySelectorAll('.dot');
+        this.prevBtn = document.querySelector('.slideshow__btn--prev');
+        this.nextBtn = document.querySelector('.slideshow__btn--next');
+        this.container = document.querySelector('.slideshow__container');
+        this.currentSlide = 0;
+        this.totalSlides = this.slides.length;
+        this.autoSlideInterval = null;
+        this.autoSlideDelay = 10000; // 10 seconds - more time to read
+        this.isTransitioning = false;
+        
+        this.init();
+    }
+    
+    init() {
+        if (this.slides.length === 0) return;
+        
+        this.bindEvents();
+        this.startAutoSlide();
+        this.updateSlideDisplay();
+        this.setInitialHeight();
+    }
+    
+    bindEvents() {
+        // Previous button
+        if (this.prevBtn) {
+            this.prevBtn.addEventListener('click', () => {
+                this.stopAutoSlide();
+                this.previousSlide();
+                this.startAutoSlide();
+            });
+        }
+        
+        // Next button
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => {
+                this.stopAutoSlide();
+                this.nextSlide();
+                this.startAutoSlide();
+            });
+        }
+        
+        // Dot navigation
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.stopAutoSlide();
+                this.goToSlide(index);
+                this.startAutoSlide();
+            });
+        });
+        
+        // Pause auto-slide on hover
+        const slideshow = document.querySelector('.featured-projects__slideshow');
+        if (slideshow) {
+            slideshow.addEventListener('mouseenter', () => this.stopAutoSlide());
+            slideshow.addEventListener('mouseleave', () => this.startAutoSlide());
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                this.stopAutoSlide();
+                this.previousSlide();
+                this.startAutoSlide();
+            } else if (e.key === 'ArrowRight') {
+                this.stopAutoSlide();
+                this.nextSlide();
+                this.startAutoSlide();
+            }
+        });
+    }
+    
+    goToSlide(slideIndex) {
+        if (slideIndex < 0 || slideIndex >= this.totalSlides || this.isTransitioning) return;
+        
+        this.isTransitioning = true;
+        
+        // Remove active class from current slide
+        this.slides[this.currentSlide].classList.remove('active');
+        this.dots[this.currentSlide].classList.remove('active');
+        
+        // Add active class to new slide
+        this.slides[slideIndex].classList.add('active');
+        this.dots[slideIndex].classList.add('active');
+        
+        this.currentSlide = slideIndex;
+        this.updateSlideDisplay();
+        
+        // Reset transition flag after animation completes
+        setTimeout(() => {
+            this.isTransitioning = false;
+        }, 500); // Match CSS transition duration
+    }
+    
+    nextSlide() {
+        const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+        this.goToSlide(nextIndex);
+    }
+    
+    previousSlide() {
+        const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        this.goToSlide(prevIndex);
+    }
+    
+    startAutoSlide() {
+        this.stopAutoSlide();
+        this.autoSlideInterval = setInterval(() => {
+            this.nextSlide();
+        }, this.autoSlideDelay);
+    }
+    
+    stopAutoSlide() {
+        if (this.autoSlideInterval) {
+            clearInterval(this.autoSlideInterval);
+            this.autoSlideInterval = null;
+        }
+    }
+    
+    updateSlideDisplay() {
+        // Update button states
+        if (this.prevBtn) {
+            this.prevBtn.disabled = this.currentSlide === 0;
+        }
+        if (this.nextBtn) {
+            this.nextBtn.disabled = this.currentSlide === this.totalSlides - 1;
+        }
+    }
+
+    setInitialHeight() {
+        if (!this.container || this.slides.length === 0) return;
+        const active = this.slides[this.currentSlide];
+        const height = active.scrollHeight;
+        this.container.style.height = height + 'px';
+    }
+}
+
+// Initialize slideshow when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new FeaturedProjectsSlideshow();
+});
+
+>>>>>>> Stashed changes
 console.log('BST Classics website loaded successfully! 🚗'); 
