@@ -21,7 +21,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: transparent;
   z-index: 1;
 }
 
@@ -1349,5 +1349,41 @@
   
   .project-modal-overlay.active .project-modal {
     animation: none;
+  }
+}
+
+/* ===== MOBILE NAV SUPREMACY - BUILDS PAGE OVERRIDE ===== */
+@media (max-width: 1200px) {
+  /* FORCE EVERYTHING ON BUILDS PAGE TO BE LOWER */
+  .builds-mobile-filter,
+  .builds-filters,
+  .filter-tabs,
+  .filter-tab,
+  .builds-mobile-select,
+  .builds-projects,
+  .projects-grid,
+  .project-card,
+  .project-overlay,
+  .project-modal-overlay,
+  .project-modal,
+  .builds-cta {
+    z-index: 1 !important;
+  }
+  
+  /* MOBILE NAV MUST BE ON TOP */
+  .nav__menu,
+  .nav__menu.show-menu,
+  #nav-menu,
+  #nav-menu.show-menu {
+    z-index: 999999 !important;
+    pointer-events: auto !important;
+  }
+  
+  .nav__list,
+  .nav__item,
+  .nav__link {
+    z-index: 999999 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
   }
 }

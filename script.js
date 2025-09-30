@@ -882,7 +882,7 @@ function initializeSmoothScroll() {
     });
 }
 
-// ===== FEATURED PROJECTS SLIDESHOW =====
+// ===== FEATURED PROJECTS SLIDESHOW - SIMPLIFIED =====
 class FeaturedProjectsSlideshow {
     constructor() {
         this.slides = document.querySelectorAll('.slide');
@@ -893,7 +893,7 @@ class FeaturedProjectsSlideshow {
         this.currentSlide = 0;
         this.totalSlides = this.slides.length;
         this.autoSlideInterval = null;
-        this.autoSlideDelay = 10000; // 10 seconds - more time to read
+        this.autoSlideDelay = 8000; // 8 seconds - good balance
         this.isTransitioning = false;
         
         this.init();
@@ -903,80 +903,110 @@ class FeaturedProjectsSlideshow {
         if (this.slides.length === 0) return;
         
         this.bindEvents();
-        this.startAutoSlide();
         this.updateSlideDisplay();
-        this.setInitialHeight();
+        
+        // Start auto-slide only on desktop to prevent mobile issues
+        if (window.innerWidth > 768) {
+            this.startAutoSlide();
+        }
     }
     
     bindEvents() {
         // Previous button
         if (this.prevBtn) {
-            this.prevBtn.addEventListener('click', () => {
+            this.prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.stopAutoSlide();
                 this.previousSlide();
-                this.startAutoSlide();
+                // Restart auto-slide only on desktop
+                if (window.innerWidth > 768) {
+                    setTimeout(() => this.startAutoSlide(), 5000);
+                }
             });
         }
         
         // Next button
         if (this.nextBtn) {
-            this.nextBtn.addEventListener('click', () => {
+            this.nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.stopAutoSlide();
                 this.nextSlide();
-                this.startAutoSlide();
+                // Restart auto-slide only on desktop
+                if (window.innerWidth > 768) {
+                    setTimeout(() => this.startAutoSlide(), 5000);
+                }
             });
         }
         
-        // Dot navigation
+        // Dot navigation - simplified
         this.dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
                 this.stopAutoSlide();
                 this.goToSlide(index);
-                this.startAutoSlide();
+                // Restart auto-slide only on desktop
+                if (window.innerWidth > 768) {
+                    setTimeout(() => this.startAutoSlide(), 5000);
+                }
             });
         });
         
-        // Pause auto-slide on hover
+        // Pause auto-slide on hover (desktop only)
         const slideshow = document.querySelector('.featured-projects__slideshow');
-        if (slideshow) {
+        if (slideshow && window.innerWidth > 768) {
             slideshow.addEventListener('mouseenter', () => this.stopAutoSlide());
             slideshow.addEventListener('mouseleave', () => this.startAutoSlide());
         }
         
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                this.stopAutoSlide();
-                this.previousSlide();
-                this.startAutoSlide();
-            } else if (e.key === 'ArrowRight') {
-                this.stopAutoSlide();
-                this.nextSlide();
-                this.startAutoSlide();
-            }
+        // Handle window resize to prevent glitches
+        window.addEventListener('resize', () => {
+            this.stopAutoSlide();
+            clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = setTimeout(() => {
+                this.updateSlideDisplay();
+                if (window.innerWidth > 768) {
+                    this.startAutoSlide();
+                }
+            }, 300);
         });
+        
+        // Add touch support for mobile
+        this.addTouchSupport();
     }
     
     goToSlide(slideIndex) {
         if (slideIndex < 0 || slideIndex >= this.totalSlides || this.isTransitioning) return;
         
+        // Prevent rapid clicking
         this.isTransitioning = true;
         
-        // Remove active class from current slide
-        this.slides[this.currentSlide].classList.remove('active');
-        this.dots[this.currentSlide].classList.remove('active');
+        // Simple, reliable slide transition
+        this.slides.forEach((slide, index) => {
+            slide.classList.remove('active');
+            this.dots[index].classList.remove('active');
+        });
         
-        // Add active class to new slide
+        // Activate new slide
         this.slides[slideIndex].classList.add('active');
         this.dots[slideIndex].classList.add('active');
         
         this.currentSlide = slideIndex;
         this.updateSlideDisplay();
         
-        // Reset transition flag after animation completes
+        // On mobile, ensure controls are visible after slide change
+        if (window.innerWidth <= 600) {
+            setTimeout(() => {
+                const controls = document.querySelector('.slideshow__controls');
+                if (controls) {
+                    controls.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }, 100);
+        }
+        
+        // Reset transition flag - shorter timeout for better responsiveness
         setTimeout(() => {
             this.isTransitioning = false;
-        }, 500); // Match CSS transition duration
+        }, 300);
     }
     
     nextSlide() {
@@ -990,6 +1020,9 @@ class FeaturedProjectsSlideshow {
     }
     
     startAutoSlide() {
+        // Only start auto-slide on desktop
+        if (window.innerWidth <= 768) return;
+        
         this.stopAutoSlide();
         this.autoSlideInterval = setInterval(() => {
             this.nextSlide();
@@ -1004,20 +1037,55 @@ class FeaturedProjectsSlideshow {
     }
     
     updateSlideDisplay() {
-        // Update button states
+        // Enable all buttons on mobile for better navigation
         if (this.prevBtn) {
-            this.prevBtn.disabled = this.currentSlide === 0;
+            this.prevBtn.disabled = false;
         }
         if (this.nextBtn) {
-            this.nextBtn.disabled = this.currentSlide === this.totalSlides - 1;
+            this.nextBtn.disabled = false;
         }
     }
-
-    setInitialHeight() {
-        if (!this.container || this.slides.length === 0) return;
-        const active = this.slides[this.currentSlide];
-        const height = active.scrollHeight;
-        this.container.style.height = height + 'px';
+    
+    addTouchSupport() {
+        if (!this.container) return;
+        
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        const threshold = 50; // Minimum swipe distance
+        
+        this.container.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            this.stopAutoSlide();
+        }, { passive: true });
+        
+        this.container.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        this.container.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diffX = startX - currentX;
+            
+            if (Math.abs(diffX) > threshold) {
+                if (diffX > 0) {
+                    // Swipe left - next slide
+                    this.nextSlide();
+                } else {
+                    // Swipe right - previous slide
+                    this.previousSlide();
+                }
+            }
+            
+            // Don't restart auto-slide on mobile
+            if (window.innerWidth > 768) {
+                setTimeout(() => this.startAutoSlide(), 5000);
+            }
+        }, { passive: true });
     }
 }
 
