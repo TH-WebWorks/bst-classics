@@ -111,20 +111,13 @@ button {
 }
 
 @media (max-width: 991px) {
-  .page-hero {
-    min-height: 45vh;
-  }
-
-  .builds-hero {
-    min-height: 35vh;
-  }
-
-  .contact-hero {
-    min-height: 35vh;
-  }
-
-  .process-hero {
-    min-height: 55vh;
+  .page-hero,
+  .builds-hero,
+  .contact-hero,
+  .process-hero,
+  .about-hero,
+  .restoration-hero {
+    height: 555px; /* 475px + 80px nav bar */
   }
 
   .social-hero {
@@ -408,10 +401,10 @@ button {
 
 .hero__image {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 20px);
   z-index: 0;
 }
 
@@ -481,7 +474,7 @@ button {
 /* ===== PAGE HERO SECTIONS ===== */
 .page-hero {
   position: relative;
-  min-height: 60vh;
+  height: 555px; /* 475px + 80px nav bar */
   display: flex;
   align-items: center;
   background: var(--background-dark);
@@ -501,10 +494,10 @@ button {
 
 .page-hero__image {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 20px);
   z-index: 0;
 }
 
@@ -544,7 +537,7 @@ button {
 /* ===== CONTACT HERO ===== */
 .contact-hero {
   position: relative;
-  min-height: 60vh;
+  height: 555px; /* 475px + 80px nav bar */
   display: flex;
   align-items: center;
   background: var(--background-dark);
@@ -565,10 +558,10 @@ button {
 
 .contact-hero__image {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 20px);
   z-index: 0;
 }
 
@@ -609,7 +602,7 @@ button {
 /* ===== RESTORATION HERO ===== */
 .restoration-hero {
   position: relative;
-  min-height: 60vh;
+  height: 555px; /* 475px + 80px nav bar */
   display: flex;
   align-items: center;
   background: var(--background-dark);
@@ -630,10 +623,10 @@ button {
 
 .restoration-hero__image {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 20px);
   z-index: 0;
 }
 
@@ -674,7 +667,7 @@ button {
 /* ===== ABOUT HERO ===== */
 .about-hero {
   position: relative;
-  min-height: 60vh;
+  height: 555px; /* 475px + 80px nav bar */
   display: flex;
   align-items: center;
   background: var(--background-dark);
@@ -695,10 +688,10 @@ button {
 
 .about-hero__image {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 20px);
   z-index: 0;
 }
 
@@ -739,14 +732,12 @@ button {
 /* ===== PROCESS HERO ===== */
 .process-hero {
   position: relative;
-  min-height: 60vh;
+  height: 555px; /* 475px + 80px nav bar */
   display: flex;
   align-items: center;
   background: var(--background-dark);
-  border-bottom: none;
+  border-bottom: 3px solid var(--secondary-color);
   overflow: hidden;
-  margin-bottom: 0;
-  padding-bottom: 0;
 }
 
 .process-hero::before {
@@ -762,10 +753,10 @@ button {
 
 .process-hero__image {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 20px);
   z-index: 0;
 }
 
@@ -2740,52 +2731,7 @@ html, body {
     text-align: center;
   }
   
-  /* CENTERED CTA SECTION */
-  .builds-cta {
-    padding: var(--space-5xl) var(--space-lg);
-    text-align: center;
-    background: var(--background-dark);
-  }
-  
-  .builds-cta__content {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .builds-cta__title {
-    font-size: clamp(2rem, 8vw, 3rem);
-    margin-bottom: var(--space-xl);
-    color: var(--primary-color);
-  }
-  
-  .builds-cta__text {
-    font-size: var(--text-lg);
-    line-height: 1.7;
-    margin-bottom: var(--space-2xl);
-    color: #cccccc;
-  }
-  
-  .builds-cta__buttons {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    align-items: center;
-  }
-  
-  .builds-cta__buttons .btn {
-    width: 100%;
-    max-width: 300px;
-    min-height: 56px;
-    font-size: var(--text-base);
-    font-weight: 700;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-  }
-  
-  .builds-cta__buttons .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(221, 0, 0, 0.3);
-  }
+  /* Builds CTA styles moved to builds.css */
 
 /* ===== SMALL MOBILE OPTIMIZATIONS ===== */
 @media (max-width: 480px) {
@@ -3139,26 +3085,7 @@ html, body {
   cursor: pointer;
 }
 
-.project-card {
-  position: relative;
-  overflow: hidden;
-  background: var(--background-dark);
-  border: 1px solid var(--border-light);
-  border-radius: 8px;
-  transition: var(--transition);
-  cursor: pointer;
-  pointer-events: all;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.project-card:hover {
-  border-color: var(--secondary-color);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(221, 0, 0, 0.15);
-}
+/* Project card styles moved to builds.css */
 
 .project-image {
   position: relative;
@@ -4244,7 +4171,7 @@ html, body {
 /* ===== RESTORATION HERO ===== */
 .restoration-hero {
   position: relative;
-  min-height: 60vh;
+  height: 555px; /* 475px + 80px nav bar */
   display: flex;
   align-items: center;
   background: var(--background-dark);
@@ -4265,10 +4192,10 @@ html, body {
 
 .restoration-hero__image {
   position: absolute;
-  top: 0;
+  top: -20px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 20px);
   z-index: 0;
 }
 
@@ -4520,48 +4447,7 @@ html, body {
   flex-wrap: wrap;
 }
 
-/* ===== BUILDS CTA SECTION ===== */
-.builds-cta {
-  background: var(--background-dark);
-  text-align: center;
-  padding: var(--space-6xl) 0;
-  position: relative;
-  overflow: hidden;
-}
-
-
-
-.builds-cta__content {
-  position: relative;
-  z-index: 2;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.builds-cta__title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: var(--space-xl);
-  line-height: 1.2;
-}
-
-.builds-cta__text {
-  font-size: var(--text-lg);
-  color: #cccccc;
-  line-height: 1.7;
-  margin-bottom: var(--space-3xl);
-  font-weight: 400;
-}
-
-.builds-cta__buttons {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-xl);
-  flex-wrap: wrap;
-}
+/* ===== BUILDS CTA SECTION - MOVED TO BUILDS.CSS ===== */
 
 /* ===== LIGHTBOX MODAL ===== */
 .lightbox-modal {
@@ -5284,68 +5170,11 @@ html, body {
   display: none;
 }
 
-/* ===== NUCLEAR BUILDS PAGE OVERRIDE ===== */
+/* ===== BUILDS PAGE OVERRIDE - CLEANED UP ===== */
+/* Only essential overrides remain */
 
-/* FORCE EVERYTHING ON BUILDS PAGE TO BE DARK - NO EXCEPTIONS */
-body:has(.builds-hero),
-.builds-hero,
-.builds-nav,
-.builds-nav *,
-.projects-section,
-.projects-section *,
-.builds-cta,
-.builds-cta *,
-.main,
-.container {
-  background: var(--background-dark) !important;
-}
-
-/* MOBILE BUILDS OVERRIDES */
+/* MOBILE BUILDS OVERRIDES - CLEANED UP */
 @media (max-width: 768px) {
-  /* Show mobile dropdown in hero with proper positioning */
-  .builds-hero__content .builds-nav__mobile-dropdown {
-    display: block !important;
-    margin-top: var(--space-xl) !important;
-    width: 100% !important;
-    max-width: 400px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  
-  /* Hide desktop navigation completely */
-  .builds-nav {
-    display: none !important;
-  }
-  
-  /* NUCLEAR BACKGROUND OVERRIDE FOR MOBILE */
-  body,
-  html,
-  .main,
-  .builds-hero,
-  .builds-nav,
-  .builds-nav__wrapper,
-  .builds-nav__container,
-  .projects-section,
-  .projects-section .container,
-  .projects-grid,
-  .project-card,
-  .project-item,
-  .builds-cta,
-  .builds-cta .container,
-  .builds-cta__content,
-  .load-more-section,
-  .load-more-btn {
-    background: var(--background-dark) !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-  }
-  
-  /* Fix projects section to connect seamlessly */
-  .projects-section {
-    padding-top: var(--space-3xl) !important;
-  }
-  
   /* Mobile projects grid */
   .projects-grid {
     grid-template-columns: 1fr !important;
@@ -5974,104 +5803,11 @@ body:has(.builds-hero),
   }
 }
 
-/* ===== NUCLEAR EMP PROTECTION - MOBILE NAV SUPREMACY ===== */
-/* MOBILE NAV MUST ALWAYS BE THE HIGHEST Z-INDEX - NO EXCEPTIONS */
+/* ===== MOBILE NAV Z-INDEX PROTECTION ===== */
 @media (max-width: 1200px) {
   .nav__menu,
   .nav__menu.show-menu {
     z-index: 999999 !important;
     position: fixed !important;
-  }
-}
-
-/* BACKUP PROTECTION - OVERRIDE ANY CONFLICTING Z-INDEX */
-.nav__menu[class*="show"] {
-  z-index: 999999 !important;
-}
-
-/* TRIPLE REDUNDANCY - ENSURE MOBILE NAV IS ALWAYS ON TOP */
-body .nav__menu {
-  z-index: 999999 !important;
-}
-
-body .nav__menu.show-menu {
-  z-index: 999999 !important;
-}
-
-/* ===== ABSOLUTE FINAL OVERRIDE - MOBILE NAV SUPREMACY ===== */
-/* FORCE PROCESS NAV, BUILDS NAV, AND PROJECTS TO BE LOWER */
-.process-nav,
-.process-nav.fixed,
-.builds-nav,
-.projects-section,
-.projects-grid,
-.project-card,
-.project-item,
-.project-overlay {
-  z-index: 50 !important;
-}
-
-/* FORCE MOBILE NAV TO BE HIGHER - FINAL WORD */
-@media (max-width: 1200px) {
-  .nav__menu,
-  .nav__menu.show-menu,
-  #nav-menu,
-  #nav-menu.show-menu {
-    z-index: 999999 !important;
-    position: fixed !important;
-  }
-}
-
-/* NUCLEAR OPTION - OVERRIDE EVERYTHING */
-html body .nav__menu {
-  z-index: 999999 !important;
-}
-
-html body .nav__menu.show-menu {
-  z-index: 999999 !important;
-}
-
-/* ENSURE NAV LINKS ARE ALWAYS CLICKABLE */
-.nav__menu .nav__list,
-.nav__menu .nav__link,
-.nav__menu.show-menu .nav__list,
-.nav__menu.show-menu .nav__link {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  z-index: 999999 !important;
-}
-
-.nav__link {
-  pointer-events: auto !important;
-}
-
-.nav__item {
-  pointer-events: auto !important;
-}
-
-/* SPECIFIC FIX FOR BUILDS PAGE - FORCE EVERYTHING DOWN */
-@media (max-width: 1200px) {
-  body .projects-section,
-  body .projects-grid,
-  body .project-card,
-  body .project-item,
-  body .project-overlay,
-  body .builds-nav {
-    z-index: 1 !important;
-  }
-  
-  /* MOBILE NAV MUST BE ON TOP */
-  body .nav__menu,
-  body .nav__menu.show-menu,
-  body #nav-menu,
-  body #nav-menu.show-menu {
-    z-index: 999999 !important;
-    pointer-events: auto !important;
-  }
-  
-  body .nav__link,
-  body .nav__item {
-    z-index: 999999 !important;
-    pointer-events: auto !important;
   }
 }
