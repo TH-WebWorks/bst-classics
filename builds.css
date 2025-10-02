@@ -360,61 +360,7 @@
 }
 
 /* ===== CTA SECTION ===== */
-.builds-cta {
-  background: var(--background-dark);
-  text-align: center;
-  padding: var(--space-6xl) 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.builds-cta__content {
-  position: relative;
-  z-index: 2;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
-}
-
-.builds-cta__title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 900;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: var(--space-xl);
-  line-height: 1.2;
-}
-
-.builds-cta__text {
-  font-size: var(--text-lg);
-  color: #cccccc;
-  line-height: 1.7;
-  margin-bottom: var(--space-3xl);
-  font-weight: 400;
-}
-
-.builds-cta__buttons {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-xl);
-  flex-wrap: wrap;
-}
-
-.builds-cta__buttons .btn {
-  min-height: 56px;
-  font-size: var(--text-base);
-  font-weight: 700;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.builds-cta__buttons .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(221, 0, 0, 0.3);
-}
+/* Now using standard .cta classes from main styles.css */
 
 /* ===== RESPONSIVE DESIGN ===== */
 
@@ -477,21 +423,7 @@
     gap: var(--space-xs);
   }
   
-  /* Mobile CTA */
-  .builds-cta {
-    padding: var(--space-4xl) var(--space-lg);
-  }
-  
-  .builds-cta__buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-lg);
-  }
-  
-  .builds-cta__buttons .btn {
-    width: 100%;
-    max-width: 300px;
-  }
+  /* Mobile CTA - now using standard .cta classes */
   
   /* Mobile load more */
   .load-more-btn {
@@ -1387,8 +1319,7 @@
   .project-card,
   .project-overlay,
   .project-modal-overlay,
-  .project-modal,
-  .builds-cta {
+  .project-modal {
     z-index: 1 !important;
   }
   
