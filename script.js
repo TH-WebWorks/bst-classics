@@ -1089,9 +1089,111 @@ class FeaturedProjectsSlideshow {
     }
 }
 
-// Initialize slideshow when DOM is loaded
+// ===== BEFORE/AFTER SLIDER =====
+class BeforeAfterSlider {
+    constructor(container) {
+        this.container = container;
+        this.sliderContainer = container.querySelector('.slider-container');
+        this.afterImage = container.querySelector('.slider-after');
+        this.handle = container.querySelector('.slider-handle');
+        this.handleButton = container.querySelector('.slider-handle-button');
+        this.isDragging = false;
+        this.currentPosition = 50; // Start at 50%
+        
+        this.init();
+    }
+    
+    init() {
+        if (!this.sliderContainer || !this.afterImage || !this.handle) return;
+        
+        this.bindEvents();
+        this.updateSlider(this.currentPosition);
+    }
+    
+    bindEvents() {
+        // Mouse events
+        this.sliderContainer.addEventListener('mousedown', this.startDrag.bind(this));
+        document.addEventListener('mousemove', this.drag.bind(this));
+        document.addEventListener('mouseup', this.endDrag.bind(this));
+        
+        // Touch events for mobile
+        this.sliderContainer.addEventListener('touchstart', this.startDrag.bind(this), { passive: false });
+        document.addEventListener('touchmove', this.drag.bind(this), { passive: false });
+        document.addEventListener('touchend', this.endDrag.bind(this));
+        
+        // Click events
+        this.sliderContainer.addEventListener('click', this.handleClick.bind(this));
+        
+        // Prevent image dragging
+        this.container.querySelectorAll('img').forEach(img => {
+            img.addEventListener('dragstart', e => e.preventDefault());
+        });
+    }
+    
+    startDrag(e) {
+        this.isDragging = true;
+        this.sliderContainer.style.cursor = 'grabbing';
+        this.sliderContainer.classList.add('dragging');
+        
+        // Prevent default to avoid text selection
+        e.preventDefault();
+    }
+    
+    drag(e) {
+        if (!this.isDragging) return;
+        
+        e.preventDefault();
+        
+        const rect = this.sliderContainer.getBoundingClientRect();
+        const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+        const x = clientX - rect.left;
+        const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+        
+        this.updateSlider(percentage);
+    }
+    
+    endDrag(e) {
+        if (!this.isDragging) return;
+        
+        this.isDragging = false;
+        this.sliderContainer.style.cursor = 'grab';
+        this.sliderContainer.classList.remove('dragging');
+    }
+    
+    handleClick(e) {
+        if (this.isDragging) return;
+        
+        const rect = this.sliderContainer.getBoundingClientRect();
+        const clientX = e.type === 'click' ? e.clientX : e.touches[0].clientX;
+        const x = clientX - rect.left;
+        const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+        
+        this.updateSlider(percentage);
+    }
+    
+    updateSlider(percentage) {
+        this.currentPosition = percentage;
+        
+        // Update clip-path for the after image
+        this.afterImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+        
+        // Update handle position
+        this.handle.style.left = `${percentage}%`;
+        
+        // Update handle button position
+        this.handleButton.style.left = `${percentage}%`;
+    }
+}
+
+// Initialize before/after slider when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new FeaturedProjectsSlideshow();
+    
+    // Initialize before/after slider
+    const slider = document.querySelector('.before-after-slider');
+    if (slider) {
+        new BeforeAfterSlider(slider);
+    }
 });
 
 console.log('BST Classics website loaded successfully! 🚗'); 

@@ -22,6 +22,9 @@ To add new projects to your website, simply edit the `projects.json` file. No co
   "details": "Key specs • Engine info • Special features",
   "year": "2024",
   "duration": "X Months",
+  "make": "Vehicle Manufacturer",
+  "model": "Vehicle Model",
+  "status": "Project Status",
   "image": "images/_dev/placeholder.webp",
   "modalImage": "images/_dev/placeholder.webp",
   "alt": "Descriptive text for search engines",
@@ -41,6 +44,10 @@ To add new projects to your website, simply edit the `projects.json` file. No co
 ## Tips
 - **ID**: Use lowercase letters and hyphens (no spaces)
 - **Categories**: Can use multiple categories in the array
+- **Make**: The vehicle manufacturer (e.g., "Chevrolet", "Ford", "Pontiac", "GMC")
+- **Model**: The specific vehicle model (e.g., "Camaro", "Mustang", "Firebird", "C10 Pickup")
+- **Status**: Project completion status ("Completed", "In Progress", "Ongoing")
+- **Year**: Project completion year (not the vehicle year)
 - **Image**: Main project image shown in the grid (square format works best)
 - **Modal Image**: Larger, detailed image shown in the popup (landscape format recommended)
 - **Images**: Put new images in `images/builds/[ProjectName]/` folder
@@ -64,6 +71,9 @@ To add new projects to your website, simply edit the `projects.json` file. No co
   "details": "LS3 376 • 6L80E Auto • Modern Suspension",
   "year": "2024", 
   "duration": "10 Months",
+  "make": "Chevrolet",
+  "model": "Nova SS",
+  "status": "Completed",
   "image": "images/builds/Nova1972/nova-1972.webp",
   "modalImage": "images/builds/Nova1972/nova-1972-modal.webp",
   "alt": "1972 Chevrolet Nova SS LS3 engine swap custom build by BST Classics",
