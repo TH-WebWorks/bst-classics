@@ -88,7 +88,7 @@
   max-width: 400px;
   background: var(--background-light);
   border: 2px solid var(--secondary-color);
-  border-radius: 8px;
+  border-radius: 0;
   padding: var(--space-lg) var(--space-xl);
   font-size: var(--text-lg);
   font-weight: 600;
@@ -141,7 +141,7 @@
   letter-spacing: 1px;
   cursor: pointer;
   transition: var(--transition);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   white-space: nowrap;
 }
 
@@ -177,12 +177,20 @@
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  /* Ensure project cards are fully clickable on desktop */
+  .builds-projects .project-card {
+    z-index: 100 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
 }
 
-.project-card {
-  background: var(--background-light);
+/* ===== BUILDS PAGE PROJECT CARDS - OVERRIDE MAIN STYLES ===== */
+.builds-projects .project-card {
+  background: var(--background-light) !important;
   border: 1px solid var(--border-light);
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   transition: var(--transition);
   height: 100%;
@@ -199,20 +207,23 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  /* Force clickability and override main styles */
+  pointer-events: auto !important;
+  z-index: 100 !important;
 }
 
-.project-card:hover {
+.builds-projects .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   border-color: var(--secondary-color);
 }
 
-.project-card:active {
+.builds-projects .project-card:active {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.project-card:focus {
+.builds-projects .project-card:focus {
   outline: 2px solid var(--secondary-color);
   outline-offset: 2px;
   border-color: var(--secondary-color);
@@ -232,7 +243,7 @@
   transition: transform 0.3s ease;
 }
 
-.project-card:hover .project-img {
+.builds-projects .project-card:hover .project-img {
   transform: scale(1.05);
 }
 
@@ -248,9 +259,12 @@
   justify-content: center;
   opacity: 0;
   transition: var(--transition);
+  /* Ensure overlay doesn't block clicks */
+  pointer-events: none;
+  z-index: 1;
 }
 
-.project-card:hover .project-overlay {
+.builds-projects .project-card:hover .project-overlay {
   opacity: 1;
 }
 
@@ -262,7 +276,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-radius: var(--border-radius);
+  border-radius: 0;
   display: flex;
   align-items: center;
   gap: var(--space-sm);
@@ -275,6 +289,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  background: transparent !important;
 }
 
 .project-title {
@@ -306,13 +321,13 @@
 
 .project-year,
 .project-type {
-  background: var(--background-dark);
+  background: transparent;
   color: var(--secondary-color);
   padding: var(--space-xs) var(--space-sm);
-  border-radius: 4px;
+  border-radius: 0;
   font-size: var(--text-sm);
   font-weight: 600;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--secondary-color);
 }
 
 
@@ -334,7 +349,7 @@
   letter-spacing: 1px;
   cursor: pointer;
   transition: var(--transition);
-  border-radius: 4px;
+  border-radius: 0;
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
@@ -540,7 +555,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.95);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 1000;
@@ -548,17 +563,31 @@
   visibility: hidden;
   transition: all 0.3s ease;
   padding: var(--space-lg);
+  pointer-events: none;
 }
 
+/* HIDE MODAL BY DEFAULT */
+.project-modal-overlay:not(.active) {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* SHOW MODAL WHEN ACTIVE - BUT STAY BELOW NAV */
 .project-modal-overlay.active {
-  opacity: 1;
-  visibility: visible;
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 100 !important; /* Lower than nav but high enough to show */
 }
 
 .project-modal {
   background: var(--background-dark);
   border: 1px solid var(--border-medium);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   max-width: 1100px;
   width: 100%;
   height: 80vh; /* Fixed height for consistency */
@@ -602,7 +631,7 @@
   color: var(--text-medium);
   width: 40px;
   height: 40px;
-  border-radius: var(--border-radius);
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -748,7 +777,7 @@
 
 .tab-panel::-webkit-scrollbar-thumb {
   background: var(--secondary-color);
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 .tab-panel.active {
@@ -858,7 +887,7 @@
   background: var(--background-light);
   color: var(--text-medium);
   padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   font-size: var(--text-sm);
   font-weight: 600;
   text-transform: uppercase;
@@ -900,7 +929,7 @@
   border-left: 4px solid var(--secondary-color);
   padding: var(--space-lg);
   margin-top: var(--space-lg);
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 .project-highlights h4 {
@@ -971,7 +1000,7 @@
   border: 1px solid var(--border-light);
   border-left: 4px solid var(--secondary-color);
   padding: var(--space-lg);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -991,7 +1020,7 @@
   color: var(--text-dark);
   width: 45px;
   height: 45px;
-  border-radius: var(--border-radius);
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1064,7 +1093,7 @@
   background: var(--secondary-color);
   color: var(--text-dark);
   padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--border-radius);
+  border-radius: 0;
   font-size: var(--text-sm);
   font-weight: 700;
   text-transform: uppercase;
@@ -1106,6 +1135,7 @@
     height: 90vh; /* Fixed mobile height */
     max-height: 90vh;
     width: 100%;
+    border-radius: 0;
   }
   
   .project-modal__content {
@@ -1306,37 +1336,40 @@
   }
 }
 
-/* ===== MOBILE NAV SUPREMACY - BUILDS PAGE OVERRIDE ===== */
-@media (max-width: 1200px) {
-  /* FORCE EVERYTHING ON BUILDS PAGE TO BE LOWER */
-  .builds-mobile-filter,
-  .builds-filters,
-  .filter-tabs,
-  .filter-tab,
-  .builds-mobile-select,
-  .builds-projects,
-  .projects-grid,
-  .project-card,
-  .project-overlay,
-  .project-modal-overlay,
-  .project-modal {
-    z-index: 1 !important;
-  }
-  
-  /* MOBILE NAV MUST BE ON TOP */
-  .nav__menu,
-  .nav__menu.show-menu,
-  #nav-menu,
-  #nav-menu.show-menu {
-    z-index: 999999 !important;
-    pointer-events: auto !important;
-  }
-  
-  .nav__list,
-  .nav__item,
-  .nav__link {
-    z-index: 999999 !important;
-    pointer-events: auto !important;
-    cursor: pointer !important;
-  }
+/* ===== NAVIGATION Z-INDEX SUPREMACY ===== */
+/* NAVIGATION MUST ALWAYS BE ON TOP */
+.nav__menu,
+.nav__menu.show-menu,
+#nav-menu,
+#nav-menu.show-menu,
+.nav__list,
+.nav__item,
+.nav__link,
+.header,
+.nav {
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+  position: relative;
+}
+
+/* ALL OTHER ELEMENTS MUST STAY BELOW NAV */
+.builds-mobile-filter,
+.builds-filters,
+.filter-tabs,
+.filter-tab,
+.builds-mobile-select,
+.builds-projects,
+.projects-grid,
+.builds-projects .project-card,
+.builds-projects .project-overlay,
+.project-modal-overlay,
+.project-modal {
+  z-index: 1 !important;
+}
+
+/* PROJECT CARDS NEED CLICKABILITY BUT STAY BELOW NAV */
+.builds-projects .project-card,
+.builds-projects .project-overlay {
+  pointer-events: auto !important;
+  cursor: pointer !important;
 }

@@ -11,9 +11,21 @@ document.addEventListener('DOMContentLoaded', function() {
     initBuildsPage();
 
     function initBuildsPage() {
+        // FORCE HIDE MODAL ON PAGE LOAD
+        hideModalOnLoad();
         loadProjectsData();
         setupFilterListeners();
         setupLoadMoreListener();
+    }
+
+    // Force hide modal on page load
+    function hideModalOnLoad() {
+        const modalOverlay = document.getElementById('project-modal-overlay');
+        if (modalOverlay) {
+            modalOverlay.classList.remove('active');
+            // Let CSS handle the hiding, just ensure no active class
+            document.body.style.overflow = '';
+        }
     }
 
 // Load projects from JSON
@@ -191,7 +203,8 @@ async function loadProjectsData() {
         // Click and keyboard handler
         function handleCardActivation(e) {
             e.preventDefault();
-            console.log('CARD ACTIVATED for project:', project.title);
+            console.log('CARD ACTIVATED for project:', project.title, 'with ID:', project.id);
+            console.log('Calling openProjectModal with ID:', project.id);
             openProjectModal(project.id);
         }
         
@@ -256,9 +269,12 @@ async function loadProjectsData() {
 
     // Global function for project modal
     window.openProjectModal = function(projectId) {
+        console.log('openProjectModal called with projectId:', projectId);
+        console.log('All projects:', allProjects);
         const project = allProjects.find(p => p.id === projectId);
         
         if (project) {
+            console.log('Project found:', project);
             showProjectModal(project);
         } else {
             console.error('Project not found:', projectId);
@@ -321,6 +337,7 @@ async function loadProjectsData() {
 
     // Show project modal with data
     function showProjectModal(project) {
+        console.log('showProjectModal called for project:', project.title);
         const modalOverlay = document.getElementById('project-modal-overlay');
         const modalTitle = document.getElementById('modal-title');
         const modalImage = document.getElementById('modal-image');
@@ -328,7 +345,12 @@ async function loadProjectsData() {
         const modalSpecs = document.getElementById('modal-specs');
         const modalCategories = document.getElementById('modal-categories');
 
-        if (!modalOverlay) return;
+        if (!modalOverlay) {
+            console.error('Modal overlay not found!');
+            return;
+        }
+        
+        console.log('Modal overlay found, adding active class');
 
         // Set modal content
         if (modalTitle) {
@@ -458,7 +480,9 @@ async function loadProjectsData() {
         switchModalTab('overview');
         
         // Show modal
+        console.log('Adding active class to modal overlay');
         modalOverlay.classList.add('active');
+        console.log('Modal overlay classes after adding active:', modalOverlay.className);
         document.body.style.overflow = 'hidden';
     }
 
