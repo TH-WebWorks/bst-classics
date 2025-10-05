@@ -5990,7 +5990,227 @@ body .nav__menu {
   z-index: 999999 !important;
 }body .nav__menu.show-menu {
   z-index: 999999 !important;
-}/* ===== ABSOLUTE FINAL OVERRIDE - MOBILE NAV SUPREMACY ===== */
+}/* ===== 404 PAGE STYLES ===== */
+.error-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.error-icon {
+  font-size: 4rem;
+  color: var(--secondary-color);
+  margin-bottom: var(--space-2xl);
+}
+
+.error-actions {
+  display: flex;
+  gap: var(--space-lg);
+  justify-content: center;
+  margin: var(--space-3xl) 0;
+  flex-wrap: wrap;
+}
+
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-3xl);
+}
+
+.popular-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-2xl);
+  background: var(--background-light);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+.popular-card:hover {
+  background: var(--background-white);
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.popular-card__icon {
+  font-size: var(--text-3xl);
+  color: var(--secondary-color);
+  margin-bottom: var(--space-lg);
+}
+
+.popular-card__title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  color: var(--text-dark);
+}
+
+.popular-card__description {
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+.help-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ===== FOOTER LEGAL LINKS ===== */
+.footer__legal-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.footer__legal-link {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.footer__legal-link:hover {
+  color: var(--text-dark);
+}
+
+.footer__separator {
+  color: var(--text-light);
+  font-size: var(--text-sm);
+}
+
+/* ===== LEGAL PAGES STYLES ===== */
+.legal-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.legal-intro {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.legal-date {
+  color: var(--text-light);
+  font-size: var(--text-sm);
+}
+
+.legal-section {
+  margin-bottom: var(--space-3xl);
+}
+
+.legal-section__title {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  margin-bottom: var(--space-xl);
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: var(--space-md);
+}
+
+.legal-subsection__title {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin: var(--space-2xl) 0 var(--space-lg) 0;
+  color: var(--text-dark);
+}
+
+.legal-section__text {
+  color: var(--text-medium);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.legal-list {
+  margin: var(--space-lg) 0;
+  padding-left: var(--space-2xl);
+}
+
+.legal-list li {
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.legal-list li::marker {
+  color: var(--secondary-color);
+}
+
+.legal-contact-info {
+  background: var(--background-light);
+  padding: var(--space-2xl);
+  border: 1px solid var(--border-light);
+  margin: var(--space-xl) 0;
+}
+
+.legal-contact-info p {
+  margin-bottom: var(--space-md);
+  color: var(--text-medium);
+}
+
+.legal-contact-info a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.legal-contact-info a:hover {
+  color: var(--text-dark);
+}
+
+/* ===== RESPONSIVE LEGAL PAGES ===== */
+@media (max-width: 991px) {
+  .error-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .popular-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .contact-methods {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .error-icon {
+    font-size: 3rem;
+  }
+  
+  .popular-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .popular-card {
+    padding: var(--space-lg);
+  }
+  
+  .legal-section {
+    margin-bottom: var(--space-2xl);
+  }
+  
+  .legal-section__title {
+    font-size: var(--text-xl);
+  }
+  
+  .legal-list {
+    padding-left: var(--space-lg);
+  }
+}
+
+/* ===== ABSOLUTE FINAL OVERRIDE - MOBILE NAV SUPREMACY ===== */
 /* FORCE PROCESS NAV, BUILDS NAV, AND PROJECTS TO BE LOWER */
 .process-nav,
 .process-nav.fixed,
