@@ -6477,3 +6477,418 @@ html body .nav__menu.show-menu {
 
 
 
+
+/* ===== CAREERS PAGE ===== */
+
+/* Careers Hero */
+.careers-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  background: var(--background-dark);
+  border-bottom: 3px solid var(--secondary-color);
+  overflow: hidden;
+}
+
+.careers-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.careers-hero__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.careers-hero__bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.careers-hero__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.careers-hero__title {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.careers-hero__subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  color: var(--text-medium);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-2xl);
+  margin-top: var(--space-2xl);
+}
+
+.benefit-card {
+  background: var(--background-dark);
+  border: 1px solid var(--border-light);
+  padding: var(--space-xl);
+  transition: var(--transition);
+}
+
+.benefit-card:hover {
+  border-color: var(--secondary-color);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.benefit-card__icon {
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: var(--space-lg);
+}
+
+.benefit-card__title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.benefit-card__description {
+  color: var(--text-medium);
+  line-height: 1.6;
+  font-size: var(--text-base);
+}
+
+/* Job Listings */
+.job-listings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  margin-top: var(--space-2xl);
+}
+
+.job-card {
+  background: var(--background-dark);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.job-card:hover {
+  border-color: var(--secondary-color);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.job-card__header {
+  background: var(--secondary-color);
+  padding: var(--space-lg) var(--space-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.job-card__title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.job-card__type {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.job-card__content {
+  padding: var(--space-xl);
+}
+
+.job-card__summary {
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+  font-size: var(--text-base);
+}
+
+.job-card__section {
+  margin-bottom: var(--space-lg);
+}
+
+.job-card__section-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.job-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.job-card__list li {
+  color: var(--text-medium);
+  line-height: 1.6;
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: var(--space-sm);
+}
+
+.job-card__list li::before {
+  content: '■';
+  color: var(--secondary-color);
+  font-weight: normal;
+  position: absolute;
+  left: 0;
+  font-size: 0.6rem;
+  top: 0.6rem;
+}
+
+/* Application Section */
+.application-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-3xl);
+  margin-top: var(--space-2xl);
+}
+
+.application-info {
+  background: var(--background-dark);
+  border: 1px solid var(--border-light);
+  padding: var(--space-2xl);
+  height: fit-content;
+}
+
+.application-info__title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.application-info__description {
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+  font-size: var(--text-base);
+}
+
+.application-tips {
+  background: rgba(221, 0, 0, 0.1);
+  border-left: 3px solid var(--secondary-color);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.application-tips__title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+}
+
+.application-tips__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.application-tips__list li {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+  color: var(--text-medium);
+}
+
+.application-tips__list li i {
+  color: var(--secondary-color);
+  font-size: 0.75rem;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.application-contact {
+  padding: var(--space-lg);
+  background: var(--background-black);
+  border: 1px solid var(--border-light);
+}
+
+.application-contact__text {
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+.application-contact__text strong {
+  color: var(--primary-color);
+}
+
+.application-contact__text a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.application-contact__text a:hover {
+  text-decoration: underline;
+}
+
+.application-form-wrapper {
+  background: var(--background-dark);
+  border: 1px solid var(--border-light);
+  padding: var(--space-2xl);
+}
+
+.application-form__title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: var(--space-xl);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.application-form .form-textarea {
+  min-height: 120px;
+}
+
+.form-note {
+  background: rgba(221, 0, 0, 0.05);
+  border: 1px solid var(--secondary-color);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.form-note p {
+  color: var(--text-medium);
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.form-note strong {
+  color: var(--secondary-color);
+}
+
+.form-note a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-note a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Careers Page */
+@media screen and (max-width: 968px) {
+  .application-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .job-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .careers-hero__title {
+    font-size: 2rem;
+  }
+  
+  .careers-hero__subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* CTA Section styles for single-dash notation */
+.cta-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.cta-description {
+  font-size: var(--text-lg);
+  color: var(--text-medium);
+  line-height: 1.7;
+  margin-bottom: var(--space-2xl);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+  justify-content: center;
+}

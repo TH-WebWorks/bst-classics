@@ -8,6 +8,7 @@ Allow: /restoration.html
 Allow: /builds.html
 Allow: /process.html
 Allow: /about.html
+Allow: /careers.html
 
 # Sitemap location
 Sitemap: https://bstclassics.com/sitemap.xml
