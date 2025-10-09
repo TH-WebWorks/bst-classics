@@ -1,0 +1,94 @@
+<!-- GOOGLE ANALYTICS 4 SETUP -->
+<!-- Add this code to the <head> section of EVERY page, right after the favicon.png line -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Replace G-XXXXXXXXXX with your actual Measurement ID from Google Analytics
+  gtag('config', 'G-XXXXXXXXXX', {
+    // Enhanced measurement settings
+    send_page_view: true,
+    // Track outbound links
+    link_attribution: true,
+    // Track file downloads
+    enhanced_measurement: {
+      scrolls: true,
+      outbound_clicks: true,
+      site_search: false,
+      video_engagement: false,
+      file_downloads: true
+    }
+  });
+
+  // Custom event tracking for BST Classics
+  
+  // Track phone number clicks
+  document.addEventListener('DOMContentLoaded', function() {
+    // Track phone clicks
+    const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+    phoneLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        gtag('event', 'phone_call', {
+          event_category: 'engagement',
+          event_label: 'phone_click',
+          value: 1
+        });
+      });
+    });
+
+    // Track contact form submissions
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function() {
+        gtag('event', 'form_submit', {
+          event_category: 'engagement',
+          event_label: 'contact_form',
+          value: 1
+        });
+      });
+    }
+
+    // Track navigation clicks
+    const navLinks = document.querySelectorAll('.nav__link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        gtag('event', 'navigation_click', {
+          event_category: 'navigation',
+          event_label: this.textContent.trim(),
+          value: 1
+        });
+      });
+    });
+
+    // Track build gallery interactions
+    const buildCards = document.querySelectorAll('.build-card');
+    buildCards.forEach(card => {
+      card.addEventListener('click', function() {
+        const buildTitle = card.querySelector('.build-card__title')?.textContent || 'Unknown Build';
+        gtag('event', 'build_view', {
+          event_category: 'engagement',
+          event_label: buildTitle,
+          value: 1
+        });
+      });
+    });
+  });
+</script>
+
+<!-- GOOGLE SEARCH CONSOLE VERIFICATION -->
+<!-- Add this meta tag to the <head> section of your index.html page only -->
+<!-- Replace "your-verification-code" with the actual code from Google Search Console -->
+<meta name="google-site-verification" content="your-verification-code" />
+
+<!-- MICROSOFT CLARITY (Optional - Free heatmaps and session recordings) -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "YOUR_CLARITY_PROJECT_ID");
+</script>
