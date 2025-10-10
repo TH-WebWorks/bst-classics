@@ -112,19 +112,31 @@ button {
 
 @media (max-width: 991px) {
   .page-hero {
-    min-height: 45vh;
+    min-height: 50vh;
   }
 
   .builds-hero {
-    min-height: 35vh;
+    min-height: 50vh;
   }
 
   .contact-hero {
-    min-height: 35vh;
+    min-height: 50vh;
   }
 
   .process-hero {
-    min-height: 55vh;
+    min-height: 50vh;
+  }
+
+  .restoration-hero {
+    min-height: 50vh;
+  }
+
+  .about-hero {
+    min-height: 50vh;
+  }
+
+  .careers-hero {
+    min-height: 50vh;
   }
 
   .social-hero {
@@ -2178,6 +2190,9 @@ button {
   .builds-hero__title,
   .contact-hero__title,
   .process-hero__title,
+  .restoration-hero__title,
+  .about-hero__title,
+  .careers-hero__title,
   .social-hero__title {
     font-size: clamp(2rem, 6vw, 2.5rem);
     line-height: 1.2;
@@ -2189,6 +2204,9 @@ button {
   .builds-hero__subtitle,
   .contact-hero__subtitle,
   .process-hero__subtitle,
+  .restoration-hero__subtitle,
+  .about-hero__subtitle,
+  .careers-hero__subtitle,
   .social-hero__subtitle {
     font-size: clamp(1rem, 3vw, 1.2rem);
     line-height: 1.5;
@@ -2384,23 +2402,35 @@ button {
   }
 
   .page-hero {
-    min-height: 35vh;
-  }
-
-  .builds-hero {
-    min-height: 30vh;
-  }
-
-  .contact-hero {
-    min-height: 30vh;
-  }
-
-  .process-hero {
     min-height: 40vh;
   }
 
+  .builds-hero {
+    min-height: 45vh;
+  }
+
+  .contact-hero {
+    min-height: 45vh;
+  }
+
+  .process-hero {
+    min-height: 45vh;
+  }
+
+  .restoration-hero {
+    min-height: 45vh;
+  }
+
+  .about-hero {
+    min-height: 45vh;
+  }
+
+  .careers-hero {
+    min-height: 45vh;
+  }
+
   .social-hero {
-    min-height: 50vh;
+    min-height: 55vh;
   }
 
   /* Better mobile spacing */
@@ -2505,7 +2535,9 @@ button {
   .builds-hero__bg,
   .contact-hero__bg,
   .restoration-hero__bg,
-  .process-hero__bg {
+  .process-hero__bg,
+  .about-hero__bg,
+  .careers-hero__bg {
     will-change: transform;
     transform: translateZ(0);
   }
@@ -2541,7 +2573,9 @@ button {
   .builds-hero,
   .contact-hero,
   .restoration-hero,
-  .process-hero {
+  .process-hero,
+  .about-hero,
+  .careers-hero {
     min-height: 70vh;
   }
 
@@ -2577,6 +2611,7 @@ button {
 .contact-hero__content,
 .process-hero__content,
 .restoration-hero__content,
+.careers-hero__content,
 .social-hero__content {
   animation: fadeInUp 0.8s ease-out;
 }
@@ -2675,7 +2710,9 @@ html, body {
   .builds-hero__bg,
   .contact-hero__bg,
   .restoration-hero__bg,
-  .process-hero__bg {
+  .process-hero__bg,
+  .about-hero__bg,
+  .careers-hero__bg {
     object-position: center center;
   }
   
@@ -2940,7 +2977,27 @@ html, body {
 /* ===== SMALL MOBILE OPTIMIZATIONS ===== */
 @media (max-width: 480px) {
   .builds-hero {
-    min-height: 55vh;
+    min-height: 50vh;
+  }
+
+  .contact-hero {
+    min-height: 50vh;
+  }
+
+  .process-hero {
+    min-height: 50vh;
+  }
+
+  .restoration-hero {
+    min-height: 50vh;
+  }
+
+  .about-hero {
+    min-height: 50vh;
+  }
+
+  .careers-hero {
+    min-height: 50vh;
   }
   
   .builds-hero__title {
