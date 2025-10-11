@@ -1776,6 +1776,8 @@ button {
     padding-top: var(--space-5xl);
     z-index: 999999 !important;
     pointer-events: auto !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav__menu.show-menu {
@@ -4091,6 +4093,107 @@ html, body {
 @media (max-width: 400px) {
   .featured-project__name { font-size: 1.2rem; }
   .featured-project__image { height: 180px; }
+}
+
+/* ===== EXTRA SMALL MOBILE SCREENS (Galaxy S23, iPhone SE, etc.) ===== */
+@media (max-width: 375px) {
+  /* Navigation optimizations for small screens */
+  .nav {
+    height: 58px;
+    padding: 0 var(--space-md);
+  }
+  
+  .nav__logo-img {
+    height: 32px;
+  }
+  
+  .nav__toggle {
+    padding: var(--space-md);
+    min-width: 48px;
+    min-height: 48px;
+    cursor: pointer;
+  }
+  
+  .nav__toggle span {
+    width: 26px;
+    height: 2.5px;
+  }
+  
+  .nav__menu {
+    top: 58px;
+    height: calc(100vh - 58px);
+    padding-top: var(--space-2xl);
+  }
+  
+  .nav__list {
+    gap: 0;
+    padding: var(--space-lg) 0;
+    width: 100%;
+  }
+  
+  .nav__link {
+    font-size: var(--text-base);
+    padding: var(--space-lg) var(--space-md);
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ===== VERY SMALL MOBILE SCREENS (< 360px) ===== */
+@media (max-width: 360px) {
+  /* Even more compact navigation for very small screens */
+  .nav {
+    height: 56px;
+    padding: 0 var(--space-sm);
+  }
+  
+  .nav__logo-img {
+    height: 28px;
+  }
+  
+  .nav__toggle {
+    padding: var(--space-md);
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .nav__toggle span {
+    width: 22px;
+    height: 2px;
+  }
+  
+  .nav__menu {
+    top: 56px;
+    height: calc(100vh - 56px);
+    padding-top: var(--space-2xl);
+  }
+  
+  .nav__list {
+    gap: 0;
+    padding: var(--space-md) 0;
+  }
+  
+  .nav__link {
+    font-size: 0.9375rem;
+    padding: var(--space-lg) var(--space-md);
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Smaller container padding */
+  .container {
+    padding: 0 var(--space-sm);
+  }
+  
+  /* Optimized section spacing */
+  .section {
+    padding: var(--space-lg) 0;
+  }
 }
 
 .services-overview {
