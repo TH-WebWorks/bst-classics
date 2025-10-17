@@ -523,12 +523,12 @@
     </footer>
 
     <!-- EmailJS Script -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://unpkg.com/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
     <script>
         // Initialize EmailJS
         (function() {
-            emailjs.init("YxvfLTO9e1UsK4YwH");
+            emailjs.init("xyMgnPwrbJZQitW8O"); // BST Classics Public Key
         })();
         
         // Application form handler
@@ -592,8 +592,8 @@
                     templateParams.from_email && 
                     templateParams.experience) {
                     
-                    // Send email using EmailJS - using same service and template for now
-                    emailjs.send('service_y03xglr', 'template_w0vffia', {
+                    // Send email using EmailJS
+                    emailjs.send('service_qtrfybr', 'template_ywdgrpl', {
                         from_name: templateParams.first_name + ' ' + templateParams.last_name,
                         from_email: templateParams.from_email,
                         phone: templateParams.phone,

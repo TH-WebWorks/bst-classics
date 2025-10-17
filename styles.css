@@ -5424,6 +5424,16 @@ html, body {
   aspect-ratio: 1152 / 546;
 }
 
+.timeline__image--logo {
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: var(--background-light);
+  padding: var(--space-lg);
+  border: 2px solid var(--border-light);
+  max-width: 300px;
+  max-height: 225px;
+}
+
 .timeline__image:hover {
   transform: scale(1.02);
 }
@@ -5497,6 +5507,12 @@ html, body {
   
   .timeline__image.wide {
     aspect-ratio: 1152 / 546;
+  }
+  
+  .timeline__image--logo {
+    max-width: 250px;
+    max-height: 188px;
+    padding: var(--space-md);
   }
 }
 

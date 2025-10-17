@@ -310,7 +310,7 @@
     </footer>
 
     <!-- EmailJS Script -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://unpkg.com/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
     <script>
         /*
@@ -325,9 +325,8 @@
         */
         
         // Initialize EmailJS
-        // SETUP REQUIRED: See EMAILJS_SETUP.md for complete instructions
         (function() {
-            emailjs.init("YxvfLTO9e1UsK4YwH"); // Replace with your actual public key from EmailJS dashboard
+            emailjs.init("xyMgnPwrbJZQitW8O"); // BST Classics Public Key
         })();
         
         // Contact form handler
@@ -371,6 +370,26 @@
                 
                 // Get form data
                 const formData = new FormData(contactForm);
+                
+                // Convert form values to display text
+                const projectTypeMap = {
+                    'complete-restoration': 'Complete Restoration',
+                    'paint-body': 'Paint & Body Work',
+                    'engine-performance': 'Engine & Performance',
+                    'custom-upholstery': 'Custom Upholstery',
+                    'maintenance': 'Maintenance & Repair',
+                    'other': 'Other / Custom Build'
+                };
+                
+                const timelineMap = {
+                    'asap': 'ASAP / Rush Job',
+                    '3-6-months': '3-6 Months',
+                    '6-12-months': '6-12 Months',
+                    '1-2-years': '1-2 Years',
+                    '2-plus-years': '2+ Years',
+                    'flexible': 'Flexible / No Rush'
+                };
+                
                 const templateParams = {
                     from_name: formData.get('name'),
                     from_email: formData.get('email'),
@@ -378,8 +397,8 @@
                     vehicle_year: formData.get('vehicle-year'),
                     vehicle_make: formData.get('vehicle-make'),
                     vehicle_model: formData.get('vehicle-model'),
-                    project_type: formData.get('project-type'),
-                    project_timeline: formData.get('project-timeline'),
+                    project_type: projectTypeMap[formData.get('project-type')] || formData.get('project-type'),
+                    project_timeline: timelineMap[formData.get('project-timeline')] || formData.get('project-timeline'),
                     message: formData.get('message'),
                     to_name: 'BST Classics'
                 };
@@ -390,17 +409,48 @@
                     templateParams.from_email && 
                     templateParams.message) {
                     
-                    // Send email using EmailJS
-                    // REPLACE: Get these IDs from your EmailJS dashboard
-                    emailjs.send('service_y03xglr', 'template_w0vffia', templateParams)
+                    // Debug: Log template params
+                    console.log('Sending email with params:', templateParams);
+                    console.log('Using Service ID:', 'service_qtrfybr');
+                    console.log('Using Template ID:', 'template_ywdgrpl');
+                    
+                    // Send email to BST Classics
+                    emailjs.send('service_qtrfybr', 'template_ywdgrpl', templateParams)
                     .then(function(response) {
-                        console.log('SUCCESS!', response.status, response.text);
+                        console.log('✅ Contact form sent!', response.status, response.text);
                         showFormMessage('success', 'Message sent successfully! We\'ll get back to you within 24 hours.');
                         contactForm.reset();
+                        
+                        // TODO: Enable customer auto-reply once template is configured
+                        // return emailjs.send('service_qtrfybr', 'template_pc4m5fl', templateParams);
+                    })
+                    .then(function(response) {
+                        // console.log('✅ Customer confirmation sent!', response.status, response.text);
+                        // showFormMessage('success', 'Message sent successfully! Check your email for confirmation. We\'ll get back to you within 24 hours.');
+                        // contactForm.reset();
                     })
                     .catch(function(error) {
-                        console.log('FAILED...', error);
-                        showFormMessage('error', 'Failed to send message. Please try again or call us directly at (515) 446-1215.');
+                        console.log('❌ EmailJS Error Details:', {
+                            error: error,
+                            status: error.status,
+                            text: error.text,
+                            service: 'service_qtrfybr',
+                            template: 'template_ywdgrpl'
+                        });
+                        
+                        // More specific error message
+                        let errorMsg = 'Failed to send message. ';
+                        if (error.status === 400) {
+                            errorMsg += 'Invalid template or service configuration.';
+                        } else if (error.status === 401) {
+                            errorMsg += 'Invalid API key or service credentials.';
+                        } else if (error.status === 403) {
+                            errorMsg += 'Access denied - check EmailJS account permissions.';
+                        } else {
+                            errorMsg += 'Network error. Please try again or call us directly at (515) 446-1215.';
+                        }
+                        
+                        showFormMessage('error', errorMsg);
                     })
                     .finally(function() {
                         // Reset button
