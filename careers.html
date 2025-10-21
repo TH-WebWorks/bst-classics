@@ -593,22 +593,44 @@
                     templateParams.experience) {
                     
                     // Send email using EmailJS
+                    // Format the position name for display
+                    const positionNames = {
+                        'restoration-technician': 'Automotive Restoration Technician',
+                        'body-paint': 'Body & Paint Specialist',
+                        'apprentice': 'Automotive Apprentice',
+                        'other': 'General Application'
+                    };
+                    
+                    // Format the experience level for display
+                    const experienceLevels = {
+                        'entry': 'Entry Level (0-2 years)',
+                        'intermediate': 'Intermediate (3-5 years)',
+                        'experienced': 'Experienced (5-10 years)',
+                        'senior': 'Senior (10+ years)'
+                    };
+                    
+                    // Format the start date for display
+                    const startDates = {
+                        'immediately': 'Immediately',
+                        '2-weeks': '2 Weeks Notice',
+                        '1-month': 'Within 1 Month',
+                        'flexible': 'Flexible'
+                    };
+
                     emailjs.send('service_qtrfybr', 'template_79zeh7b', {
                         from_name: templateParams.first_name + ' ' + templateParams.last_name,
+                        first_name: templateParams.first_name,
                         from_email: templateParams.from_email,
                         phone: templateParams.phone,
-                        message: `
-APPLICATION FOR: ${templateParams.position}
-LOCATION: ${templateParams.city}
-EXPERIENCE LEVEL: ${templateParams.experience_level}
-AVAILABILITY: ${templateParams.start_date}
-
-EXPERIENCE & SKILLS:
+                        city: templateParams.city,
+                        position: positionNames[templateParams.position] || templateParams.position,
+                        experience_level: experienceLevels[templateParams.experience_level] || templateParams.experience_level,
+                        start_date: startDates[templateParams.start_date] || templateParams.start_date,
+                        message: `EXPERIENCE & SKILLS:
 ${templateParams.experience}
 
 WHY JOIN BST CLASSICS:
-${templateParams.why_join}
-                        `.trim(),
+${templateParams.why_join}`,
                         to_name: 'BST Classics'
                     })
                     .then(function(response) {
