@@ -5425,13 +5425,11 @@ html, body {
 }
 
 .timeline__image--logo {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   object-fit: contain;
   background: var(--background-light);
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   border: 2px solid var(--border-light);
-  max-width: 300px;
-  max-height: 225px;
 }
 
 .timeline__image:hover {
@@ -5510,9 +5508,7 @@ html, body {
   }
   
   .timeline__image--logo {
-    max-width: 250px;
-    max-height: 188px;
-    padding: var(--space-md);
+    padding: var(--space-lg);
   }
 }
 
