@@ -197,7 +197,29 @@
             
             <div class="project-modal__content">
                 <div class="project-modal__image">
-                    <img src="" alt="" class="project-modal__img" id="modal-image">
+                    <!-- Slideshow Container -->
+                    <div class="slideshow-container" id="slideshow-container">
+                        <img src="" alt="" class="project-modal__img" id="modal-image">
+                        
+                        <!-- Navigation Arrows -->
+                        <button class="slideshow-nav slideshow-nav--prev" id="slideshow-prev" aria-label="Previous image">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="slideshow-nav slideshow-nav--next" id="slideshow-next" aria-label="Next image">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        
+                        <!-- Image Counter -->
+                        <div class="slideshow-counter" id="slideshow-counter">
+                            <span id="current-slide">1</span> / <span id="total-slides">5</span>
+                        </div>
+                        
+                        <!-- Dot Indicators -->
+                        <div class="slideshow-dots" id="slideshow-dots">
+                            <!-- Dots will be dynamically inserted here -->
+                        </div>
+                    </div>
+                    
                     <div class="project-modal__badges" id="modal-badges">
                         <!-- Badges will be inserted here -->
                     </div>

@@ -335,6 +335,10 @@ async function loadProjectsData() {
         });
     }
 
+    // Slideshow state
+    let currentSlideIndex = 0;
+    let slideshowImages = [];
+
     // Show project modal with data
     function showProjectModal(project) {
         console.log('showProjectModal called for project:', project.title);
@@ -356,6 +360,9 @@ async function loadProjectsData() {
         if (modalTitle) {
             modalTitle.textContent = project.title || 'Classic Car Project';
         }
+
+        // Initialize slideshow
+        initializeSlideshow(project);
 
         if (modalImage) {
             const imageSrc = project.modalImage || project.image || project.thumbnail || 'images/_dev/placeholder.webp';
@@ -486,6 +493,141 @@ async function loadProjectsData() {
         document.body.style.overflow = 'hidden';
     }
 
+    // Initialize slideshow for a project
+    function initializeSlideshow(project) {
+        // Reset slideshow state
+        currentSlideIndex = 0;
+        slideshowImages = [];
+        
+        // Get slideshow images from project data
+        if (project.slideshowImages && project.slideshowImages.length > 0) {
+            slideshowImages = project.slideshowImages;
+        } else {
+            // If no slideshow images, use the main image only
+            slideshowImages = [project.modalImage || project.image || project.thumbnail || 'images/_dev/placeholder.webp'];
+        }
+        
+        console.log('Slideshow initialized with', slideshowImages.length, 'images for', project.title);
+        
+        // Update slideshow UI
+        updateSlideshow();
+        createSlideshowDots();
+        setupSlideshowListeners();
+    }
+    
+    // Update slideshow display
+    function updateSlideshow() {
+        const modalImage = document.getElementById('modal-image');
+        const currentSlideSpan = document.getElementById('current-slide');
+        const totalSlidesSpan = document.getElementById('total-slides');
+        const prevBtn = document.getElementById('slideshow-prev');
+        const nextBtn = document.getElementById('slideshow-next');
+        
+        if (modalImage && slideshowImages.length > 0) {
+            modalImage.src = slideshowImages[currentSlideIndex];
+            modalImage.onerror = function() {
+                console.log('Slideshow image failed to load:', slideshowImages[currentSlideIndex]);
+                this.src = 'images/_dev/placeholder.webp';
+            };
+        }
+        
+        if (currentSlideSpan) {
+            currentSlideSpan.textContent = currentSlideIndex + 1;
+        }
+        
+        if (totalSlidesSpan) {
+            totalSlidesSpan.textContent = slideshowImages.length;
+        }
+        
+        // Update dot indicators
+        const dots = document.querySelectorAll('.slideshow-dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlideIndex);
+        });
+        
+        // Show/hide navigation based on number of images
+        const showNav = slideshowImages.length > 1;
+        if (prevBtn) prevBtn.style.display = showNav ? 'flex' : 'none';
+        if (nextBtn) nextBtn.style.display = showNav ? 'flex' : 'none';
+        
+        const slideshowCounter = document.getElementById('slideshow-counter');
+        const slideshowDots = document.getElementById('slideshow-dots');
+        if (slideshowCounter) slideshowCounter.style.display = showNav ? 'block' : 'none';
+        if (slideshowDots) slideshowDots.style.display = showNav ? 'flex' : 'none';
+    }
+    
+    // Create dot indicators
+    function createSlideshowDots() {
+        const dotsContainer = document.getElementById('slideshow-dots');
+        if (!dotsContainer) return;
+        
+        dotsContainer.innerHTML = '';
+        
+        slideshowImages.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = 'slideshow-dot';
+            dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+            dot.addEventListener('click', () => goToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+    }
+    
+    // Navigate to specific slide
+    function goToSlide(index) {
+        if (index >= 0 && index < slideshowImages.length) {
+            currentSlideIndex = index;
+            updateSlideshow();
+        }
+    }
+    
+    // Navigate to next slide
+    function nextSlide() {
+        currentSlideIndex = (currentSlideIndex + 1) % slideshowImages.length;
+        updateSlideshow();
+    }
+    
+    // Navigate to previous slide
+    function prevSlide() {
+        currentSlideIndex = (currentSlideIndex - 1 + slideshowImages.length) % slideshowImages.length;
+        updateSlideshow();
+    }
+    
+    // Setup slideshow event listeners
+    function setupSlideshowListeners() {
+        const prevBtn = document.getElementById('slideshow-prev');
+        const nextBtn = document.getElementById('slideshow-next');
+        
+        // Remove existing listeners to avoid duplicates
+        if (prevBtn) {
+            const newPrevBtn = prevBtn.cloneNode(true);
+            prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+            newPrevBtn.addEventListener('click', prevSlide);
+        }
+        
+        if (nextBtn) {
+            const newNextBtn = nextBtn.cloneNode(true);
+            nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+            newNextBtn.addEventListener('click', nextSlide);
+        }
+        
+        // Keyboard navigation (arrow keys)
+        document.addEventListener('keydown', handleSlideshowKeyboard);
+    }
+    
+    // Handle keyboard navigation for slideshow
+    function handleSlideshowKeyboard(e) {
+        const modalOverlay = document.getElementById('project-modal-overlay');
+        if (!modalOverlay || !modalOverlay.classList.contains('active')) return;
+        
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextSlide();
+        }
+    }
+
     // Close project modal
     function closeProjectModal() {
         const modalOverlay = document.getElementById('project-modal-overlay');
@@ -493,6 +635,13 @@ async function loadProjectsData() {
             modalOverlay.classList.remove('active');
             document.body.style.overflow = '';
         }
+        
+        // Remove keyboard listener
+        document.removeEventListener('keydown', handleSlideshowKeyboard);
+        
+        // Reset slideshow
+        currentSlideIndex = 0;
+        slideshowImages = [];
     }
 
     // Make closeProjectModal available globally
