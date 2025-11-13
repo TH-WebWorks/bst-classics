@@ -3,42 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="description" content="View BST Classics's completed restoration and custom build projects. 50+ classic cars restored including Camaros, Mustangs, Corvettes. Quality craftsmanship since 2010.">
-    <meta name="keywords" content="classic car builds, restoration projects, custom builds, BST Classics gallery, classic Camaro restoration, vintage Mustang builds, classic Corvette restoration, muscle car gallery, Iowa restoration projects, completed classic cars, before and after restoration">
+    <meta name="description" content="View detailed information about this classic car restoration project by BST Classics.">
+    <meta name="keywords" content="classic car restoration, custom build details, BST Classics project, restoration showcase">
     <meta name="author" content="BST Classics">
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://bstclassics.com/builds.html">
-    
-    <!-- Enhanced Open Graph Meta Tags -->
-    <meta property="og:title" content="Our Classic Car Builds - BST Classics Portfolio">
-    <meta property="og:description" content="View BST Classics's completed restoration and custom build projects. 50+ classic cars restored including Camaros, Mustangs, Corvettes.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bstclassics.com/builds.html">
-    <meta property="og:image" content="https://bstclassics.com/images/social-preview.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="686">
-    <meta property="og:image:alt" content="BST Classics - Professional Classic Car Restoration & Service | Norwalk, Iowa">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:site_name" content="BST Classics">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Our Classic Car Builds - BST Classics Portfolio">
-    <meta name="twitter:description" content="View our completed restoration projects. 50+ classic cars restored with quality craftsmanship.">
-    <meta name="twitter:image" content="https://bstclassics.com/images/social-preview.png">
-    <meta name="twitter:image:alt" content="BST Classics - Professional Classic Car Restoration & Service | Norwalk, Iowa">
-    
-    <title>Classic Car Builds & Restoration Gallery | BST Classics | Norwalk, IA</title>
+    <!-- Title will be dynamically set -->
+    <title>Build Details | BST Classics</title>
     
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="builds.css">
+    <link rel="stylesheet" href="build-detail.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="favicon.png">
-    
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4TG6Y1DQ9D"></script>
@@ -97,64 +76,134 @@
     </header>
 
     <main class="main">
-        <!-- Hero Section -->
-        <section class="builds-hero">
-            <div class="builds-hero__image">
-                <img src="images/heros/builds-hero.svg" alt="BST Classics Builds Gallery" class="builds-hero__bg">
-            </div>
-            <div class="builds-hero__content">
-                <h1 class="builds-hero__title">OUR BUILDS</h1>
-                <p class="builds-hero__subtitle">
-                    Witness the transformation of classic automotive legends through our meticulous 
-                    craftsmanship and unwavering dedication to excellence.
-                </p>
+        <!-- Back to Gallery Link -->
+        <section class="build-breadcrumb">
+            <div class="container">
+                <a href="builds.html" class="breadcrumb-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Gallery
+                </a>
             </div>
         </section>
 
-        <!-- Mobile Filter Dropdown (shown only on mobile) -->
-        <section class="builds-mobile-filter">
-            <div class="container">
-                <select class="builds-mobile-select" id="builds-mobile-select">
-                    <option value="all">All Projects</option>
-                    <option value="restoration">Restoration</option>
-                    <option value="custom">Custom Builds</option>
-                    <option value="performance">Performance</option>
-                    <option value="engine">Engine Work</option>
-                    <option value="paint">Paint & Body</option>
-                    <option value="interior">Interior</option>
-                </select>
-            </div>
-        </section>
-
-        <!-- Desktop Filter Navigation -->
-        <section class="builds-filters">
-            <div class="container">
-                <div class="filter-tabs">
-                    <button class="filter-tab active" data-filter="all">All Projects</button>
-                    <button class="filter-tab" data-filter="restoration">Restoration</button>
-                    <button class="filter-tab" data-filter="custom">Custom Builds</button>
-                    <button class="filter-tab" data-filter="performance">Performance</button>
-                    <button class="filter-tab" data-filter="engine">Engine Work</button>
-                    <button class="filter-tab" data-filter="paint">Paint & Body</button>
-                    <button class="filter-tab" data-filter="interior">Interior</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="builds-projects">
-            <div class="container">
-                <div class="projects-grid" id="projects-grid">
-                    <!-- Projects will be dynamically loaded from projects.json -->
-                </div>
-
-                <!-- Load More Button -->
-                <div class="builds-load-more" id="load-more-section">
-                    <button class="load-more-btn" id="load-more-btn">
-                        <i class="fas fa-plus"></i>
-                        Load More Projects
+        <!-- Build Hero Section with Image Gallery -->
+        <section class="build-hero">
+            <div class="build-hero__gallery">
+                <div class="gallery-main">
+                    <img src="" alt="" class="gallery-main__img" id="main-image" loading="eager">
+                    
+                    <!-- Navigation Arrows -->
+                    <button class="gallery-nav gallery-nav--prev" id="gallery-prev" aria-label="Previous image">
+                        <i class="fas fa-chevron-left"></i>
                     </button>
-                    <p class="projects-counter" id="projects-counter">Loading projects...</p>
+                    <button class="gallery-nav gallery-nav--next" id="gallery-next" aria-label="Next image">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    
+                    <!-- Image Counter -->
+                    <div class="gallery-counter" id="gallery-counter">
+                        <span id="current-image">1</span> / <span id="total-images">5</span>
+                    </div>
+                </div>
+                
+                <!-- Thumbnail Navigation -->
+                <div class="gallery-thumbnails" id="gallery-thumbnails">
+                    <!-- Thumbnails will be dynamically inserted -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Build Title and Stats -->
+        <section class="build-header">
+            <div class="container">
+                <div class="build-header__content">
+                    <h1 class="build-title" id="build-title">Loading...</h1>
+                    <p class="build-subtitle" id="build-subtitle">Loading...</p>
+                    
+                    <div class="build-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-label">Year</div>
+                                <div class="stat-value" id="stat-year">-</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-label">Duration</div>
+                                <div class="stat-value" id="stat-duration">-</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-label">Status</div>
+                                <div class="stat-value" id="stat-status">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Story Section -->
+        <section class="build-story">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-book-open"></i>
+                    The Story
+                </h2>
+                <div class="story-content" id="story-content">
+                    <p>Loading story...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specifications Section -->
+        <section class="build-specs">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-cogs"></i>
+                    Specifications
+                </h2>
+                
+                <div class="specs-grid" id="specs-grid">
+                    <!-- Specs will be dynamically inserted -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Features Section -->
+        <section class="build-features">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Key Features
+                </h2>
+                <div class="features-grid" id="features-grid">
+                    <!-- Features will be dynamically inserted -->
+                </div>
+            </div>
+        </section>
+
+        <!-- More Builds Section -->
+        <section class="more-builds">
+            <div class="container">
+                <h2 class="section-title">
+                    <i class="fas fa-images"></i>
+                    More Builds
+                </h2>
+                <div class="more-builds-grid" id="more-builds-grid">
+                    <!-- More builds will be dynamically inserted -->
                 </div>
             </div>
         </section>
@@ -246,6 +295,7 @@
     </footer>
 
     <script src="script.js"></script>
-    <script src="builds.js"></script>
+    <script src="build-detail.js"></script>
 </body>
 </html>
+
