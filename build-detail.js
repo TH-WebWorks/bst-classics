@@ -93,8 +93,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Display image gallery
     function displayGallery() {
+        // Check if auto-generation of slideshow images is needed
+        if (currentProject.slideshowAuto) {
+            galleryImages = generateSlideshowImages(
+                currentProject.slideshowAuto.path,
+                currentProject.slideshowAuto.count,
+                currentProject.slideshowAuto.startImage,
+                currentProject.slideshowAuto.endImage,
+                currentProject.slideshowAuto.extension
+            );
+        }
         // Prepare gallery images array
-        if (currentProject.slideshowImages && currentProject.slideshowImages.length > 0) {
+        else if (currentProject.slideshowImages && currentProject.slideshowImages.length > 0) {
             galleryImages = currentProject.slideshowImages;
         } else {
             // Fallback to main image if no slideshow images
@@ -115,6 +125,35 @@ document.addEventListener('DOMContentLoaded', function() {
         updateGalleryCounter();
     }
 
+    // Generate slideshow images automatically
+    function generateSlideshowImages(basePath, count, startImage, endImage, extension) {
+        const images = [];
+        
+        // Add start image if specified
+        if (startImage) {
+            images.push(`${basePath}/${startImage}`);
+        }
+        
+        // Add numbered images (only if they exist - we'll handle 404s gracefully)
+        // Generate all possible numbers from start to count
+        const skipNumbers = currentProject.slideshowAuto.skipNumbers || [];
+        const startNumber = currentProject.slideshowAuto.startNumber || 1;
+        
+        for (let i = startNumber; i <= count; i++) {
+            // Skip if this number is in the skip list
+            if (!skipNumbers.includes(i)) {
+                images.push(`${basePath}/slideshow_${i}.${extension || 'jpg'}`);
+            }
+        }
+        
+        // Add end image if specified
+        if (endImage) {
+            images.push(`${basePath}/${endImage}`);
+        }
+        
+        return images;
+    }
+
     // Update the main gallery image
     function updateMainImage() {
         const mainImg = document.getElementById('main-image');
@@ -122,7 +161,19 @@ document.addEventListener('DOMContentLoaded', function() {
             mainImg.src = galleryImages[currentImageIndex];
             mainImg.alt = currentProject.title || 'Build Image';
             mainImg.onerror = function() {
-                this.src = 'images/_dev/placeholder.webp';
+                // If image fails to load, skip to next valid image
+                console.warn('Failed to load image:', galleryImages[currentImageIndex]);
+                // Remove this image from the array
+                galleryImages.splice(currentImageIndex, 1);
+                if (galleryImages.length > 0) {
+                    // Adjust index if needed
+                    if (currentImageIndex >= galleryImages.length) {
+                        currentImageIndex = 0;
+                    }
+                    updateGallery();
+                } else {
+                    this.src = 'images/_dev/placeholder.webp';
+                }
             };
         }
     }
