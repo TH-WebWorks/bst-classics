@@ -1,6 +1,15 @@
 /* ===== BUILDS PAGE DEDICATED STYLESHEET ===== */
 /* Fresh start - consistent with main site styling, mobile-first, no grey blocks */
 
+/* ===== FONT CONSISTENCY ===== */
+.builds-hero,
+.builds-filters,
+.builds-projects,
+.builds-load-more,
+.builds-mobile-filter {
+  font-family: var(--font-primary);
+}
+
 /* ===== BUILDS HERO SECTION ===== */
 .builds-hero {
   position: relative;
@@ -51,6 +60,7 @@
 }
 
 .builds-hero__title {
+  font-family: var(--font-primary);
   font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 800;
   color: var(--primary-color);
@@ -61,10 +71,11 @@
 }
 
 .builds-hero__subtitle {
+  font-family: var(--font-primary);
   font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   color: var(--text-medium);
   line-height: 1.6;
-  font-weight: 300;
+  font-weight: 400;
   max-width: 700px;
   margin: 0 auto 2rem auto;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
@@ -86,6 +97,7 @@
 }
 
 .builds-mobile-select {
+  font-family: var(--font-primary);
   width: 100%;
   max-width: 400px;
   background: var(--background-light);
@@ -133,6 +145,7 @@
 }
 
 .filter-tab {
+  font-family: var(--font-primary);
   background: transparent;
   color: var(--text-medium);
   border: 2px solid var(--border-light);
@@ -303,6 +316,7 @@
 }
 
 .project-title {
+  font-family: var(--font-primary);
   font-size: var(--text-xl);
   font-weight: 700;
   color: var(--primary-color);
@@ -313,6 +327,7 @@
 }
 
 .project-description {
+  font-family: var(--font-primary);
   color: var(--text-medium);
   line-height: 1.6;
   margin-bottom: var(--space-lg);
@@ -349,6 +364,7 @@
 }
 
 .load-more-btn {
+  font-family: var(--font-primary);
   background: transparent;
   color: var(--text-medium);
   border: 2px solid var(--border-light);
